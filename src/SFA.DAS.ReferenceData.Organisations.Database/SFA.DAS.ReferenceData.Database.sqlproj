@@ -66,5 +66,22 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\ReferenceData.sql" />
+    <Build Include="Schemas\CharityImport.sql" />
+    <Build Include="Tables\extract_acct_submit.sql" />
+    <Build Include="Tables\extract_aoo_ref.sql" />
+    <Build Include="Tables\extract_ar_submit.sql" />
+    <Build Include="Tables\extract_charity.sql" />
+    <Build Include="Tables\extract_charity_aoo.sql" />
+    <Build Include="Tables\extract_class.sql" />
+    <Build Include="Tables\extract_class_ref.sql" />
+    <Build Include="Tables\extract_financial.sql" />
+    <Build Include="Tables\extract_main_charity.sql" />
+    <Build Include="Tables\extract_name.sql" />
+    <Build Include="Tables\extract_objects.sql" />
+    <Build Include="Tables\extract_overseas_expend.sql" />
+    <Build Include="Tables\extract_partb.sql" />
+    <Build Include="Tables\extract_registration.sql" />
+    <Build Include="Tables\extract_remove_ref.sql" />
+    <Build Include="Tables\extract_trustee.sql" />
   </ItemGroup>
 </Project>
