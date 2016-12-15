@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dapper;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models;
@@ -17,14 +16,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         
         public async Task<IEnumerable<PublicSectorOrganisation>> GetPublicSectorOrganisations()
         {
-            return await WithConnection(async c =>
-            {
-                var result = await c.QueryAsync<PublicSectorOrganisation>(
-                   sql: "[referenceData].[GetPublicSectorOrganisations]",
-                   commandType: CommandType.StoredProcedure);
-
-                return result;
-            });
+           throw new NotImplementedException();
         }
     }
 }

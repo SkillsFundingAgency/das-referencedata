@@ -66,7 +66,5 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\ReferenceData.sql" />
-    <Build Include="Tables\PublicSectorOrganisation.sql" />
-    <Build Include="StoredProcedures\GetPublicSectorOrganisations.sql" />
   </ItemGroup>
 </Project>

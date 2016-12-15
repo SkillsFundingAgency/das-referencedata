@@ -15,7 +15,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             _orchestrator = orchestrator;
         }
 
-        [System.Web.Mvc.Route("", Name = "PublicSectorOrganisations")]
+        [System.Web.Mvc.Route("", Name = "public")]
         [System.Web.Mvc.HttpGet]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations()
         {

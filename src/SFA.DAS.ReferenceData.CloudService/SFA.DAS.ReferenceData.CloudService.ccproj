@@ -37,20 +37,20 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="SFA.DAS.ReferenceData.ApiContent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="SFA.DAS.ReferenceData.ApiContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Api\SFA.DAS.ReferenceData.Api.csproj">
       <Name>SFA.DAS.ReferenceData.Api</Name>
-      <Project>{84fb024d-dbc1-4ec7-ad7f-361bde9640b3}</Project>
+      <Project>{48f11746-b2e2-4ac9-b5ea-2aefd7bc94d1}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>SFA.DAS.ReferenceData.Api</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SFA.DAS.ReferenceData.ApiContent\" />
-  </ItemGroup>
-  <ItemGroup>
-    <DiagnosticsConfiguration Include="SFA.DAS.ReferenceData.ApiContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
