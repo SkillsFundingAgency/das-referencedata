@@ -83,5 +83,6 @@
     <Build Include="Tables\extract_registration.sql" />
     <Build Include="Tables\extract_remove_ref.sql" />
     <Build Include="Tables\extract_trustee.sql" />
+    <Build Include="StoredProcedures\TruncateLoadTables.sql" />
   </ItemGroup>
 </Project>
