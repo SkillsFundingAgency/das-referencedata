@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
@@ -10,27 +12,32 @@ using SFA.DAS.ReferenceData.Domain.Models.Data;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
-    //todo: put this back
-    //public class CharityRepository : BaseRepository, ICharityRepository
-    public class CharityRepository : ICharityRepository
+    public class CharityRepository : BaseRepository, ICharityRepository
     {
-        //public CharityRepository(IConfiguration configuration) : base(configuration)
-        //{
-        //}
+        public CharityRepository(IConfiguration configuration) : base(configuration)
+        {
+        }
 
         public async Task<CharityDataImport> GetLastCharityDataImport()
         {
-            throw new NotImplementedException();
+            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+                sql: "[CharityData].[GetLastCharityDataImport]",
+                commandType: CommandType.StoredProcedure));
+            return result.SingleOrDefault();
         }
 
-        public Task RecordCharityDataImport(int month, int year)
+        public async Task RecordCharityDataImport(int month, int year)
         {
-            throw new NotImplementedException();
+            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+                sql: "[CharityData].[CreateCharityDataImport]",
+                commandType: CommandType.StoredProcedure));
         }
 
         public async Task TruncateLoadTables()
         {
-            throw new NotImplementedException();
+            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+                sql: "[CharityData].[TruncateLoadTables]",
+                commandType: CommandType.StoredProcedure));
         }
     }
 }
