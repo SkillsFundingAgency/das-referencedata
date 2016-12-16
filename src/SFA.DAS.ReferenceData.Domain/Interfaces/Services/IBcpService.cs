@@ -9,6 +9,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
     public interface IBcpService
     {
-        Task ExecuteBcp(BcpRequest request);
+        Task<bool> ExecuteBcp(BcpRequest request);
     }
 }

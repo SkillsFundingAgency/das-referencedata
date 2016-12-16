@@ -19,7 +19,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             //_logger = logger; //todo: put this back
         }
 
-        public async Task ExecuteBcp(BcpRequest request)
+        public async Task<bool> ExecuteBcp(BcpRequest request)
         {
             var login = request.UseTrustedConnection ? "-T" : $"U{request.Username} -P{request.Password}";
 
@@ -48,6 +48,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                 process.WaitForExit();
                 process.Close();
             }
+
+            return true;
 
         }
     }
