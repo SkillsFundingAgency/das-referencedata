@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.CharityImport.WebJob", "SFA.DAS.ReferenceData.CharityImport.WebJob\SFA.DAS.ReferenceData.CharityImport.WebJob.csproj", "{8A6E3A3D-4B78-4DD9-99EC-57601170779A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests", "SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests\SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.csproj", "{655DA797-11A7-4A2A-A681-908C5CFEEC83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655DA797-11A7-4A2A-A681-908C5CFEEC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655DA797-11A7-4A2A-A681-908C5CFEEC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655DA797-11A7-4A2A-A681-908C5CFEEC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655DA797-11A7-4A2A-A681-908C5CFEEC83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +86,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C471A44D-D065-441C-8CF7-C25D8D0026C1} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{495F7A72-AB89-4C4C-BD90-A4549FDB0A44} = {2A48E4D6-D887-483D-91AD-B9500A485371}
+		{655DA797-11A7-4A2A-A681-908C5CFEEC83} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 	EndGlobalSection
 EndGlobal
