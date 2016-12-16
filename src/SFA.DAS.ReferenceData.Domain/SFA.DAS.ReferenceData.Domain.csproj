@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFA.DAS.ReferenceData.Domain</RootNamespace>
     <AssemblyName>SFA.DAS.ReferenceData.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,7 @@
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
     <Compile Include="Interfaces\Data\IOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
+    <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
     <Compile Include="Models\Bcp\BcpRequest.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />

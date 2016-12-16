@@ -15,6 +15,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
     {
         private readonly ICharityRepository _charityRepository;
         private readonly IBcpService _bcpService;
+        private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILogger _logger;
 
         public CharityImporter(ICharityRepository charityRepository)//, ILogger logger) //todo: put this back
@@ -22,6 +23,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             _charityRepository = charityRepository;
             //_bcpService = bcpService;
             _bcpService = new BcpService(); //todo: remove this
+            _archiveDownloadService = new ArchiveDownloadService(); //todo: remove this
             //_logger = logger;
         }
 
@@ -37,25 +39,31 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             //await _charityRepository.TruncateLoadTables();
 
 
+            //var downloadResult = await _archiveDownloadService.DownloadFile(
+            //    @"http://apps.charitycommission.gov.uk/data/201611_2/extract1/RegPlusExtract_November_2016.zip", 
+            //    @"c:\temp", 
+            //    @"RegPlusExtract_November_2016.zip");
 
-            var bcp = new BcpRequest
-            {
-                ServerName = @"(localdb)\MSSQLLocalDB",
-                UseTrustedConnection = true,
-                Username = "",
-                Password = "",
-                TargetDb = "AngularSpa",
-                TargetSchema = "import",
-                TargetTable = "extract_aoo_ref",
-                RowTerminator = "*@@*",
-                FieldTerminator = "@**@",
-                SourceFile = @"c:\temp\extract_aoo_ref.bcp"
-            };
-            //todo: get from config/azure storage
+            var extractResult = _archiveDownloadService.UnzipFile(@"c:\temp\RegPlusExtract_November_2016.zip", @"c:\temp\");
 
-            await _bcpService.ExecuteBcp(bcp);
 
-            throw new NotImplementedException("CharityImporter not implemented");
+            //var bcp = new BcpRequest
+            //{
+            //    ServerName = @"(localdb)\MSSQLLocalDB",
+            //    UseTrustedConnection = true,
+            //    Username = "",
+            //    Password = "",
+            //    TargetDb = "AngularSpa",
+            //    TargetSchema = "import",
+            //    TargetTable = "extract_aoo_ref",
+            //    RowTerminator = "*@@*",
+            //    FieldTerminator = "@**@",
+            //    SourceFile = @"c:\temp\extract_aoo_ref.bcp"
+            //};
+            ////todo: get from config/azure storage
+
+            //await _bcpService.ExecuteBcp(bcp);
+
         }
     }
 }
