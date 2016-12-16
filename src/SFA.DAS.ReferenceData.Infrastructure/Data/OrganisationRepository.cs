@@ -14,7 +14,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         {
         }
         
-        public async Task<IEnumerable<PublicSectorOrganisation>> GetPublicSectorOrganisations()
+        public async Task<ICollection<PublicSectorOrganisation>> GetPublicSectorOrganisations()
         {
            throw new NotImplementedException();
         }
