@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Application.UnitTests", "SFA.DAS.ReferenceData.Application.UnitTests\SFA.DAS.ReferenceData.Application.UnitTests.csproj", "{495F7A72-AB89-4C4C-BD90-A4549FDB0A44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api", "SFA.DAS.ReferenceData.Api\SFA.DAS.ReferenceData.Api.csproj", "{48F11746-B2E2-4AC9-B5EA-2AEFD7BC94D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.CharityImport.WebJob", "SFA.DAS.ReferenceData.CharityImport.WebJob\SFA.DAS.ReferenceData.CharityImport.WebJob.csproj", "{8A6E3A3D-4B78-4DD9-99EC-57601170779A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{48F11746-B2E2-4AC9-B5EA-2AEFD7BC94D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48F11746-B2E2-4AC9-B5EA-2AEFD7BC94D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48F11746-B2E2-4AC9-B5EA-2AEFD7BC94D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6E3A3D-4B78-4DD9-99EC-57601170779A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
