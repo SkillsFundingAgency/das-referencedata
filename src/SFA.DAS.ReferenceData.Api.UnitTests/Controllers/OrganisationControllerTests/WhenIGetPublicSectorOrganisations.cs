@@ -35,7 +35,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
             _mediator.Setup(x => x.SendAsync(It.IsAny<GetPublicSectorOrgainsationsQuery>()))
                      .ReturnsAsync(_response);
 
-            _controller = new OrganisationController(_mediator.Object, new Mock<IConfiguration>().Object);
+            _controller = new OrganisationController(_mediator.Object);
         }
 
         [Test]
