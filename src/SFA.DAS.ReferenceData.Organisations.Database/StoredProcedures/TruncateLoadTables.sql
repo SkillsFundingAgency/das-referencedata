@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [CharityImport].[TruncateLoadTables]
+﻿CREATE PROCEDURE [CharityData].[TruncateLoadTables]
 AS
 
 TRUNCATE TABLE [CharityImport].extract_acct_submit

@@ -23,7 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <DefaultSchema>referencedata</DefaultSchema>
+    <DefaultSchema>CharityData</DefaultSchema>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -65,7 +65,6 @@
     <Folder Include="Schemas" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schemas\ReferenceData.sql" />
     <Build Include="Schemas\CharityImport.sql" />
     <Build Include="Tables\extract_acct_submit.sql" />
     <Build Include="Tables\extract_aoo_ref.sql" />
@@ -84,5 +83,8 @@
     <Build Include="Tables\extract_remove_ref.sql" />
     <Build Include="Tables\extract_trustee.sql" />
     <Build Include="StoredProcedures\TruncateLoadTables.sql" />
+    <Build Include="Tables\CharityDataImport.sql" />
+    <Build Include="Schemas\CharityData.sql" />
+    <Build Include="StoredProcedures\GetLastCharityDataImport.sql" />
   </ItemGroup>
 </Project>
