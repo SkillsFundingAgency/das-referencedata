@@ -43,6 +43,8 @@
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
     <Compile Include="Interfaces\Data\IOrganisationRepository.cs" />
+    <Compile Include="Interfaces\Services\IBcpService.cs" />
+    <Compile Include="Models\Bcp\BcpRequest.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />

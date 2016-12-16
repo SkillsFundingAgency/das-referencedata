@@ -10,11 +10,13 @@ using SFA.DAS.ReferenceData.Domain.Models.Data;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
-    public class CharityRepository : BaseRepository, ICharityRepository
+    //todo: put this back
+    //public class CharityRepository : BaseRepository, ICharityRepository
+    public class CharityRepository : ICharityRepository
     {
-        public CharityRepository(IConfiguration configuration) : base(configuration)
-        {
-        }
+        //public CharityRepository(IConfiguration configuration) : base(configuration)
+        //{
+        //}
 
         public async Task<CharityDataImport> GetLastCharityDataImport()
         {
