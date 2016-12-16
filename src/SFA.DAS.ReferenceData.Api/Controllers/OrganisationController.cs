@@ -9,13 +9,13 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
     public class OrganisationController : ApiController
     {
         private readonly IMediator _mediator;
-
+       
         public OrganisationController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [Route("/public", Name = "Public Sector")]
+        [Route("public", Name = "Public Sector")]
         [HttpGet]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations()
         {

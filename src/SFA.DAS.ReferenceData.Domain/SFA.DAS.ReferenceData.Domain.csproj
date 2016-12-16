@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ReferenceDataApiConfiguration.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\IOrganisationRepository.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />

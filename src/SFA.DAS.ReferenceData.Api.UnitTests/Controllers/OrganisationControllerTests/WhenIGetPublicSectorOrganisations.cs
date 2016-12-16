@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
@@ -34,7 +35,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
             _mediator.Setup(x => x.SendAsync(It.IsAny<GetPublicSectorOrgainsationsQuery>()))
                      .ReturnsAsync(_response);
 
-            _controller = new OrganisationController(_mediator.Object);
+            _controller = new OrganisationController(_mediator.Object, new Mock<IConfiguration>().Object);
         }
 
         [Test]
