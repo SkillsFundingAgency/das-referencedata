@@ -5,7 +5,7 @@ using SFA.DAS.ReferenceData.Api.Orchestrators;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
-    [System.Web.Mvc.RoutePrefix("api/organisation")]
+    [RoutePrefix("api/organisation")]
     public class OrganisationController : ApiController
     {
         private readonly OrganisationOrchestrator _orchestrator;
@@ -15,8 +15,8 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             _orchestrator = orchestrator;
         }
 
-        [System.Web.Mvc.Route("", Name = "public")]
-        [System.Web.Mvc.HttpGet]
+        [Route("/public", Name = "Public Sector")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations()
         {
             var result = await _orchestrator.GetPublicSectorOrganisations();

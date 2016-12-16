@@ -10,6 +10,14 @@
     </Sites>
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="StorageConnectionString" />
+      <Setting name="EnvironmentName" />
+      <Setting name="ConfigurationStorageConnectionString" />
+      <Setting name="LogLevel" />
+      <Setting name="LoggingRedisKey" />
+      <Setting name="LoggingRedisConnectionString" />
+      <Setting name="idaAudience" />
+      <Setting name="idaTenant" />
     </ConfigurationSettings>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />

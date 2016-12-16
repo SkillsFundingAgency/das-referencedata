@@ -6,6 +6,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Data
 {
     public interface IOrganisationRepository
     {
-        Task<IEnumerable<PublicSectorOrganisation>> GetPublicSectorOrganisations();
+        Task<ICollection<PublicSectorOrganisation>> GetPublicSectorOrganisations();
     }
 }
