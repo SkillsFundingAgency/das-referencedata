@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ReferenceDataApiConfiguration.cs" />
+    <Compile Include="Interfaces\Caching\ICache.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\IOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IPublicSectorOrganisationLookUpService.cs" />
