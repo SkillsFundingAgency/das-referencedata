@@ -1,35 +1,27 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using SFA.DAS.ReferenceData.Api.Orchestrators;
+using MediatR;
+using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
     [RoutePrefix("api/organisation")]
     public class OrganisationController : ApiController
     {
-        private readonly OrganisationOrchestrator _orchestrator;
+        private readonly IMediator _mediator;
 
-        public OrganisationController(OrganisationOrchestrator orchestrator)
+        public OrganisationController(IMediator mediator)
         {
-            _orchestrator = orchestrator;
+            _mediator = mediator;
         }
 
         [Route("/public", Name = "Public Sector")]
         [HttpGet]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations()
         {
-            var result = await _orchestrator.GetPublicSectorOrganisations();
+            var response = await _mediator.SendAsync(new GetPublicSectorOrgainsationsQuery());
 
-            if (result.Status == HttpStatusCode.OK)
-            {
-                return Ok(result.Data);
-            }
-            else
-            {
-                //TODO: Handle unhappy paths.
-                return Conflict();
-            }
+            return Ok(response.Organisations);
         }
     }
 }

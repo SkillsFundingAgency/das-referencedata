@@ -12,6 +12,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
     {
         public OrganisationRepository(IConfiguration configuration) : base(configuration)
         {
+            
         }
         
         public async Task<ICollection<PublicSectorOrganisation>> GetPublicSectorOrganisations()
