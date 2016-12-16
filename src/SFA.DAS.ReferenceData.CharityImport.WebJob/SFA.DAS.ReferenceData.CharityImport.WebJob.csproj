@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFA.DAS.ReferenceData.CharityImport.WebJob</RootNamespace>
     <AssemblyName>SFA.DAS.ReferenceData.CharityImport.WebJob</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +40,10 @@
     </Reference>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.0\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap, Version=4.4.2.472, Culture=neutral, processorArchitecture=MSIL">
@@ -94,6 +99,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Application\SFA.DAS.ReferenceData.Application.csproj">
+      <Project>{00cc4073-1eba-42e3-8efa-4249c694b2fe}</Project>
+      <Name>SFA.DAS.ReferenceData.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Domain\SFA.DAS.ReferenceData.Domain.csproj">
+      <Project>{e9163292-3cf5-4b9c-a4f4-d9ee0cd1c4d5}</Project>
+      <Name>SFA.DAS.ReferenceData.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Infrastructure\SFA.DAS.ReferenceData.Infrastructure.csproj">
+      <Project>{11d97a4b-c768-4889-b61d-3d74a6a9b463}</Project>
+      <Name>SFA.DAS.ReferenceData.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
