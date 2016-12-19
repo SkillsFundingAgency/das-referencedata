@@ -43,7 +43,7 @@ The ONS Data set of public sector organisations can be found here [Public sector
 
 To add organisation names simple open up the json file:
 
-**SFA.DAS.SFA.DAS.ReferenceData.Api/App_Data/PublicOrganisationNames.json**
+**SFA.DAS.SFA.DAS.ReferenceData.Api/App_Data/LOCAL_SFA.DAS.ReferenceData.PublicOrganisationNames_1.0.json**
 
 And add any number organisation names to the list.
 
