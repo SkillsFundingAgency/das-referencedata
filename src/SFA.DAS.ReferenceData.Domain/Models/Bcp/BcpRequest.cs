@@ -14,8 +14,7 @@ namespace SFA.DAS.ReferenceData.Domain.Models.Bcp
         public string Password { get; set; }
         public string TargetDb { get; set; }
         public string TargetSchema { get; set; }
-        public string TargetTable { get; set; }
-        public string SourceFile { get; set; }
+        public string SourceDirectory { get; set; }
         public string FieldTerminator { get; set; }
         public string RowTerminator { get; set; }
 

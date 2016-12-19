@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 filename);
 
 
-
             var extractResult = _archiveDownloadService.UnzipFile($"c:\\temp\\{filename}", @"c:\temp\");
 
 
@@ -76,10 +76,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 Password = "",
                 TargetDb = "AngularSpa", //todo: read from config
                 TargetSchema = "import",
-                TargetTable = "extract_aoo_ref",
                 RowTerminator = "*@@*",
                 FieldTerminator = "@**@",
-                SourceFile = @"c:\temp\extract_aoo_ref.bcp"
+                SourceDirectory = @"c:\temp\" + Path.GetFileNameWithoutExtension(filename)
             };
             //todo: get from config/azure storage
 

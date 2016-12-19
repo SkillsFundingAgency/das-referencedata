@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NLog;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
@@ -23,37 +21,45 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         {
             var login = request.UseTrustedConnection ? "-T" : $"U{request.Username} -P{request.Password}";
 
-            var bcpArgs = $"[{request.TargetDb}].[{request.TargetSchema}].[{request.TargetTable}]" +
-                          $" in {request.SourceFile} -S{request.ServerName} {login} -t{request.FieldTerminator} -r{request.RowTerminator} -c";
+            var files = Directory.EnumerateFiles(request.SourceDirectory, "*.bcp").ToList();
 
-            var bcpProcessInfo = new ProcessStartInfo
+            foreach (var file in files)
             {
-                UseShellExecute = false,
-                FileName = "bcp",
-                Verb = "runas",
-                Arguments = bcpArgs,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                RedirectStandardOutput = true
-            };
+                var extractName = Path.GetFileNameWithoutExtension(file);
 
-            var output = "";
-            var exitCode = 0;
+                var bcpArgs = $"[{request.TargetDb}].[{request.TargetSchema}].[{extractName}]" +
+                              $" in {file} -S{request.ServerName} {login} -t{request.FieldTerminator} -r{request.RowTerminator} -c";
 
-            try
-            {
-                using (var process = Process.Start(bcpProcessInfo))
+                var bcpProcessInfo = new ProcessStartInfo
                 {
-                    output = process.StandardOutput.ReadToEnd();
-                    //_logger.Info(process.StandardOutput); //todo: log to logger
-                    process.WaitForExit();
-                    process.Close();
-                    exitCode = process.ExitCode;
+                    UseShellExecute = false,
+                    FileName = "bcp",
+                    Verb = "runas",
+                    Arguments = bcpArgs,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    RedirectStandardOutput = true
+                };
+
+                var output = "";
+                var exitCode = 0;
+
+                try
+                {
+                    using (var process = Process.Start(bcpProcessInfo))
+                    {
+                        output = process.StandardOutput.ReadToEnd();
+                        //_logger.Info(process.StandardOutput); //todo: log to logger
+                        process.WaitForExit();
+                        process.Close();
+                        exitCode = process.ExitCode;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                //_logger.Error(ex);
-                return false;
+                catch (Exception ex)
+                {
+                    //_logger.Error(ex);
+                    return false;
+                }
+
             }
 
             //look at exit code
