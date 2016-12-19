@@ -12,9 +12,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution
         {
             return new Container(c =>
             {
-                  //c.Policies.Add<LoggingPolicy>();
-                //c.Policies.Add(new ConfigurationPolicy<CharityImporterConfiguration>(ServiceName));
-
+                c.Policies.Add<LoggingPolicy>();
                 c.Policies.Add(new ConfigurationPolicy<ReferenceDataApiConfiguration>(ServiceName));
                 c.AddRegistry<DefaultRegistry>();
             });

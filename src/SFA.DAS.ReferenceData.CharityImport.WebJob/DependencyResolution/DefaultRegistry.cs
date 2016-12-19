@@ -4,8 +4,6 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
-using SFA.DAS.ReferenceData.Domain.Configuration;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using StructureMap;
 
 namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution

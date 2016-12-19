@@ -113,6 +113,7 @@
     <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Caching\TaskSynchronizationScope.cs" />
     <Compile Include="DependencyResolution\ConfigurationPolicy.cs" />
+    <Compile Include="DependencyResolution\LoggingPolicy.cs" />
     <Compile Include="Services\AzureServiceBase.cs" />
     <Compile Include="Services\PublicSectorOrganisationLookUpService.cs" />
     <Compile Include="Data\CharityRepository.cs" />
