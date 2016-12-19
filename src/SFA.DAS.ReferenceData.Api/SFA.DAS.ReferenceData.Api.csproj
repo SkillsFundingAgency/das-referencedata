@@ -280,11 +280,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="App_Data\LOCAL_SFA.DAS.ReferenceData.Api_1.0.json" />
+    <Content Include="App_Data\LOCAL_SFA.DAS.ReferenceData.PublicOrganisationNames_1.0" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
