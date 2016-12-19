@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
@@ -30,6 +30,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.CharityImport.WebJob", "SFA.DAS.ReferenceData.CharityImport.WebJob\SFA.DAS.ReferenceData.CharityImport.WebJob.csproj", "{8A6E3A3D-4B78-4DD9-99EC-57601170779A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests", "SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests\SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.csproj", "{655DA797-11A7-4A2A-A681-908C5CFEEC83}"
+EndProject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Infrastructure.UnitTests", "SFA.DAS.ReferenceData.Infrastructure.UnitTests\SFA.DAS.ReferenceData.Infrastructure.UnitTests.csproj", "{9477BE74-E86C-4786-BB1B-52F05F608E61}"
 EndProject

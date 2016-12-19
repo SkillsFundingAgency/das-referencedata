@@ -38,7 +38,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
                 x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(() => true);
 
-            _importer = new CharityImporter(_charityRepository.Object, _archiveDownloadService.Object, _bcpService.Object);
+            _importer = new CharityImporter(_charityRepository.Object, _archiveDownloadService.Object, _bcpService.Object, _logger.Object);
         }
 
         [Test]
@@ -82,6 +82,18 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
 
             _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
         }
+
+
+        [Test]
+        public async Task ThenImportLoadTablesAreTruncated()
+        {
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+            _charityRepository.Verify(x => x.TruncateLoadTables(), Times.Once);
+        }
+
 
         [Test]
         public async Task ThenAZipFileIsExtracted()

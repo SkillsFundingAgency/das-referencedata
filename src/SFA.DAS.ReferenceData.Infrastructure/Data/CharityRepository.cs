@@ -28,14 +28,14 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
 
         public async Task RecordCharityDataImport(int month, int year)
         {
-            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+            var result = await WithConnection(async c => await c.ExecuteAsync(
                 sql: "[CharityData].[CreateCharityDataImport]",
                 commandType: CommandType.StoredProcedure));
         }
 
         public async Task TruncateLoadTables()
         {
-            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+            var result = await WithConnection(async c => await c.ExecuteAsync(
                 sql: "[CharityData].[TruncateLoadTables]",
                 commandType: CommandType.StoredProcedure));
         }
@@ -46,7 +46,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             parameters.Add("@month", month, DbType.Int32);
             parameters.Add("@year", month, DbType.Int32);
 
-            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+            var result = await WithConnection(async c => await c.ExecuteAsync(
                 sql: "[CharityData].[CreateCharityDataImport]",
                 param: parameters,
                 commandType: CommandType.StoredProcedure));

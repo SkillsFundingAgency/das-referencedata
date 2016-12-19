@@ -12,11 +12,8 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution
         {
             return new Container(c =>
             {
-                //c.Policies.Add(new ConfigurationPolicy<LevyDeclarationProviderConfiguration>("SFA.DAS.LevyAggregationProvider"));
-                //c.Policies.Add(new ConfigurationPolicy<EmployerApprenticeshipsServiceConfiguration>(ServiceName));
-                //c.Policies.Add(new ConfigurationPolicy<PaymentsApiClientConfiguration>("SFA.DAS.PaymentsAPI"));
-                //c.Policies.Add<LoggingPolicy>();
-                //c.Policies.Add(new MessagePolicy<EmployerApprenticeshipsServiceConfiguration>(ServiceName));
+                  //c.Policies.Add<LoggingPolicy>();
+                //c.Policies.Add(new ConfigurationPolicy<CharityImporterConfiguration>(ServiceName));
 
                 c.Policies.Add(new ConfigurationPolicy<ReferenceDataApiConfiguration>(ServiceName));
                 c.AddRegistry<DefaultRegistry>();
