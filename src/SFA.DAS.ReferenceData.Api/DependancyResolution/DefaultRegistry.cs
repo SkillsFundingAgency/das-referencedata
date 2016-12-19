@@ -16,6 +16,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using MediatR;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
+using SFA.DAS.ReferenceData.Infrastructure.Caching;
 using StructureMap;
 
 namespace SFA.DAS.ReferenceData.Api.DependancyResolution
@@ -34,6 +36,7 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
                     scan.RegisterConcreteTypesAgainstTheFirstInterface();
                 });
 
+            For<ICache>().Use<InMemoryCache>(); //RedisCache
 
             RegisterMediator();
         }

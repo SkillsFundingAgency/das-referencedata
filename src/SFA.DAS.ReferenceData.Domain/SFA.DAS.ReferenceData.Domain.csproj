@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFA.DAS.ReferenceData.Domain</RootNamespace>
     <AssemblyName>SFA.DAS.ReferenceData.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,10 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ReferenceDataApiConfiguration.cs" />
+    <Compile Include="Interfaces\Caching\ICache.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\IOrganisationRepository.cs" />
+    <Compile Include="Interfaces\Services\IPublicSectorOrganisationLookUpService.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />
+    <Compile Include="Models\PublicSectorOrganisationLookUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

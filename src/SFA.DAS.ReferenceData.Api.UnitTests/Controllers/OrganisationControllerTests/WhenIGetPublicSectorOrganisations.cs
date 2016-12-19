@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
