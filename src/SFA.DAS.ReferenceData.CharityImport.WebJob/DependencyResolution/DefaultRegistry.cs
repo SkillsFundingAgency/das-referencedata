@@ -23,7 +23,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution
                     scan.RegisterConcreteTypesAgainstTheFirstInterface();
                 });
 
-            //For<IConfiguration>().Use<EmployerApprenticeshipsServiceConfiguration>(); //todo: put this back
+            //For<IConfiguration>().Use<EmployerApprenticeshipsServiceConfiguration>();
             For<ICharityImporter>().Use<CharityImporter>();
 
             RegisterMapper();

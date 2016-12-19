@@ -9,6 +9,7 @@ using NLog;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
+using SFA.DAS.ReferenceData.Infrastructure.Data;
 using SFA.DAS.ReferenceData.Infrastructure.Services;
 
 namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
@@ -20,12 +21,12 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILogger _logger;
 
-        public CharityImporter(ICharityRepository charityRepository, IArchiveDownloadService archiveDownloadService, IBcpService bcpService)//, ILogger logger) //todo: put this back
+        public CharityImporter(ICharityRepository charityRepository, IArchiveDownloadService archiveDownloadService, IBcpService bcpService, ILogger logger)
         {
             _charityRepository = charityRepository;
             _bcpService = bcpService;
             _archiveDownloadService = archiveDownloadService;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public async Task RunUpdate()
@@ -47,14 +48,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             }
 
 
-            //determine what file (date) to try for
-            //download files
-            //truncate load tables
-            //bcp data in
-            //transfer data from load tables to data tables
-            //update next file (date) to try for
-
-            //await _charityRepository.TruncateLoadTables();
+            await _charityRepository.TruncateLoadTables();
 
             var url = GetExtractUrlForMonthYear(importMonth, importYear);
             var filename = GetFilenameForMonthYear(importMonth, importYear);
@@ -64,8 +58,20 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 @"c:\temp",
                 filename);
 
+            if (!downloadResult)
+            {
+                //log error
+                return;
+            }
+
 
             var extractResult = _archiveDownloadService.UnzipFile($"c:\\temp\\{filename}", @"c:\temp\");
+
+            if (!extractResult)
+            {
+                //log
+                return;
+            }
 
 
             var bcp = new BcpRequest
