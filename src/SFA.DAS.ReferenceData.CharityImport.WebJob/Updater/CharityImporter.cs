@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using NLog;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
-using SFA.DAS.ReferenceData.Infrastructure.Data;
-using SFA.DAS.ReferenceData.Infrastructure.Services;
 
 namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 {
@@ -20,21 +15,13 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         private readonly IBcpService _bcpService;
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILogger _logger;
-
-        //public CharityImporter(ICharityRepository charityRepository, IArchiveDownloadService archiveDownloadService, IBcpService bcpService)
-        //{
-        //    _charityRepository = charityRepository;
-        //    _bcpService = bcpService;
-        //    _archiveDownloadService = archiveDownloadService;
-        //    //_logger = logger;
-        //}
-
-        public CharityImporter(ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService)
+        
+        public CharityImporter(ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService, ILogger logger)
         {
             _charityRepository = charityRepository;
             _bcpService = bcpService;
             _archiveDownloadService = archiveDownloadService;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public async Task RunUpdate()
