@@ -38,7 +38,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
                 x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(() => true);
 
-            _importer = new CharityImporter(_charityRepository.Object, _archiveDownloadService.Object, _bcpService.Object, _logger.Object);
+            _importer = new CharityImporter(_charityRepository.Object, _bcpService.Object, _archiveDownloadService.Object); //, _logger.Object);
         }
 
         [Test]
