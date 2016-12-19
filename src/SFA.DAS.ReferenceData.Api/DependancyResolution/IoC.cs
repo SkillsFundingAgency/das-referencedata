@@ -16,15 +16,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using SFA.DAS.ReferenceData.Domain.Configuration;
+using SFA.DAS.ReferenceData.Infrastructure.DependencyResolution;
 using StructureMap;
 
 namespace SFA.DAS.ReferenceData.Api.DependancyResolution {
     public static class IoC {
-        private const string ServiceName = "SFA.DAS.EmployerApprenticeshipsService";
+        private const string ServiceName = "SFA.DAS.ReferenceDataAPI";
         public static IContainer Initialize() {
             return new Container(c =>
             {
-                //c.Policies.Add(new ConfigurationPolicy<EmployerApprenticeshipsServiceConfiguration>(ServiceName));
+                c.Policies.Add(new ConfigurationPolicy<ReferenceDataApiConfiguration>(ServiceName));
                 c.AddRegistry<DefaultRegistry>();
             });
         }
