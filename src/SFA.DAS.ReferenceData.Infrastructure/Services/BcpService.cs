@@ -19,7 +19,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             //_logger = logger; //todo: put this back
         }
 
-        public async Task<bool> ExecuteBcp(BcpRequest request)
+        public bool ExecuteBcp(BcpRequest request)
         {
             var login = request.UseTrustedConnection ? "-T" : $"U{request.Username} -P{request.Password}";
 
@@ -29,28 +29,37 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             var bcpProcessInfo = new ProcessStartInfo
             {
                 UseShellExecute = false,
-                //WorkingDirectory = regPlusExtracts,
                 FileName = "bcp",
                 Verb = "runas",
-                //Arguments = "/c " + bcp, //auto close
                 Arguments = bcpArgs,
-                WindowStyle = ProcessWindowStyle.Normal, //todo: hide window
+                WindowStyle = ProcessWindowStyle.Hidden,
                 RedirectStandardOutput = true
             };
 
             var output = "";
+            var exitCode = 0;
 
-            var process = Process.Start(bcpProcessInfo);
-            using (process)
+            try
             {
-                output = process.StandardOutput.ReadToEnd();
-                //_logger.Info(process.StandardOutput); //todo: log to logger
-                process.WaitForExit();
-                process.Close();
+                using (var process = Process.Start(bcpProcessInfo))
+                {
+                    output = process.StandardOutput.ReadToEnd();
+                    //_logger.Info(process.StandardOutput); //todo: log to logger
+                    process.WaitForExit();
+                    process.Close();
+                    exitCode = process.ExitCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                //_logger.Error(ex);
+                return false;
             }
 
-            return true;
+            //look at exit code
 
+            return true;
         }
+
     }
 }

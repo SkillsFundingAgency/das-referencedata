@@ -39,5 +39,17 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 sql: "[CharityData].[TruncateLoadTables]",
                 commandType: CommandType.StoredProcedure));
         }
+
+        public async Task CreateCharityDataImport(int month, int year)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@month", month, DbType.Int32);
+            parameters.Add("@year", month, DbType.Int32);
+
+            var result = await WithConnection(async c => await c.QueryAsync<CharityDataImport>(
+                sql: "[CharityData].[CreateCharityDataImport]",
+                param: parameters,
+                commandType: CommandType.StoredProcedure));
+        }
     }
 }

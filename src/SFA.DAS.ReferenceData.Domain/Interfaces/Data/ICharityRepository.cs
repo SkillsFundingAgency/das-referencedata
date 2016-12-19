@@ -12,5 +12,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Data
         Task<CharityDataImport> GetLastCharityDataImport();
         Task RecordCharityDataImport(int month, int year);
         Task TruncateLoadTables();
+        Task CreateCharityDataImport(int month, int year);
     }
 }

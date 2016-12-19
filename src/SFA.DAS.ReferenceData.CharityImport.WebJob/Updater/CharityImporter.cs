@@ -82,7 +82,11 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             };
             //todo: get from config/azure storage
 
-            await _bcpService.ExecuteBcp(bcp);
+            var bcpResult = _bcpService.ExecuteBcp(bcp);
+
+            //record import in db
+            //...
+            await _charityRepository.CreateCharityDataImport(importMonth, importYear);
 
         }
 

@@ -27,17 +27,23 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             _archiveDownloadService = new Mock<IArchiveDownloadService>();
             _logger = new Mock<ILogger>();
 
+            _charityRepository.Setup(x => x.GetLastCharityDataImport())
+                .ReturnsAsync(() => new CharityDataImport());
+
+            _archiveDownloadService.Setup(
+                x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync(() => true);
+
+            _archiveDownloadService.Setup(
+                x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(() => true);
+
             _importer = new CharityImporter(_charityRepository.Object, _archiveDownloadService.Object, _bcpService.Object);
         }
-
 
         [Test]
         public async Task ThenThePreviousImportDateShouldBeRetrieved()
         {
-            //Setup
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport());
-
             //Act
             await _importer.RunUpdate();
 
@@ -45,17 +51,12 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             _charityRepository.Verify(x=> x.GetLastCharityDataImport(), Times.Once);
         }
 
-
         [Test]
         public async Task ThenIfNoPreviousImportExistsThenCurrentMonthIsUsedAsDefault()
         {
             //Setup
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
                 .ReturnsAsync(() => null);
-
-            _archiveDownloadService.Setup(
-                x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(() => true);
 
             //Act
             await _importer.RunUpdate();
@@ -70,18 +71,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         [Test]
         public async Task ThenAZipFileIsExtracted()
         {
-            //Setup
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport());
-
-            _archiveDownloadService.Setup(
-                x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(() => true);
-
-            _archiveDownloadService.Setup(
-                x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => true);
-
             //Act
             await _importer.RunUpdate();
 
@@ -92,26 +81,21 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         [Test]
         public async Task ThenABcpCommandIsIssued()
         {
-            //Setup
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport());
-
-            _archiveDownloadService.Setup(
-                x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(() => true);
-
-            _archiveDownloadService.Setup(
-                x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => true);
-
-            _bcpService.Setup(x => x.ExecuteBcp(It.IsAny<BcpRequest>()))
-                .ReturnsAsync(() => true);
-
             //Act
             await _importer.RunUpdate();
 
             //Assert
             _bcpService.Verify(x => x.ExecuteBcp(It.IsAny<BcpRequest>()), Times.Once);
+        }
+
+        [Test]
+        public async Task ThenTheImportIsRecorded()
+        {
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+            _charityRepository.Verify(x => x.CreateCharityDataImport(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
     }
 }
