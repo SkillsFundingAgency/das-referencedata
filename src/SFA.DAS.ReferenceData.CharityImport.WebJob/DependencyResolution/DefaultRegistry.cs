@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.Configuration;
 using MediatR;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using StructureMap;
@@ -22,8 +18,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution
                     scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS"));
                     scan.RegisterConcreteTypesAgainstTheFirstInterface();
                 });
-
-            //For<IConfiguration>().Use<EmployerApprenticeshipsServiceConfiguration>(); //todo: put this back
+           
             For<ICharityImporter>().Use<CharityImporter>();
 
             RegisterMapper();
