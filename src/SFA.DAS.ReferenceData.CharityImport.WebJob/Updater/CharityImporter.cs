@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             if (lastImport != null)
             {
                 importMonth = lastImport.Month + 1;
-                importYear = lastImport.Year + 1;
+                importYear = lastImport.Year;
                 if (importMonth > 12)
                 {
                     importMonth = 1;
@@ -94,14 +95,14 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         {
             var rootUrl = @"http://apps.charitycommission.gov.uk/data";
             var dateNumericString = $"{year}{month}";
-            var monthyear = $"{DateTime.Now.ToString("MMMM")}_{DateTime.Now.Year}"; 
+            var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}"; 
                      
             return $"{rootUrl}/{dateNumericString}_2/extract1/RegPlusExtract_{monthyear}.zip";
         }
 
         private string GetFilenameForMonthYear(int month, int year)
         {
-            return $"RegPlusExtract_{DateTime.Now.ToString("MMMM")}_{DateTime.Now.Year}.zip";
+            return $"RegPlusExtract_{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}.zip";
         }
     }
 }

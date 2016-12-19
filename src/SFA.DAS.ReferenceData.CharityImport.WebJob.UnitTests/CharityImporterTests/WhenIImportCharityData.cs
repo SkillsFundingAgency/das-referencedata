@@ -28,7 +28,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             _logger = new Mock<ILogger>();
 
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport());
+                .ReturnsAsync(() => new CharityDataImport {ImportDate = new DateTime(2016,5,4), Month = 5, Year=2016});
 
             _archiveDownloadService.Setup(
                 x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -52,6 +52,23 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         }
 
         [Test]
+        public async Task ThenIfAPreviousImportExistsThenSubsequenttMonthIsUsedAsDefault()
+        {
+            //Setup
+            _charityRepository.Setup(x => x.GetLastCharityDataImport())
+                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(2017, 12, 1), Month = 12, Year = 2016 });
+
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+
+            var expectedFile = $"January_2017";
+
+            _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
+        }
+
+        [Test]
         public async Task ThenIfNoPreviousImportExistsThenCurrentMonthIsUsedAsDefault()
         {
             //Setup
@@ -62,7 +79,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-
             var expectedFile = $"{DateTime.Now.ToString("MMMM")}_{DateTime.Now.Year}";
 
             _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
