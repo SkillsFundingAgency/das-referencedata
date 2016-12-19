@@ -21,12 +21,20 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILogger _logger;
 
-        public CharityImporter(ICharityRepository charityRepository, IArchiveDownloadService archiveDownloadService, IBcpService bcpService, ILogger logger)
+        //public CharityImporter(ICharityRepository charityRepository, IArchiveDownloadService archiveDownloadService, IBcpService bcpService)
+        //{
+        //    _charityRepository = charityRepository;
+        //    _bcpService = bcpService;
+        //    _archiveDownloadService = archiveDownloadService;
+        //    //_logger = logger;
+        //}
+
+        public CharityImporter(ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService)
         {
             _charityRepository = charityRepository;
             _bcpService = bcpService;
             _archiveDownloadService = archiveDownloadService;
-            _logger = logger;
+            //_logger = logger;
         }
 
         public async Task RunUpdate()
