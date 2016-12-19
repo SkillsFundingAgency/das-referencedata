@@ -26,9 +26,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Services.PublicSectorOr
                     It.IsAny<PublicSectorOrganisationLookUp>(), 
                     It.IsAny<TimeSpan>()));
 
-            _serviceMock = new Mock<PublicSectorOrganisationLookUpService>(_cacheProvider.Object);
+            _serviceMock = new Mock<PublicSectorOrganisationLookUpService>(_cacheProvider.Object, "");
 
-            _serviceMock.Setup(x => x.GetDataFromStorage()).Returns(new PublicSectorOrganisationLookUp
+            _serviceMock.Setup(x => x.GetDataFromBlobStorage(It.IsAny<string>(), It.IsAny<string>())).Returns(new PublicSectorOrganisationLookUp
             {
                 OrganisationNames = new List<string>()
             });
@@ -77,7 +77,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Services.PublicSectorOr
                         It.IsAny<PublicSectorOrganisationLookUp>(),
                         TimeSpan.FromDays(14)), Times.Once);
 
-            _serviceMock.Verify(x => x.GetDataFromStorage(), Times.Once);
+            _serviceMock.Verify(x => x.GetDataFromBlobStorage(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
     }
 }

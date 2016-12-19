@@ -1,45 +1,42 @@
-using System;
-using System.Configuration;
+using System.IO;
 using Microsoft.Azure;
-using SFA.DAS.Configuration;
-using SFA.DAS.Configuration.AzureTableStorage;
-using SFA.DAS.Configuration.FileStorage;
+using Microsoft.WindowsAzure.Storage;
+using Newtonsoft.Json;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
     public abstract class AzureServiceBase<T>
     {
-        public abstract string ConfigurationName { get; }
-        protected IConfigurationRepository GetDataFromAzure()
+        private readonly CloudStorageAccount _storageAccount;
+
+        protected AzureServiceBase()
         {
-            IConfigurationRepository configurationRepository;
-            if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
-            {
-                configurationRepository = new FileStorageConfigurationRepository();
-            }
-            else
-            {
-                configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
-            }
-            return configurationRepository;
+            _storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
         }
 
-        public virtual T GetDataFromStorage()
+        public virtual T GetDataFromBlobStorage(string containerName, string blobName)
         {
-            var environment = Environment.GetEnvironmentVariable("DASENV");
-            if (string.IsNullOrEmpty(environment))
+            var client = _storageAccount.CreateCloudBlobClient();
+
+            var container = client.GetContainerReference(containerName);
+
+            var blob = container.GetBlobReference(blobName);
+
+            string jsonContent;
+
+            using (var stream = new MemoryStream())
             {
-                environment = CloudConfigurationManager.GetSetting("EnvironmentName");
+                blob.DownloadToStream(stream);
+
+                stream.Position = 0;
+
+                using (var reader = new StreamReader(stream))
+                {
+                    jsonContent = reader.ReadToEnd();
+                }
             }
 
-            var configurationRepository = GetDataFromAzure();
-            var configurationService = new ConfigurationService(
-                configurationRepository,
-                new ConfigurationOptions(ConfigurationName, environment, "1.0"));
-
-            var config = configurationService.Get<T>();
-
-            return config;
+            return string.IsNullOrEmpty(jsonContent) ? default(T) : JsonConvert.DeserializeObject<T>(jsonContent);
         }
     }
 }

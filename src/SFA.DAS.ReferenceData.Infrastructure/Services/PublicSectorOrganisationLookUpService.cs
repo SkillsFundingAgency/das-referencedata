@@ -11,7 +11,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
     public class PublicSectorOrganisationLookUpService : AzureServiceBase<PublicSectorOrganisationLookUp>, IPublicSectorOrganisationLookUpService
     {
         private readonly ICacheProvider _cacheProvider;
-        public override string ConfigurationName { get; } = "SFA.DAS.ReferenceData.PublicOrganisationNames";
+
+        private const string ContainerName = "sfa-das-reference-data";
+        private const string BlobName = "PublicOrganisationNames.json";
 
         public PublicSectorOrganisationLookUpService(ICacheProvider cacheProvider)
         {
@@ -26,7 +28,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 if (lookUp == null)
                 {
-                    lookUp = GetDataFromStorage();
+                    lookUp = GetDataFromBlobStorage(ContainerName, BlobName);
 
                     if(lookUp == null)
                         return new List<PublicSectorOrganisation>();
