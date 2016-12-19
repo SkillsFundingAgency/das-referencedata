@@ -39,8 +39,12 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
         public async Task RunUpdate()
         {
-            var importMonth = DateTime.Now.Month;
-            var importYear = DateTime.Now.Year;
+            var workingDirectory = @"c:\temp\";
+
+
+
+            var importMonth = 11;
+            var importYear = 2016;
 
             var lastImport = await _charityRepository.GetLastCharityDataImport();
 
@@ -61,10 +65,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             var url = GetExtractUrlForMonthYear(importMonth, importYear);
             var filename = GetFilenameForMonthYear(importMonth, importYear);
 
-            var downloadResult = await _archiveDownloadService.DownloadFile(
-                url,
-                @"c:\temp",
-                filename);
+            var downloadResult = await _archiveDownloadService.DownloadFile(url, workingDirectory, filename);
 
             if (!downloadResult)
             {
@@ -72,8 +73,10 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 return;
             }
 
+            var zipFile = Path.Combine(workingDirectory, filename);
+            var extractPath = Path.Combine(workingDirectory, Path.GetFileNameWithoutExtension(filename));
 
-            var extractResult = _archiveDownloadService.UnzipFile($"c:\\temp\\{filename}", @"c:\temp\");
+            var extractResult = _archiveDownloadService.UnzipFile(zipFile, extractPath);
 
             if (!extractResult)
             {

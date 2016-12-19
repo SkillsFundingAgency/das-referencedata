@@ -41,8 +41,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         public bool UnzipFile(string zipFile, string targetPath)
         {
             var fileInfo = new FileInfo(zipFile);
-            var fullTargetPath = Path.Combine(targetPath, fileInfo.Name);
-            ZipFile.ExtractToDirectory(zipFile, Path.GetFileNameWithoutExtension(fullTargetPath));
+
+            ZipFile.ExtractToDirectory(zipFile, targetPath);
             return true;
         }
     }

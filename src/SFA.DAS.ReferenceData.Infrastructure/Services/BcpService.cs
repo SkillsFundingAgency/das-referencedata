@@ -51,7 +51,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                         //_logger.Info(process.StandardOutput); //todo: log to logger
                         process.WaitForExit();
                         process.Close();
-                        exitCode = process.ExitCode;
+                        //exitCode = process.ExitCode;
                     }
                 }
                 catch (Exception ex)

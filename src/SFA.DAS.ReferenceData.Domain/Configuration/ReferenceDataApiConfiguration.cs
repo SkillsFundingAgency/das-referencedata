@@ -5,5 +5,6 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
     public class ReferenceDataApiConfiguration : IConfiguration
     {
         public string DatabaseConnectionString { get; set; }
+        public string CharityDataWorkingFolder { get; set; }
     }
 }
