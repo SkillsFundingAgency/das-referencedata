@@ -147,5 +147,20 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             //Assert
             _charityRepository.Verify(x => x.CreateCharityDataImport(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
+
+        [Test]
+        public async Task ThenIfDownloadFailsThenNoFurtherWorkIsDone()
+        {
+            //Setup
+            _archiveDownloadService.Setup(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(() => false);
+
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+            _archiveDownloadService.Verify(x=> x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _bcpService.Verify(x=> x.ExecuteBcp(It.IsAny<BcpRequest>()), Times.Never);
+            _charityRepository.Verify(x=> x.RecordCharityDataImport(It.IsAny<int>(), It.IsAny<int>()),Times.Never);
+        }
     }
 }
