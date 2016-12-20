@@ -12,9 +12,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
     {
         private readonly ILogger _logger;
 
-        public BcpService() //ILogger logger
+        public BcpService(ILogger logger)
         {
-            //_logger = logger; //todo: put this back
+            _logger = logger;
         }
 
         public bool ExecuteBcp(BcpRequest request)
@@ -26,6 +26,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             foreach (var file in files)
             {
                 var extractName = Path.GetFileNameWithoutExtension(file);
+
+                _logger.Info($"Beginning BCP for {extractName}");
 
                 var bcpArgs = $"[{request.TargetDb}].[{request.TargetSchema}].[{extractName}]" +
                               $" in {file} -S{request.ServerName} {login} -t{request.FieldTerminator} -r{request.RowTerminator} -c";
@@ -40,29 +42,34 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     RedirectStandardOutput = true
                 };
 
-                var output = "";
-                var exitCode = 0;
-
                 try
                 {
                     using (var process = Process.Start(bcpProcessInfo))
                     {
-                        output = process.StandardOutput.ReadToEnd();
-                        //_logger.Info(process.StandardOutput); //todo: log to logger
+                        if (process == null)
+                        {
+                            _logger.Error("No process returned for BCP command");
+                            return false;
+                        }
+
+                        _logger.Info(process.StandardOutput);
                         process.WaitForExit();
+
+                        if (process.ExitCode != 0)
+                        {
+                            _logger.Warn($"BCP ended with exit code {process.ExitCode}");
+                        }
+
                         process.Close();
-                        //exitCode = process.ExitCode;
+                       
                     }
                 }
                 catch (Exception ex)
                 {
-                    //_logger.Error(ex);
+                    _logger.Error(ex, "BCP error");
                     return false;
                 }
-
             }
-
-            //look at exit code
 
             return true;
         }

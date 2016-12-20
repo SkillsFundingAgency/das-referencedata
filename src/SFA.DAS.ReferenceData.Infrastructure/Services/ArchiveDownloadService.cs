@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 using NLog.Targets;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using System.IO.Compression;
+using NLog;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
     public class ArchiveDownloadService : IArchiveDownloadService
     {
+        private readonly ILogger _logger;
+
+        public ArchiveDownloadService(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public async Task<bool> DownloadFile(string url, string targetPath, string targetFilename)
         {
             var filenameAndPath = Path.Combine(targetPath, targetFilename);
@@ -40,9 +48,31 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
         public bool UnzipFile(string zipFile, string targetPath)
         {
-            var fileInfo = new FileInfo(zipFile);
-
-            ZipFile.ExtractToDirectory(zipFile, targetPath);
+            var dirInfo = new DirectoryInfo(targetPath);
+            if (dirInfo.Exists)
+            {
+                _logger.Warn($"Extract folder {targetPath} already exists - deleting");
+                try
+                {
+                    dirInfo.Delete(true);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex, "Error deleting folder");
+                    return false;
+                }
+            }
+            
+            try
+            {
+                _logger.Warn($"Extracting {zipFile} to {targetPath}");
+                ZipFile.ExtractToDirectory(zipFile, targetPath);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error extracting archive");
+                return false;   
+            }
             return true;
         }
     }

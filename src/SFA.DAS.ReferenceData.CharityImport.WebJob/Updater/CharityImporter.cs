@@ -3,6 +3,8 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using NLog;
+using SFA.DAS.ReferenceData.Domain.Configuration;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
@@ -11,13 +13,15 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 {
     public class CharityImporter : ICharityImporter
     {
+        private readonly ReferenceDataApiConfiguration _configuration;
         private readonly ICharityRepository _charityRepository;
         private readonly IBcpService _bcpService;
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILogger _logger;
         
-        public CharityImporter(ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService, ILogger logger)
+        public CharityImporter(ReferenceDataApiConfiguration configuration, ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService, ILogger logger)
         {
+            _configuration = configuration;
             _charityRepository = charityRepository;
             _bcpService = bcpService;
             _archiveDownloadService = archiveDownloadService;
@@ -26,10 +30,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
         public async Task RunUpdate()
         {
-            var workingDirectory = @"c:\temp\";
+            _logger.Info("Executing CharityImporter");
 
-
-
+            //Default to Nov 2016
             var importMonth = 11;
             var importYear = 2016;
 
@@ -37,6 +40,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             if (lastImport != null)
             {
+                //Target subsequent month's file
                 importMonth = lastImport.Month + 1;
                 importYear = lastImport.Year;
                 if (importMonth > 12)
@@ -46,61 +50,56 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 }
             }
 
-
             await _charityRepository.TruncateLoadTables();
 
             var url = GetExtractUrlForMonthYear(importMonth, importYear);
             var filename = GetFilenameForMonthYear(importMonth, importYear);
 
-            var downloadResult = await _archiveDownloadService.DownloadFile(url, workingDirectory, filename);
-
-            if (!downloadResult)
+            if (!await _archiveDownloadService.DownloadFile(url, _configuration.CharityDataWorkingFolder, filename))
             {
-                //log error
                 return;
             }
 
-            var zipFile = Path.Combine(workingDirectory, filename);
-            var extractPath = Path.Combine(workingDirectory, Path.GetFileNameWithoutExtension(filename));
+            var zipFile = Path.Combine(_configuration.CharityDataWorkingFolder, filename);
+            var extractPath = Path.Combine(_configuration.CharityDataWorkingFolder, Path.GetFileNameWithoutExtension(filename));
 
-            var extractResult = _archiveDownloadService.UnzipFile(zipFile, extractPath);
-
-            if (!extractResult)
+            if (!_archiveDownloadService.UnzipFile(zipFile, extractPath))
             {
-                //log
                 return;
             }
-
 
             var bcp = new BcpRequest
             {
-                ServerName = @"(localdb)\MSSQLLocalDB",
-                UseTrustedConnection = true,
-                Username = "",
-                Password = "",
-                TargetDb = "AngularSpa", //todo: read from config
-                TargetSchema = "import",
-                RowTerminator = "*@@*",
-                FieldTerminator = "@**@",
-                SourceDirectory = @"c:\temp\" + Path.GetFileNameWithoutExtension(filename)
+                ServerName = _configuration.CharityBcpServerName,
+                UseTrustedConnection = _configuration.CharityBcpTrustedConnection,
+                Username = _configuration.CharityBcpUsername,
+                Password = _configuration.CharityBcpPassword,
+                TargetDb = _configuration.CharityBcpTargetDb,
+                TargetSchema = _configuration.CharityBcpTargetSchema,
+                RowTerminator = _configuration.CharityBcpRowTerminator,
+                FieldTerminator = _configuration.CharityBcpFieldTerminator,
+                SourceDirectory = _configuration.CharityDataWorkingFolder + Path.GetFileNameWithoutExtension(filename)
             };
-            //todo: get from config/azure storage
 
-            var bcpResult = _bcpService.ExecuteBcp(bcp);
+            if (!_bcpService.ExecuteBcp(bcp))
+            {
+                return;
+            }
 
             //record import in db
-            //...
             await _charityRepository.CreateCharityDataImport(importMonth, importYear);
 
         }
 
         private string GetExtractUrlForMonthYear(int month, int year)
         {
-            var rootUrl = @"http://apps.charitycommission.gov.uk/data";
+            var urlpattern = _configuration.CharityDataSourceUrlPattern;
+
             var dateNumericString = $"{year}{month}";
-            var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}"; 
-                     
-            return $"{rootUrl}/{dateNumericString}_2/extract1/RegPlusExtract_{monthyear}.zip";
+            var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}";
+
+            var url = String.Format(urlpattern, dateNumericString, monthyear);
+            return url;
         }
 
         private string GetFilenameForMonthYear(int month, int year)
