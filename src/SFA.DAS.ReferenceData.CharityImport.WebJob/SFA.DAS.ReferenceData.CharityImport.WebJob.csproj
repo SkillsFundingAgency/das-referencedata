@@ -103,8 +103,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config"/>
-    <None Include="Properties\webjob-publish-settings.json" />
+    <None Include="packages.config" />
+    <Content Include="Properties\webjob-publish-settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Application\SFA.DAS.ReferenceData.Application.csproj">
