@@ -36,9 +36,12 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
             var response = await _mediator.SendAsync(query);
 
+            if (response.Charity == null)
+            {
+                return NotFound();
+            }
+
             return Ok(response.Charity);
         }
-
-
     }
 }

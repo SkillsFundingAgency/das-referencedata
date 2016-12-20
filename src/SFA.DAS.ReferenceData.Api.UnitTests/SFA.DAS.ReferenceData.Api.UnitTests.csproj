@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\OrganisationControllerTests\WhenIGetCharityByRegistrationNumber.cs" />
     <Compile Include="Controllers\OrganisationControllerTests\WhenIGetPublicSectorOrganisations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
