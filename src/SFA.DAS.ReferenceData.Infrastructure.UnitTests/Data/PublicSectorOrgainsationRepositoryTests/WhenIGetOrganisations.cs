@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
+using NLog;
 using NUnit.Framework;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
@@ -15,6 +16,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         private PublicSectorOrganisationRepository _repository;
         private Mock<ICacheProvider> _cacheProvider;
         private PublicSectorOrganisationLookUp _lookup;
+        private Mock<ILogger> _logger;
 
         [SetUp]
         public void Arrange()
@@ -38,7 +40,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
 
             _cacheProvider = new Mock<ICacheProvider>();
 
-            _repository = new PublicSectorOrganisationRepository(_cacheProvider.Object, _azureService.Object);
+            _logger = new Mock<ILogger>();
+
+            _repository = new PublicSectorOrganisationRepository(_cacheProvider.Object, _azureService.Object, _logger.Object);
         }
 
         [Test]
@@ -82,5 +86,25 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
                 It.IsAny<string>(),
                  It.IsAny<string>()), Times.Never);
         }
+
+        [Test]
+        public async Task ThenIfNullIsReturnedFromTheAzureServiceAnEmptyCollectionShouldBeReturned()
+        {
+            //Arrange
+            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns((PublicSectorOrganisationLookUp)null);
+
+            _azureService.Setup(x => x.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(
+               It.IsAny<string>(),
+               It.IsAny<string>()))
+                        .ReturnsAsync((PublicSectorOrganisationLookUp)null);
+
+            //Act
+            var result = await _repository.GetOrganisations();
+
+            //Assert
+            Assert.IsEmpty(result);
+        }
+
     }
 }
