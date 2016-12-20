@@ -66,7 +66,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             _archiveDownloadService.UnzipFile(zipFile, extractPath);
 
-            var bcp = new BcpRequest
+            _bcpService.ExecuteBcp(new BcpRequest
             {
                 ServerName = _configuration.CharityBcpServerName,
                 UseTrustedConnection = _configuration.CharityBcpTrustedConnection,
@@ -77,9 +77,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 RowTerminator = _configuration.CharityBcpRowTerminator,
                 FieldTerminator = _configuration.CharityBcpFieldTerminator,
                 SourceDirectory = _configuration.CharityDataWorkingFolder + Path.GetFileNameWithoutExtension(filename)
-            };
-
-            _bcpService.ExecuteBcp(bcp);
+            });
 
             //transfer data into data tables
             await _charityRepository.ImportDataFromLoadTables();
