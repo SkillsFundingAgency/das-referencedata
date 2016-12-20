@@ -4,6 +4,7 @@ using Moq;
 using NLog;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using NUnit.Framework;
+using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
@@ -14,6 +15,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
     public class WhenIImportCharityData
     {
         private CharityImporter _importer;
+        private ReferenceDataApiConfiguration _configuration;
         private Mock<ICharityRepository> _charityRepository;
         private Mock<IBcpService> _bcpService;
         private Mock<IArchiveDownloadService> _archiveDownloadService;
@@ -34,11 +36,22 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
                 x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(() => true);
 
-            _archiveDownloadService.Setup(
-                x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => true);
+            _configuration = new ReferenceDataApiConfiguration
+            {
+                DatabaseConnectionString="",
+                CharityDataSourceUrlPattern="_{0}_{1}_",
+                CharityDataWorkingFolder="",
+                CharityBcpServerName="",
+                CharityBcpTrustedConnection=false,
+                CharityBcpUsername="",
+                CharityBcpPassword="",
+                CharityBcpTargetDb="",
+                CharityBcpTargetSchema="",
+                CharityBcpRowTerminator="",
+                CharityBcpFieldTerminator="",
+            };
 
-            _importer = new CharityImporter(_charityRepository.Object, _bcpService.Object, _archiveDownloadService.Object, _logger.Object);
+            _importer = new CharityImporter(_configuration, _charityRepository.Object, _bcpService.Object, _archiveDownloadService.Object, _logger.Object);
         }
 
         [Test]
@@ -68,7 +81,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         }
 
         [Test]
-        public async Task ThenIfNoPreviousImportExistsThenCurrentMonthIsUsedAsDefault()
+        public async Task ThenIfNoPreviousImportExistsThenNovember2016IsUsedAsDefault()
         {
             //Setup
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
@@ -78,7 +91,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            var expectedFile = $"{DateTime.Now.ToString("MMMM")}_{DateTime.Now.Year}";
+            var expectedFile = "November_2016";
 
             _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
         }

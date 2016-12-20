@@ -44,7 +44,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         {
             var parameters = new DynamicParameters();
             parameters.Add("@month", month, DbType.Int32);
-            parameters.Add("@year", month, DbType.Int32);
+            parameters.Add("@year", year, DbType.Int32);
 
             var result = await WithConnection(async c => await c.ExecuteAsync(
                 sql: "[CharityData].[CreateCharityDataImport]",

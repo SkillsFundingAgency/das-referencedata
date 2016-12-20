@@ -46,7 +46,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             return true;
         }
 
-        public bool UnzipFile(string zipFile, string targetPath)
+        public void UnzipFile(string zipFile, string targetPath)
         {
             var dirInfo = new DirectoryInfo(targetPath);
             if (dirInfo.Exists)
@@ -59,7 +59,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Error deleting folder");
-                    return false;
+                    throw;
                 }
             }
             
@@ -71,9 +71,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error extracting archive");
-                return false;   
+                throw;
             }
-            return true;
         }
     }
 }

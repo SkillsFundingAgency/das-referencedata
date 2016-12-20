@@ -57,16 +57,14 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             if (!await _archiveDownloadService.DownloadFile(url, _configuration.CharityDataWorkingFolder, filename))
             {
+                _logger.Error($"Failed to download data from {url}");
                 return;
             }
 
             var zipFile = Path.Combine(_configuration.CharityDataWorkingFolder, filename);
             var extractPath = Path.Combine(_configuration.CharityDataWorkingFolder, Path.GetFileNameWithoutExtension(filename));
 
-            if (!_archiveDownloadService.UnzipFile(zipFile, extractPath))
-            {
-                return;
-            }
+            _archiveDownloadService.UnzipFile(zipFile, extractPath);
 
             var bcp = new BcpRequest
             {
@@ -81,10 +79,8 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 SourceDirectory = _configuration.CharityDataWorkingFolder + Path.GetFileNameWithoutExtension(filename)
             };
 
-            if (!_bcpService.ExecuteBcp(bcp))
-            {
-                return;
-            }
+            _bcpService.ExecuteBcp(bcp);
+
 
             //record import in db
             await _charityRepository.CreateCharityDataImport(importMonth, importYear);

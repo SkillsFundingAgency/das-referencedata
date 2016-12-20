@@ -10,7 +10,7 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
     {
         Task<bool> DownloadFile(string url, string targetPath, string targetFilename);
 
-        bool UnzipFile(string zipFile, string targetPath);
+        void UnzipFile(string zipFile, string targetPath);
 
     }
 }

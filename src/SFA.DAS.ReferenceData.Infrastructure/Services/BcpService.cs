@@ -17,9 +17,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             _logger = logger;
         }
 
-        public bool ExecuteBcp(BcpRequest request)
+        public void ExecuteBcp(BcpRequest request)
         {
-            var login = request.UseTrustedConnection ? "-T" : $"U{request.Username} -P{request.Password}";
+            var login = request.UseTrustedConnection ? "-T" : $"-U{request.Username} -P{request.Password}";
 
             var files = Directory.EnumerateFiles(request.SourceDirectory, "*.bcp").ToList();
 
@@ -48,16 +48,17 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     {
                         if (process == null)
                         {
-                            _logger.Error("No process returned for BCP command");
-                            return false;
+                            throw new InvalidOperationException("No process returned for BCP command");
                         }
 
-                        _logger.Info(process.StandardOutput);
+                        var output = process.StandardOutput.ReadToEnd();
+
                         process.WaitForExit();
 
                         if (process.ExitCode != 0)
                         {
-                            _logger.Warn($"BCP ended with exit code {process.ExitCode}");
+                            _logger.Error($"BCP ended with exit code {process.ExitCode}");
+                            throw new InvalidOperationException(output);
                         }
 
                         process.Close();
@@ -67,11 +68,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "BCP error");
-                    return false;
+                    throw;
                 }
             }
-
-            return true;
         }
 
     }
