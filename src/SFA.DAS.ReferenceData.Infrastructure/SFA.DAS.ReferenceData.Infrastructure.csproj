@@ -114,6 +114,7 @@
     <Compile Include="Caching\TaskSynchronizationScope.cs" />
     <Compile Include="Data\PublicSectorOrganisationRepository.cs" />
     <Compile Include="DependencyResolution\ConfigurationPolicy.cs" />
+    <Compile Include="DependencyResolution\LoggingPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureServiceBase.cs" />
   </ItemGroup>
