@@ -104,5 +104,6 @@
     <Build Include="Tables\remove_ref.sql" />
     <Build Include="Tables\trustee.sql" />
     <Build Include="StoredProcedures\ImportDataFromLoadTables.sql" />
+    <Build Include="StoredProcedures\GetCharityByRegistrationNumber.sql" />
   </ItemGroup>
 </Project>

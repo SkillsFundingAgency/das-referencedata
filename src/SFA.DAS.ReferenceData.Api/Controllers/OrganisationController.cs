@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using MediatR;
+using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
@@ -23,5 +24,21 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
             return Ok(response.Organisations);
         }
+
+        [Route("charity/{registrationNumber}", Name = "Charity")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetCharity(int registrationNumber)
+        {
+            var query = new GetCharityByRegistrationNumberQuery
+            {
+                RegistrationNumber = registrationNumber
+            };
+
+            var response = await _mediator.SendAsync(query);
+
+            return Ok(response.Charity);
+        }
+
+
     }
 }

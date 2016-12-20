@@ -58,5 +58,17 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 sql: "[CharityData].[ImportDataFromLoadTables]",
                 commandType: CommandType.StoredProcedure));
         }
+
+        public async Task<Charity> GetCharityByRegistrationNumber(int registrationNumber)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@RegistrationNumber", registrationNumber, DbType.Int32);
+
+            var result = await WithConnection(async c => await c.QueryAsync<Charity>(
+                sql: "[CharityData].[GetCharityByRegistrationNumber]",
+                param: parameters,
+                commandType: CommandType.StoredProcedure));
+            return result.SingleOrDefault();
+        }
     }
 }

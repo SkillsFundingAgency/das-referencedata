@@ -48,8 +48,9 @@
     <Compile Include="Interfaces\Data\IOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
-     <Compile Include="Interfaces\Services\IPublicSectorOrganisationLookUpService.cs" />
+    <Compile Include="Interfaces\Services\IPublicSectorOrganisationLookUpService.cs" />
     <Compile Include="Models\Bcp\BcpRequest.cs" />
+    <Compile Include="Models\Charity\Charity.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />
