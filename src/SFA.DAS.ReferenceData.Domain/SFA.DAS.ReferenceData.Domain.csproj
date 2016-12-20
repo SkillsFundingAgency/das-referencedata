@@ -50,7 +50,7 @@
     <Compile Include="Models\Bcp\BcpRequest.cs" />
     <Compile Include="Models\Charity\Charity.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
-    <Compile Include="Interfaces\Data\IPubicSectorOrganisationRepository.cs" />
+    <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />

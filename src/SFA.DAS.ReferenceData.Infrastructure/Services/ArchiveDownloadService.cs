@@ -23,6 +23,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
         public async Task<bool> DownloadFile(string url, string targetPath, string targetFilename)
         {
+            Directory.CreateDirectory(targetPath);
+
             var filenameAndPath = Path.Combine(targetPath, targetFilename);
 
             using (var client = new HttpClient())
