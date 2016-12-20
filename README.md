@@ -56,7 +56,8 @@ Below is an example of what the file may look like
 	"OrganisationNames": [
 		"Organisation 1", 
 		"Organisation 2", 
-		"Organisation 3"
+		"Organisation 3",
+		"Organisation 4",
 		]
 }
 ```

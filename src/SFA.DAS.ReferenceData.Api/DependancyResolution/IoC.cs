@@ -27,6 +27,7 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution {
             return new Container(c =>
             {
                 c.Policies.Add(new ConfigurationPolicy<ReferenceDataApiConfiguration>(ServiceName));
+                c.Policies.Add(new LoggingPolicy());
                 c.AddRegistry<DefaultRegistry>();
             });
         }
