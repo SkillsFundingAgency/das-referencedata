@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Models;
 
-namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
+namespace SFA.DAS.ReferenceData.Domain.Interfaces.Data
 {
-    public interface IPublicSectorOrganisationLookUpService
+    public interface IPubicSectorOrganisationRepository
     {
         Task<ICollection<PublicSectorOrganisation>> GetOrganisations();
     }

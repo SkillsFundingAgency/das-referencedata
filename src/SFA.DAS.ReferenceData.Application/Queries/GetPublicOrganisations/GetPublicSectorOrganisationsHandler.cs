@@ -1,23 +1,24 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 
 namespace SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations
 {
     public class GetPublicSectorOrganisationsHandler : IAsyncRequestHandler<GetPublicSectorOrgainsationsQuery, GetPublicSectorOrganisationsResponse>
     {
-        private readonly IPublicSectorOrganisationLookUpService _lookupService;
+        private readonly IPubicSectorOrganisationRepository _pubicSectorOrganisationRepository;
 
-        public GetPublicSectorOrganisationsHandler(IPublicSectorOrganisationLookUpService lookupService)
+
+        public GetPublicSectorOrganisationsHandler(IPubicSectorOrganisationRepository pubicSectorOrganisationRepository)
         {
-            _lookupService = lookupService;
+            _pubicSectorOrganisationRepository = pubicSectorOrganisationRepository;
         }
 
         public async Task<GetPublicSectorOrganisationsResponse> Handle(GetPublicSectorOrgainsationsQuery query)
         {
             return new GetPublicSectorOrganisationsResponse
             {
-                Organisations = await _lookupService.GetOrganisations()
+                Organisations = await _pubicSectorOrganisationRepository.GetOrganisations()
             };
         }
     }
