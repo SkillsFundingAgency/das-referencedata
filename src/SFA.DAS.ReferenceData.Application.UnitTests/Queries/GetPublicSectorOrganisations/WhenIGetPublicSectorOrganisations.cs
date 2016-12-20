@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrganisations
 {
     class WhenIGetPublicSectorOrganisations
     {
-        private Mock<IPublicSectorOrganisationLookUpService> _lookUpService;
+        private Mock<IPublicSectorOrganisationRepository> _publicSectorOrganisationRepository;
         private GetPublicSectorOrganisationsHandler _handler;
         private ICollection<PublicSectorOrganisation> _organisations;
 
@@ -22,12 +24,12 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
                 new PublicSectorOrganisation {Name = "Test Organisation"}
             };
 
-            _lookUpService = new Mock<IPublicSectorOrganisationLookUpService>();
+            _publicSectorOrganisationRepository = new Mock<IPublicSectorOrganisationRepository>();
 
-            _lookUpService.Setup(x => x.GetOrganisations())
+            _publicSectorOrganisationRepository.Setup(x => x.GetOrganisations())
                           .ReturnsAsync(_organisations);
 
-            _handler = new GetPublicSectorOrganisationsHandler(_lookUpService.Object);
+            _handler = new GetPublicSectorOrganisationsHandler(_publicSectorOrganisationRepository.Object);
         }
 
         [Test]
@@ -37,7 +39,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
             var response = await _handler.Handle(new GetPublicSectorOrgainsationsQuery());
 
             //Assert
-            _lookUpService.Verify(x => x.GetOrganisations(), Times.Once);
+            _publicSectorOrganisationRepository.Verify(x => x.GetOrganisations(), Times.Once);
             Assert.AreEqual(_organisations, response.Organisations);
         }
     }
