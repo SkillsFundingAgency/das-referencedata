@@ -6,7 +6,7 @@ using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
-    [RoutePrefix("api/organisation")]
+    [RoutePrefix("api/organisations")]
     public class OrganisationController : ApiController
     {
         private readonly IMediator _mediator;
@@ -16,7 +16,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             _mediator = mediator;
         }
 
-        [Route("public", Name = "Public Sector")]
+        [Route("publicsectorbodies", Name = "Public Sector")]
         [HttpGet]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations()
         {
@@ -25,7 +25,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             return Ok(response.Organisations);
         }
 
-        [Route("charity/{registrationNumber}", Name = "Charity")]
+        [Route("charities/{registrationNumber}", Name = "Charity")]
         [HttpGet]
         public async Task<IHttpActionResult> GetCharity(int registrationNumber)
         {
