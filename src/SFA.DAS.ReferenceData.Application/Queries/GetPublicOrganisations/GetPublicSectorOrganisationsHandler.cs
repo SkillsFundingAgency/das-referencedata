@@ -6,19 +6,19 @@ namespace SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations
 {
     public class GetPublicSectorOrganisationsHandler : IAsyncRequestHandler<GetPublicSectorOrgainsationsQuery, GetPublicSectorOrganisationsResponse>
     {
-        private readonly IPubicSectorOrganisationRepository _pubicSectorOrganisationRepository;
+        private readonly IPublicSectorOrganisationRepository _publicSectorOrganisationRepository;
 
 
-        public GetPublicSectorOrganisationsHandler(IPubicSectorOrganisationRepository pubicSectorOrganisationRepository)
+        public GetPublicSectorOrganisationsHandler(IPublicSectorOrganisationRepository publicSectorOrganisationRepository)
         {
-            _pubicSectorOrganisationRepository = pubicSectorOrganisationRepository;
+            _publicSectorOrganisationRepository = publicSectorOrganisationRepository;
         }
 
         public async Task<GetPublicSectorOrganisationsResponse> Handle(GetPublicSectorOrgainsationsQuery query)
         {
             return new GetPublicSectorOrganisationsResponse
             {
-                Organisations = await _pubicSectorOrganisationRepository.GetOrganisations()
+                Organisations = await _publicSectorOrganisationRepository.GetOrganisations()
             };
         }
     }

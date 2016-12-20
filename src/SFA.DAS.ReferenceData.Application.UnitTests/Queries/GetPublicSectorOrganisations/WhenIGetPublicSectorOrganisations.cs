@@ -12,7 +12,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
 {
     class WhenIGetPublicSectorOrganisations
     {
-        private Mock<IPubicSectorOrganisationRepository> _publicSectorOrganisationRepository;
+        private Mock<IPublicSectorOrganisationRepository> _publicSectorOrganisationRepository;
         private GetPublicSectorOrganisationsHandler _handler;
         private ICollection<PublicSectorOrganisation> _organisations;
 
@@ -24,7 +24,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
                 new PublicSectorOrganisation {Name = "Test Organisation"}
             };
 
-            _publicSectorOrganisationRepository = new Mock<IPubicSectorOrganisationRepository>();
+            _publicSectorOrganisationRepository = new Mock<IPublicSectorOrganisationRepository>();
 
             _publicSectorOrganisationRepository.Setup(x => x.GetOrganisations())
                           .ReturnsAsync(_organisations);

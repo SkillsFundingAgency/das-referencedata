@@ -10,7 +10,7 @@ using SFA.DAS.ReferenceData.Infrastructure.Caching;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
-    public class PublicSectorOrganisationRepository : IPubicSectorOrganisationRepository
+    public class PublicSectorOrganisationRepository : IPublicSectorOrganisationRepository
     {
         private readonly ICacheProvider _cacheProvider;
         private readonly IAzureService _azureService;
