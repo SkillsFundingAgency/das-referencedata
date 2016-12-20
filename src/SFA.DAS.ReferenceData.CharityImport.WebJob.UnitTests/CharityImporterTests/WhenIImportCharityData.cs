@@ -129,6 +129,16 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         }
 
         [Test]
+        public async Task ThenDataIsTransferredFromLoadTables()
+        {
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+            _charityRepository.Verify(x => x.ImportDataFromLoadTables(), Times.Once);
+        }
+
+        [Test]
         public async Task ThenTheImportIsRecorded()
         {
             //Act

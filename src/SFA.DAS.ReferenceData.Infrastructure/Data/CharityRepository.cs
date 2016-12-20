@@ -51,5 +51,12 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 param: parameters,
                 commandType: CommandType.StoredProcedure));
         }
+
+        public async Task ImportDataFromLoadTables()
+        {
+            var result = await WithConnection(async c => await c.ExecuteAsync(
+                sql: "[CharityData].[ImportDataFromLoadTables]",
+                commandType: CommandType.StoredProcedure));
+        }
     }
 }

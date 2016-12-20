@@ -81,10 +81,11 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             _bcpService.ExecuteBcp(bcp);
 
+            //transfer data into data tables
+            await _charityRepository.ImportDataFromLoadTables();
 
             //record import in db
             await _charityRepository.CreateCharityDataImport(importMonth, importYear);
-
         }
 
         private string GetExtractUrlForMonthYear(int month, int year)

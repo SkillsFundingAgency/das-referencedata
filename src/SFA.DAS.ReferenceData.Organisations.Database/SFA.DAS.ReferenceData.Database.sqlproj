@@ -87,5 +87,22 @@
     <Build Include="Schemas\CharityData.sql" />
     <Build Include="StoredProcedures\GetLastCharityDataImport.sql" />
     <Build Include="StoredProcedures\CreateCharityDataImport.sql" />
+    <Build Include="Tables\acct_submit.sql" />
+    <Build Include="Tables\aoo_ref.sql" />
+    <Build Include="Tables\ar_submit.sql" />
+    <Build Include="Tables\charity.sql" />
+    <Build Include="Tables\charity_aoo.sql" />
+    <Build Include="Tables\class.sql" />
+    <Build Include="Tables\class_ref.sql" />
+    <Build Include="Tables\financial.sql" />
+    <Build Include="Tables\main_charity.sql" />
+    <Build Include="Tables\name.sql" />
+    <Build Include="Tables\objects.sql" />
+    <Build Include="Tables\overseas_expend.sql" />
+    <Build Include="Tables\partb.sql" />
+    <Build Include="Tables\registration.sql" />
+    <Build Include="Tables\remove_ref.sql" />
+    <Build Include="Tables\trustee.sql" />
+    <Build Include="StoredProcedures\ImportDataFromLoadTables.sql" />
   </ItemGroup>
 </Project>
