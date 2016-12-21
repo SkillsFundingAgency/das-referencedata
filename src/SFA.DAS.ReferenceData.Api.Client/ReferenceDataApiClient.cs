@@ -36,5 +36,18 @@ namespace SFA.DAS.ReferenceData.Api.Client
 
             return JsonConvert.DeserializeObject<Dto.Charity>(json);
         }
+
+        public async Task<Dto.PagedApiResponse<Dto.PublicSectorOrganisation>> SearchPublicSectorOrganisation(string searchTerm, int pageNumber, int pageSize)
+        {
+            var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
+                ? _configuration.ApiBaseUrl
+                : _configuration.ApiBaseUrl + "/";
+
+            var url = $"{baseUrl}publicsectorbodies?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
+
+            var json = await _httpClient.GetAsync(url);
+            return JsonConvert.DeserializeObject<Dto.PagedApiResponse<Dto.PublicSectorOrganisation>>(json);
+
+        }
     }
 }

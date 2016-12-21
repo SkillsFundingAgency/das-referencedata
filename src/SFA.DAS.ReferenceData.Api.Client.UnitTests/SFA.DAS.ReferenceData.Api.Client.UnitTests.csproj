@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceDataApiClientTests\WhenGettingACharity.cs" />
+    <Compile Include="ReferenceDataApiClientTests\WhenSearchingForAPublicSectorOrganisation.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
