@@ -24,7 +24,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
             _httpClient = httpClient;
         }
 
-        public async Task<Dto.Charity> GetCharity(string regisrationNumber)
+        public async Task<Dto.Charity> GetCharity(int regisrationNumber)
         {
             var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
                 ? _configuration.ApiBaseUrl

@@ -8,6 +8,6 @@ namespace SFA.DAS.ReferenceData.Api.Client
 {
     public interface IReferenceDataApiClient
     {
-        Task<Dto.Charity> GetCharity(string regisrationNumber);
+        Task<Dto.Charity> GetCharity(int regisrationNumber);
     }
 }
