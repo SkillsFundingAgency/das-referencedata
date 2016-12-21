@@ -31,8 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Chari
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests", "SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests\SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.csproj", "{655DA797-11A7-4A2A-A681-908C5CFEEC83}"
 EndProject
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Infrastructure.UnitTests", "SFA.DAS.ReferenceData.Infrastructure.UnitTests\SFA.DAS.ReferenceData.Infrastructure.UnitTests.csproj", "{9477BE74-E86C-4786-BB1B-52F05F608E61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.Client", "SFA.DAS.ReferenceData.Api.Client\SFA.DAS.ReferenceData.Api.Client.csproj", "{AAEEAB67-1780-4D6B-8F18-801ADF0023F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.Client.UnitTests", "SFA.DAS.ReferenceData.Api.Client.UnitTests\SFA.DAS.ReferenceData.Api.Client.UnitTests.csproj", "{630766FB-69F0-4E15-8B71-2708BAA2AAA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +89,14 @@ Global
 		{9477BE74-E86C-4786-BB1B-52F05F608E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9477BE74-E86C-4786-BB1B-52F05F608E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9477BE74-E86C-4786-BB1B-52F05F608E61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAEEAB67-1780-4D6B-8F18-801ADF0023F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAEEAB67-1780-4D6B-8F18-801ADF0023F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAEEAB67-1780-4D6B-8F18-801ADF0023F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAEEAB67-1780-4D6B-8F18-801ADF0023F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{630766FB-69F0-4E15-8B71-2708BAA2AAA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630766FB-69F0-4E15-8B71-2708BAA2AAA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630766FB-69F0-4E15-8B71-2708BAA2AAA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630766FB-69F0-4E15-8B71-2708BAA2AAA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +106,6 @@ Global
 		{495F7A72-AB89-4C4C-BD90-A4549FDB0A44} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{655DA797-11A7-4A2A-A681-908C5CFEEC83} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{9477BE74-E86C-4786-BB1B-52F05F608E61} = {2A48E4D6-D887-483D-91AD-B9500A485371}
+		{630766FB-69F0-4E15-8B71-2708BAA2AAA6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 	EndGlobalSection
 EndGlobal
