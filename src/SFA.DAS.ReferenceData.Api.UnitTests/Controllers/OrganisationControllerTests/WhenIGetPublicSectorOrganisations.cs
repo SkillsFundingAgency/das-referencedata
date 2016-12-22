@@ -16,13 +16,13 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
     {
         private Mock<IMediator> _mediator;
        
-        private GetPublicSectorOrganisationsResponse _response;
+        private FindPublicSectorOrganisationResponse _response;
         private OrganisationController _controller;
 
         [SetUp]
         public void Arrange()
         {
-            _response = new GetPublicSectorOrganisationsResponse
+            _response = new FindPublicSectorOrganisationResponse
             {
                 Organisations = new List<PublicSectorOrganisation>
                 {
@@ -32,7 +32,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
 
             _mediator = new Mock<IMediator>();
 
-            _mediator.Setup(x => x.SendAsync(It.IsAny<GetPublicSectorOrgainsationsQuery>()))
+            _mediator.Setup(x => x.SendAsync(It.IsAny<FindPublicSectorOrgainsationQuery>()))
                      .ReturnsAsync(_response);
 
             _controller = new OrganisationController(_mediator.Object);
@@ -46,7 +46,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
                 as OkNegotiatedContentResult<ICollection<PublicSectorOrganisation>>;
             
             //Assert
-            _mediator.Verify(x => x.SendAsync(It.IsAny<GetPublicSectorOrgainsationsQuery>()), Times.Once);
+            _mediator.Verify(x => x.SendAsync(It.IsAny<FindPublicSectorOrgainsationQuery>()), Times.Once);
             Assert.IsNotNull(result);
             Assert.AreEqual(_response.Organisations, result.Content);
         }
