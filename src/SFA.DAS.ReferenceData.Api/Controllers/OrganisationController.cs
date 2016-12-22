@@ -18,9 +18,14 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("publicsectorbodies", Name = "Public Sector")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetPublicSectorOrganisations()
+        public async Task<IHttpActionResult> GetPublicSectorOrganisations(string searchTerm = "", int pageSize = 1000, int pageNumber = 1)
         {
-            var response = await _mediator.SendAsync(new GetPublicSectorOrgainsationsQuery());
+            var response = await _mediator.SendAsync(new FindPublicSectorOrgainsationQuery
+            {
+                SearchTerm = searchTerm,
+                PageSize = pageSize,
+                PageNumber = pageNumber
+            });
 
             return Ok(response.Organisations);
         }

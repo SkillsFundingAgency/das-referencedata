@@ -57,8 +57,8 @@
     <Compile Include="Queries\GetCharityByRegistrationNumber\GetCharityByRegistrationNumberQuery.cs" />
     <Compile Include="Queries\GetCharityByRegistrationNumber\GetCharityByRegistrationNumberHandler.cs" />
     <Compile Include="Queries\GetCharityByRegistrationNumber\GetCharityByRegistrationNumberResponse.cs" />
-    <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrgainsationsQuery.cs" />
-    <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrganisationsResponse.cs" />
+    <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrgainsationQuery.cs" />
+    <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrganisationResponse.cs" />
     <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrganisationsHandler.cs" />
   </ItemGroup>
   <ItemGroup>
