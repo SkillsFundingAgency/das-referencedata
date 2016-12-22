@@ -26,7 +26,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             _logger = logger;
         }
 
-        public async Task<ICollection<PublicSectorOrganisation>> GetOrganisations()
+        public async Task<ICollection<PublicSectorOrganisation>> FindOrganisations(string searchTerm, int pageSize, int pageNumber)
         {
             return await Task.Run(async() =>
             {
@@ -49,12 +49,38 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     _logger.Info($"Cached public sector organisations till {DateTime.Now.AddDays(14):R}");
                 }
 
-                var organisations = lookUp.OrganisationNames
-                    .Select(name => new PublicSectorOrganisation { Name = name })
-                    .ToList();
+                pageSize = pageSize < 1 ? 1 : pageSize;
 
-                return organisations;
+                var organisations = lookUp.OrganisationNames.ToList();
+
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    organisations = organisations.Where(name => name.IndexOf(searchTerm, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+                }
+
+                var offset = GetPageOffset(pageSize, pageNumber, organisations.Count);
+
+                organisations = organisations.Skip(offset)
+                                             .Take(pageSize)
+                                             .ToList();
+
+                var selectedOrgainsations = organisations.Select(name =>
+                    new PublicSectorOrganisation
+                    {
+                        Name = name
+                    }).ToList();
+
+                return selectedOrgainsations;
             });
+        }
+
+        private static int GetPageOffset(int pageSize, int pageNumber, int organisationCount)
+        {
+            var maxOffset = organisationCount - pageSize;
+
+            var offset = pageNumber < 2 ? 0 : pageNumber * pageSize;
+
+            return offset > maxOffset ? maxOffset : offset;
         }
     }
 }

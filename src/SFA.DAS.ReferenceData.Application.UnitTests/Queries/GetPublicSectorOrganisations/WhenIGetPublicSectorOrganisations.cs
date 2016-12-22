@@ -15,7 +15,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
         private Mock<IPublicSectorOrganisationRepository> _publicSectorOrganisationRepository;
         private GetPublicSectorOrganisationsHandler _handler;
         private ICollection<PublicSectorOrganisation> _organisations;
-
+       
         [SetUp]
         public void Arrange()
         {
@@ -26,8 +26,11 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
 
             _publicSectorOrganisationRepository = new Mock<IPublicSectorOrganisationRepository>();
 
-            _publicSectorOrganisationRepository.Setup(x => x.GetOrganisations())
-                          .ReturnsAsync(_organisations);
+            _publicSectorOrganisationRepository.Setup(x => 
+                x.FindOrganisations(
+                    It.IsAny<string>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<int>())).ReturnsAsync(_organisations);
 
             _handler = new GetPublicSectorOrganisationsHandler(_publicSectorOrganisationRepository.Object);
         }
@@ -35,11 +38,20 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
         [Test]
         public async Task ThenIShouldGetAllOrganisationsFromTheRepository()
         {
+            //Arrange
+            var query = new FindPublicSectorOrgainsationQuery()
+            {
+                PageNumber = 2,
+                PageSize = 50,
+                SearchTerm = "test"
+            };
+
+
             //Act
-            var response = await _handler.Handle(new GetPublicSectorOrgainsationsQuery());
+            var response = await _handler.Handle(query);
 
             //Assert
-            _publicSectorOrganisationRepository.Verify(x => x.GetOrganisations(), Times.Once);
+            _publicSectorOrganisationRepository.Verify(x => x.FindOrganisations(query.SearchTerm, query.PageSize, query.PageNumber), Times.Once);
             Assert.AreEqual(_organisations, response.Organisations);
         }
     }

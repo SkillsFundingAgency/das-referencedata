@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NLog;
@@ -28,6 +29,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
                     "Test 1",
                     "Test 2",
                     "Test 3",
+                    "Example 1",
+                    "Example 2",
+                    "Example 3"
                 }
             };
 
@@ -53,7 +57,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
                           .Returns((PublicSectorOrganisationLookUp) null);
 
             //Act
-            var result = await _repository.GetOrganisations();
+            var result = await _repository.FindOrganisations("", 1000, 0);
 
             //Assert
             Assert.IsNotEmpty(result);
@@ -74,7 +78,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
                           .Returns(_lookup);
 
             //Act
-            var result = await _repository.GetOrganisations();
+            var result = await _repository.FindOrganisations("", 1000, 0);
 
             //Assert
             Assert.IsNotEmpty(result);
@@ -100,11 +104,95 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
                         .ReturnsAsync((PublicSectorOrganisationLookUp)null);
 
             //Act
-            var result = await _repository.GetOrganisations();
+            var result = await _repository.FindOrganisations("", 1000, 0);
 
             //Assert
             Assert.IsEmpty(result);
         }
 
+        [Test]
+        public async Task ThenShouldReturnOnlyResultsThatMatchSearchTerm()
+        {
+            //Arrange
+            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns(_lookup);
+
+            //Act
+            var result = await _repository.FindOrganisations("test", 10, 0);
+
+            //Assert
+            Assert.AreEqual(3, result.Count);
+
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 3")));
+        }
+
+        [Test]
+        public async Task ThenShouldReturnOnlyTheNumberOfResultsSentAsThePageSize()
+        {
+            //Arrange
+            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns(_lookup);
+
+            //Act
+            var result = await _repository.FindOrganisations("test", 2, 0);
+
+            //Assert
+            Assert.AreEqual(2, result.Count);
+
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
+        }
+
+        [Test]
+        public async Task ThenShouldReturnTheAFullPageOfTheLastResultsIfTheLastPageIsSelected()
+        {
+            //Arrange
+            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns(_lookup);
+
+            //Act
+            var result = await _repository.FindOrganisations("test", 2, 2);
+
+            //Assert
+            Assert.AreEqual(2, result.Count);
+
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 3")));
+        }
+
+        [Test]
+        public async Task ThenShouldReturnTheFirstPageIfThePageNumberIsLessThanOne()
+        {
+            //Arrange
+            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns(_lookup);
+
+            //Act
+            var result = await _repository.FindOrganisations("test", 2, -2);
+
+            //Assert
+            Assert.AreEqual(2, result.Count);
+
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
+        }
+
+        [Test]
+        public async Task ThenIfThePageSizeIsLessThanOneThePageSizeShouldBeSetToOne()
+        {
+            //Arrange
+            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns(_lookup);
+
+            //Act
+            var result = await _repository.FindOrganisations("test", 0, -2);
+
+            //Assert
+            Assert.AreEqual(1, result.Count);
+
+            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
+        }
     }
 }
