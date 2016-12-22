@@ -18,6 +18,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         private readonly IBcpService _bcpService;
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILogger _logger;
+        private readonly string _workingFolder;
         
         public CharityImporter(ReferenceDataApiConfiguration configuration, ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService, ILogger logger)
         {
@@ -26,6 +27,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             _bcpService = bcpService;
             _archiveDownloadService = archiveDownloadService;
             _logger = logger;
+            //_workingFolder = Environment.GetEnvironmentVariable("TEMP");
+            _workingFolder = Path.GetTempPath();
+            _logger.Info($"Using temporary folder: {_workingFolder}");
         }
 
         public async Task RunUpdate()
@@ -55,14 +59,14 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             var url = GetExtractUrlForMonthYear(importMonth, importYear);
             var filename = GetFilenameForMonthYear(importMonth, importYear);
 
-            if (!await _archiveDownloadService.DownloadFile(url, _configuration.CharityDataWorkingFolder, filename))
+            if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, filename))
             {
                 _logger.Error($"Failed to download data from {url}");
                 return;
             }
 
-            var zipFile = Path.Combine(_configuration.CharityDataWorkingFolder, filename);
-            var extractPath = Path.Combine(_configuration.CharityDataWorkingFolder, Path.GetFileNameWithoutExtension(filename));
+            var zipFile = Path.Combine(_workingFolder, filename);
+            var extractPath = Path.Combine(_workingFolder, Path.GetFileNameWithoutExtension(filename));
 
             _archiveDownloadService.UnzipFile(zipFile, extractPath);
 
@@ -76,7 +80,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
                 TargetSchema = _configuration.CharityBcpTargetSchema,
                 RowTerminator = _configuration.CharityBcpRowTerminator,
                 FieldTerminator = _configuration.CharityBcpFieldTerminator,
-                SourceDirectory = _configuration.CharityDataWorkingFolder + Path.GetFileNameWithoutExtension(filename)
+                SourceDirectory = _workingFolder + Path.GetFileNameWithoutExtension(filename)
             });
 
             //transfer data into data tables
