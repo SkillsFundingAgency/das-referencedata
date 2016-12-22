@@ -15,7 +15,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
         private Mock<IPublicSectorOrganisationRepository> _publicSectorOrganisationRepository;
         private GetPublicSectorOrganisationsHandler _handler;
         private ICollection<PublicSectorOrganisation> _organisations;
-
+       
         [SetUp]
         public void Arrange()
         {
@@ -35,15 +35,24 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrg
             _handler = new GetPublicSectorOrganisationsHandler(_publicSectorOrganisationRepository.Object);
         }
 
-        //[Test]
-        //public async Task ThenIShouldGetAllOrganisationsFromTheRepository()
-        //{
-        //    //Act
-        //    var response = await _handler.Handle(new FindPublicSectorOrgainsationQuery());
+        [Test]
+        public async Task ThenIShouldGetAllOrganisationsFromTheRepository()
+        {
+            //Arrange
+            var query = new FindPublicSectorOrgainsationQuery()
+            {
+                PageNumber = 2,
+                PageSize = 50,
+                SearchTerm = "test"
+            };
 
-        //    //Assert
-        //    _publicSectorOrganisationRepository.Verify(x => x.GetOrganisations(), Times.Once);
-        //    Assert.AreEqual(_organisations, response.Organisations);
-        //}
+
+            //Act
+            var response = await _handler.Handle(query);
+
+            //Assert
+            _publicSectorOrganisationRepository.Verify(x => x.FindOrganisations(query.SearchTerm, query.PageSize, query.PageNumber), Times.Once);
+            Assert.AreEqual(_organisations, response.Organisations);
+        }
     }
 }
