@@ -113,6 +113,7 @@
     <Content Include="settings.job">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Application\SFA.DAS.ReferenceData.Application.csproj">
