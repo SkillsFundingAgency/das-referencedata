@@ -1,22 +1,22 @@
 ﻿CREATE PROCEDURE [CharityData].[ImportDataFromLoadTables]
 AS
 
-	DROP TABLE [CharityData].acct_submit
-	DROP TABLE [CharityData].aoo_ref
-	DROP TABLE [CharityData].ar_submit
-	DROP TABLE [CharityData].charity
-	DROP TABLE [CharityData].charity_aoo
-	DROP TABLE [CharityData].class
-	DROP TABLE [CharityData].class_ref
-	DROP TABLE [CharityData].financial
-	DROP TABLE [CharityData].main_charity
-	DROP TABLE [CharityData].name
-	DROP TABLE [CharityData].[objects]
-	DROP TABLE [CharityData].overseas_expend
-	DROP TABLE [CharityData].partb
-	DROP TABLE [CharityData].registration
-	DROP TABLE [CharityData].remove_ref
-	DROP TABLE [CharityData].trustee
+	IF OBJECT_ID('[CharityData].acct_submit', 'U') IS NOT NULL DROP TABLE [CharityData].acct_submit
+	IF OBJECT_ID('[CharityData].aoo_ref', 'U') IS NOT NULL DROP TABLE [CharityData].aoo_ref
+	IF OBJECT_ID('[CharityData].ar_submit', 'U') IS NOT NULL DROP TABLE [CharityData].ar_submit
+	IF OBJECT_ID('[CharityData].charity', 'U') IS NOT NULL DROP TABLE [CharityData].charity
+	IF OBJECT_ID('[CharityData].charity_aoo', 'U') IS NOT NULL DROP TABLE [CharityData].charity_aoo
+	IF OBJECT_ID('[CharityData].class', 'U') IS NOT NULL DROP TABLE [CharityData].class
+	IF OBJECT_ID('[CharityData].class_ref', 'U') IS NOT NULL DROP TABLE [CharityData].class_ref
+	IF OBJECT_ID('[CharityData].financial', 'U') IS NOT NULL DROP TABLE [CharityData].financial
+	IF OBJECT_ID('[CharityData].main_charity', 'U') IS NOT NULL DROP TABLE [CharityData].main_charity
+	IF OBJECT_ID('[CharityData].name', 'U') IS NOT NULL DROP TABLE [CharityData].name
+	IF OBJECT_ID('[CharityData].[objects]', 'U') IS NOT NULL DROP TABLE [CharityData].[objects]
+	IF OBJECT_ID('[CharityData].overseas_expend', 'U') IS NOT NULL DROP TABLE [CharityData].overseas_expend
+	IF OBJECT_ID('[CharityData].partb', 'U') IS NOT NULL DROP TABLE [CharityData].partb
+	IF OBJECT_ID('[CharityData].registration', 'U') IS NOT NULL DROP TABLE [CharityData].registration
+	IF OBJECT_ID('[CharityData].remove_ref', 'U') IS NOT NULL DROP TABLE [CharityData].remove_ref
+	IF OBJECT_ID('[CharityData].trustee', 'U') IS NOT NULL DROP TABLE [CharityData].trustee
 
 	select * into [CharityData].acct_submit from [CharityImport].extract_acct_submit
 	select * into [CharityData].aoo_ref from [CharityImport].extract_aoo_ref
