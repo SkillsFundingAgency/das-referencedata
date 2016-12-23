@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using MediatR;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
-using SFA.DAS.ReferenceData.Domain.Models;
+using PublicSectorOrganisation = SFA.DAS.ReferenceData.Domain.Models.PublicSectorOrganisation;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
 {
@@ -24,9 +23,9 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
         {
             _response = new FindPublicSectorOrganisationResponse
             {
-                Organisations = new List<PublicSectorOrganisation>
+                Organisations = new PagedApiResponse<PublicSectorOrganisation>
                 {
-                    new PublicSectorOrganisation{ Name = "Test Organisation"}
+                    Data = new List<PublicSectorOrganisation> { new PublicSectorOrganisation{ Name = "Test Organisation"}}
                 }
             };
 
@@ -43,7 +42,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
         {
             //Act
             var result = await _controller.GetPublicSectorOrganisations() 
-                as OkNegotiatedContentResult<ICollection<PublicSectorOrganisation>>;
+                as OkNegotiatedContentResult<PagedApiResponse<PublicSectorOrganisation>>;
             
             //Assert
             _mediator.Verify(x => x.SendAsync(It.IsAny<FindPublicSectorOrgainsationQuery>()), Times.Once);

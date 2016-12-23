@@ -60,7 +60,9 @@
     <Compile Include="ReferenceDataApiClientTests\WhenGettingACharity.cs" />
     <Compile Include="ReferenceDataApiClientTests\WhenSearchingForAPublicSectorOrganisation.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Api.Client\SFA.DAS.ReferenceData.Api.Client.csproj">
       <Project>{aaeeab67-1780-4d6b-8f18-801adf0023f6}</Project>
