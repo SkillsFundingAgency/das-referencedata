@@ -21,12 +21,21 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         {
             var login = request.UseTrustedConnection ? "-T" : $"-U{request.Username} -P{request.Password}";
 
-            var files = Directory.EnumerateFiles(request.SourceDirectory, "*.bcp").ToList();
+            var files = Directory.EnumerateFiles(request.SourceDirectory, "*.bcp", SearchOption.AllDirectories).ToList();
+
+            _logger.Info($"{files.Count} files found for import in {request.SourceDirectory}");
+
+            if (!files.Any())
+            {
+                throw new InvalidOperationException("Import aborted - no files found in directory");
+            }
+
+            var totalStopwatch = Stopwatch.StartNew();
 
             foreach (var file in files)
             {
                 var extractName = Path.GetFileNameWithoutExtension(file);
-
+                var stopwatch = Stopwatch.StartNew();
                 _logger.Info($"Beginning BCP for {extractName}");
 
                 var bcpArgs = $"[{request.TargetDb}].[{request.TargetSchema}].[{extractName}]" +
@@ -51,19 +60,19 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                             throw new InvalidOperationException("No process returned for BCP command");
                         }
 
-                        var output = process.StandardOutput.ReadToEnd();
+                        _logger.Info(process.StandardOutput.ReadToEnd());
 
                         process.WaitForExit();
 
                         if (process.ExitCode != 0)
                         {
-                            _logger.Error($"BCP ended with exit code {process.ExitCode}");
-                            throw new InvalidOperationException(output);
+                            throw new InvalidOperationException($"BCP ended with exit code {process.ExitCode}");
                         }
 
                         process.Close();
-                       
                     }
+                    stopwatch.Stop();
+                    _logger.Info($"BCP complete for {extractName}: {stopwatch.Elapsed} elapsed");
                 }
                 catch (Exception ex)
                 {
@@ -71,6 +80,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     throw;
                 }
             }
+
+            totalStopwatch.Stop();
+            _logger.Info($"BCP complete for all files: {totalStopwatch.Elapsed} elapsed");
         }
 
     }
