@@ -84,9 +84,11 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             });
 
             //transfer data into data tables
+            _logger.Info("Transferring data from load tables");
             await _charityRepository.ImportDataFromLoadTables();
 
             //record import in db
+            _logger.Info("Recording successful import in database");
             await _charityRepository.CreateCharityDataImport(importMonth, importYear);
         }
 

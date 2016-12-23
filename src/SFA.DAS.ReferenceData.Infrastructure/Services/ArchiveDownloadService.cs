@@ -27,12 +27,15 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
             var filenameAndPath = Path.Combine(targetPath, targetFilename);
 
+            _logger.Info($"Downloading {url} to {filenameAndPath}...");
+
             using (var client = new HttpClient())
             {
                 using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (!response.IsSuccessStatusCode)
                     {
+                        _logger.Error($"Status code {response.StatusCode} returned");
                         return false;
                     }
 
@@ -45,6 +48,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     }
                 }
             }
+            _logger.Info($"Download complete");
             return true;
         }
 
