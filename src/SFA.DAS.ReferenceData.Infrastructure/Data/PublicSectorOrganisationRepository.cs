@@ -6,6 +6,7 @@ using NLog;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
+using SFA.DAS.ReferenceData.Domain.Models.Data;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
@@ -26,7 +27,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             _logger = logger;
         }
 
-        public async Task<ICollection<PublicSectorOrganisation>> FindOrganisations(string searchTerm, int pageSize, int pageNumber)
+        public async Task<PagedResult<PublicSectorOrganisation>> FindOrganisations(string searchTerm, int pageSize, int pageNumber)
         {
             return await Task.Run(async() =>
             {
@@ -40,7 +41,10 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     if (lookUp == null)
                     {
                         _logger.Info("No public sector organisations were retrieved from Azure.");
-                        return new List<PublicSectorOrganisation>();
+                        return new PagedResult<PublicSectorOrganisation>
+                        {
+                            Data = new List<PublicSectorOrganisation>()
+                        };
                     }
 
                     _logger.Info($"{lookUp.OrganisationNames.Count()} public sector organisations were retrieved from Azure");
@@ -58,6 +62,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     organisations = organisations.Where(name => name.IndexOf(searchTerm, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
                 }
 
+                var totalPages = organisations.Count % pageSize;
+
+
                 var offset = GetPageOffset(pageSize, pageNumber, organisations.Count);
 
                 organisations = organisations.Skip(offset)
@@ -70,7 +77,12 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                         Name = name
                     }).ToList();
 
-                return selectedOrgainsations;
+                return new PagedResult<PublicSectorOrganisation>
+                {
+                    Data = selectedOrgainsations,
+                    Page = pageNumber,
+                    TotalPages = totalPages
+                };
             });
         }
 

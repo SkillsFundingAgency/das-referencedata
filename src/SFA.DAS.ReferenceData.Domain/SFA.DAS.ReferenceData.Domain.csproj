@@ -53,6 +53,7 @@
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
+    <Compile Include="Models\Data\PagedResult.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />
     <Compile Include="Models\PublicSectorOrganisationLookUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -60,7 +60,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("", 1000, 0);
 
             //Assert
-            Assert.IsNotEmpty(result);
+            Assert.IsNotEmpty(result.Data);
 
             _cacheProvider.Verify(x => x.Get<PublicSectorOrganisationLookUp>(
                nameof(PublicSectorOrganisationLookUp)), Times.Once);
@@ -81,7 +81,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("", 1000, 0);
 
             //Assert
-            Assert.IsNotEmpty(result);
+            Assert.IsNotEmpty(result.Data);
 
             _cacheProvider.Verify(x => x.Get<PublicSectorOrganisationLookUp>(
                nameof(PublicSectorOrganisationLookUp)), Times.Once);
@@ -107,7 +107,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("", 1000, 0);
 
             //Assert
-            Assert.IsEmpty(result);
+            Assert.IsEmpty(result.Data);
         }
 
         [Test]
@@ -121,11 +121,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("test", 10, 0);
 
             //Assert
-            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(3, result.Data.Count);
 
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 3")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 2")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 3")));
         }
 
         [Test]
@@ -139,10 +139,10 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("test", 2, 0);
 
             //Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, result.Data.Count);
 
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 2")));
         }
 
         [Test]
@@ -156,10 +156,10 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("test", 2, 2);
 
             //Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, result.Data.Count);
 
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 3")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 2")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 3")));
         }
 
         [Test]
@@ -173,10 +173,10 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("test", 2, -2);
 
             //Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, result.Data.Count);
 
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 2")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 2")));
         }
 
         [Test]
@@ -190,9 +190,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             var result = await _repository.FindOrganisations("test", 0, -2);
 
             //Assert
-            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(1, result.Data.Count);
 
-            Assert.IsTrue(result.Any(x => x.Name.Equals("Test 1")));
+            Assert.IsTrue(result.Data.Any(x => x.Name.Equals("Test 1")));
         }
     }
 }
