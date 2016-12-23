@@ -40,7 +40,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             {
                 DatabaseConnectionString="",
                 CharityDataSourceUrlPattern="_{0}_{1}_",
-                CharityDataWorkingFolder="",
                 CharityBcpServerName="",
                 CharityBcpTrustedConnection=false,
                 CharityBcpUsername="",

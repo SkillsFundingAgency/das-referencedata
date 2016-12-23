@@ -1,0 +1,4 @@
+﻿{
+  "schedule": "0 0 17 ? * WED *",
+  "is_in_place": false
+}
