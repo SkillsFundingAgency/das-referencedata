@@ -56,7 +56,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         {
             var result = await WithConnection(async c => await c.ExecuteAsync(
                 sql: "[CharityData].[ImportDataFromLoadTables]",
-                commandType: CommandType.StoredProcedure));
+                commandType: CommandType.StoredProcedure,
+                commandTimeout: 3600
+                ));
         }
 
         public async Task<Charity> GetCharityByRegistrationNumber(int registrationNumber)
