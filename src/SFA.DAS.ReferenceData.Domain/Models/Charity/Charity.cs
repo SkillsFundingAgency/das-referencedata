@@ -16,5 +16,6 @@ namespace SFA.DAS.ReferenceData.Domain.Models.Charity
         public string Address4 { get; set; }
         public string Address5 { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public bool IsRemoved { get; set; }
     }
 }
