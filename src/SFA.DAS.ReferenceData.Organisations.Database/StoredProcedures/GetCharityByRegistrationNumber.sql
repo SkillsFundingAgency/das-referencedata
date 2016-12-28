@@ -12,6 +12,7 @@ AS
 	rtrim(charity.add3) as 'Address3',
 	rtrim(charity.add4) as 'Address4',
 	rtrim(charity.add5) as 'Address5',
+	rtrim(charity.postcode) as 'PostCode',
 	registration.regdate as 'RegistrationDate',
 	CAST (CASE WHEN charity.orgtype = 'RM' THEN 1 ELSE 0 END AS BIT) 'IsRemoved'
 	from
