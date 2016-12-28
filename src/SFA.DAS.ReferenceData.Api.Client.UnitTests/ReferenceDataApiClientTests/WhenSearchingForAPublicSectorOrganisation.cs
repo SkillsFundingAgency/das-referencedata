@@ -13,17 +13,15 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 {
     public class WhenSearchingForAPublicSectorOrganisation
     {
-        private ReferenceDataApiConfiguration _configuration;
+        private Mock<IReferenceDataApiConfiguration> _configuration;
         private Mock<SecureHttpClient> _httpClient;
         private ReferenceDataApiClient _apiClient;
 
         [SetUp]
         public void Arrange()
         {
-            _configuration = new ReferenceDataApiConfiguration
-            {
-                ApiBaseUrl = "http://some-url/api/"
-            };
+            _configuration = new Mock<IReferenceDataApiConfiguration>();
+            _configuration.SetupGet(x => x.ApiBaseUrl).Returns("http://some-url/api/organisations");
 
             var data = new PagedApiResponse<PublicSectorOrganisation>
             {
@@ -38,8 +36,8 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 
                                                 
             _httpClient = new Mock<SecureHttpClient>();
-            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/publicsectorbodies?searchTerm=test&pageNumber=0&pageSize=100"))).ReturnsAsync(() => JsonConvert.SerializeObject(data));
-            _apiClient = new ReferenceDataApiClient(_configuration, _httpClient.Object);
+            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/publicsectorbodies?searchTerm=test&pageNumber=0&pageSize=100"))).ReturnsAsync(() => JsonConvert.SerializeObject(data));
+            _apiClient = new ReferenceDataApiClient(_configuration.Object, _httpClient.Object);
         }
 
         [Test]
@@ -49,7 +47,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             await _apiClient.SearchPublicSectorOrganisation("test", 0, 100);
 
             //Assert
-            var expectedUrl = $"http://some-url/api/publicsectorbodies?searchTerm=test&pageNumber=0&pageSize=100";
+            var expectedUrl = $"http://some-url/api/organisations/publicsectorbodies?searchTerm=test&pageNumber=0&pageSize=100";
             _httpClient.Verify(x => x.GetAsync(expectedUrl), Times.Once);
         }
 

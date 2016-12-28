@@ -57,9 +57,9 @@
     <Compile Include="Dto\PagedApiResponse.cs" />
     <Compile Include="Dto\PublicSectorOrganisation.cs" />
     <Compile Include="IReferenceDataApiClient.cs" />
+    <Compile Include="IReferenceDataApiConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceDataApiClient.cs" />
-    <Compile Include="ReferenceDataApiConfiguration.cs" />
     <Compile Include="SecureHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>

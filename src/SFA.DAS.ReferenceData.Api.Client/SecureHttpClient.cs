@@ -10,9 +10,9 @@ namespace SFA.DAS.ReferenceData.Api.Client
 {
     internal class SecureHttpClient
     {
-        private readonly ReferenceDataApiConfiguration _configuration;
+        private readonly IReferenceDataApiConfiguration _configuration;
 
-        public SecureHttpClient(ReferenceDataApiConfiguration configuration)
+        public SecureHttpClient(IReferenceDataApiConfiguration configuration)
         {
             _configuration = configuration;
         }
