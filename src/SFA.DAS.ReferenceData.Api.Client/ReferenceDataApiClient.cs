@@ -5,16 +5,16 @@ namespace SFA.DAS.ReferenceData.Api.Client
 {
     public class ReferenceDataApiClient :IReferenceDataApiClient
     {
-        private readonly ReferenceDataApiConfiguration _configuration;
+        private readonly IReferenceDataApiConfiguration _configuration;
         private readonly SecureHttpClient _httpClient;
 
-        public ReferenceDataApiClient(ReferenceDataApiConfiguration configuration)
+        public ReferenceDataApiClient(IReferenceDataApiConfiguration configuration)
         {
             _configuration = configuration;
             _httpClient = new SecureHttpClient(configuration);
         }
 
-        internal ReferenceDataApiClient(ReferenceDataApiConfiguration configuration, SecureHttpClient httpClient)
+        internal ReferenceDataApiClient(IReferenceDataApiConfiguration configuration, SecureHttpClient httpClient)
         {
             _configuration = configuration;
             _httpClient = httpClient;

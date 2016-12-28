@@ -8,17 +8,15 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 {
     public class WhenGettingACharity
     {
-        private ReferenceDataApiConfiguration _configuration;
+        private Mock<IReferenceDataApiConfiguration> _configuration;
         private Mock<SecureHttpClient> _httpClient;
         private ReferenceDataApiClient _apiClient;
 
         [SetUp]
         public void Arrange()
         {
-            _configuration = new ReferenceDataApiConfiguration
-            {
-                ApiBaseUrl = "http://some-url/api/organisations"
-            };
+            _configuration = new Mock<IReferenceDataApiConfiguration>();
+            _configuration.SetupGet(x => x.ApiBaseUrl).Returns("http://some-url/api/organisations");
 
             var data = new Dto.Charity
             {
@@ -28,7 +26,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 
             _httpClient = new Mock<SecureHttpClient>();
             _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/charities/123"))).ReturnsAsync(() => JsonConvert.SerializeObject(data));
-            _apiClient = new ReferenceDataApiClient(_configuration, _httpClient.Object);
+            _apiClient = new ReferenceDataApiClient(_configuration.Object, _httpClient.Object);
         }
 
         [Test]
