@@ -17,7 +17,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
         {
             _configuration = new ReferenceDataApiConfiguration
             {
-                ApiBaseUrl = "http://some-url/api/"
+                ApiBaseUrl = "http://some-url/api/organisations"
             };
 
             var data = new Dto.Charity
@@ -27,7 +27,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             };
 
             _httpClient = new Mock<SecureHttpClient>();
-            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/charity/123"))).ReturnsAsync(() => JsonConvert.SerializeObject(data));
+            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/charities/123"))).ReturnsAsync(() => JsonConvert.SerializeObject(data));
             _apiClient = new ReferenceDataApiClient(_configuration, _httpClient.Object);
         }
 
@@ -38,7 +38,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             await _apiClient.GetCharity(123);
 
             //Assert
-            var expectedUrl = $"http://some-url/api/charity/123";
+            var expectedUrl = $"http://some-url/api/organisations/charities/123";
             _httpClient.Verify(x=> x.GetAsync(expectedUrl), Times.Once);
         }
 
