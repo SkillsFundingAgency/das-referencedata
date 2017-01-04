@@ -40,6 +40,8 @@ The API provides a list of all public sector organisation names that is manually
 
 The ONS Data set of public sector organisations can be found here [Public sector organisation (ONS)](https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/publicsectorclassificationguide/)
 
+**(Note: Only public sector organisations that have a category that doesn't include the word 'former' should be added to the list of available public sector organisations from this dataset)**
+
 
 To add organisation names simple open up the json file:
 
