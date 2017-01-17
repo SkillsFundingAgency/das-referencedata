@@ -14,12 +14,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.TestHarness
             var config = new ReferenceDataApiConfiguration
             {
                 ApiBaseUrl = "https://localhost:44300/api/organisations/", 
-                ClientId = "67d6bbe9-e0c1-4d00-90af-a22574899a67",
-                ClientSecret = "vzee5FCXtfeV7orFYPjYoYyFsb8Wj6hX/iL9j3TlGfA=",
-                IdentifierUri = "https://citizenazuresfabisgov.onmicrosoft.com/refdata-api",
-                Tenant = "citizenazuresfabisgov.onmicrosoft.com",
-                //DatabaseConnectionString= "",
-                //ServiceBusConnectionString= ""
+                //...config here
             };
             
             //a-t url: "https://at-refdata.apprenticeships.sfa.bis.gov.uk/api/organisations/",
