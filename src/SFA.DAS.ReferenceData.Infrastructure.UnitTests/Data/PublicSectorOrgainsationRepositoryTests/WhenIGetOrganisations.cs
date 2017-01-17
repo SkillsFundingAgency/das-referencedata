@@ -24,14 +24,14 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         {
             _lookup = new PublicSectorOrganisationLookUp
             {
-                OrganisationNames = new List<string>
+                Organisations = new List<PublicSectorOrganisation>
                 {
-                    "Test 1",
-                    "Test 2",
-                    "Test 3",
-                    "Example 1",
-                    "Example 2",
-                    "Example 3"
+                    new PublicSectorOrganisation {Name = "Test 1", Source = DataSource.Ons},
+                    new PublicSectorOrganisation {Name = "Test 2", Source = DataSource.Ons},
+                    new PublicSectorOrganisation {Name = "Test 3", Source = DataSource.Ons},
+                    new PublicSectorOrganisation {Name = "Example 1", Source = DataSource.Ons},
+                    new PublicSectorOrganisation {Name = "Example 2", Source = DataSource.Ons},
+                    new PublicSectorOrganisation {Name = "Example 3", Source = DataSource.Ons}
                 }
             };
 
