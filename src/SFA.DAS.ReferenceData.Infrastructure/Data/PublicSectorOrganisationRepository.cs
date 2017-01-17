@@ -47,7 +47,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                         };
                     }
 
-                    _logger.Info($"{lookUp.OrganisationNames.Count()} public sector organisations were retrieved from Azure");
+                    _logger.Info($"{lookUp.Organisations.Count()} public sector organisations were retrieved from Azure");
 
                     _cacheProvider.Set(nameof(PublicSectorOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
                     _logger.Info($"Cached public sector organisations till {DateTime.Now.AddDays(14):R}");
@@ -55,11 +55,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
 
                 pageSize = pageSize < 1 ? 1 : pageSize;
 
-                var organisations = lookUp.OrganisationNames.ToList();
+                var organisations = lookUp.Organisations.ToList();
 
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    organisations = organisations.Where(name => name.IndexOf(searchTerm, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+                    organisations = organisations.Where(o => o.Name.IndexOf(searchTerm, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
                 }
 
                 var totalPages = organisations.Count % pageSize;
@@ -71,15 +71,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                                              .Take(pageSize)
                                              .ToList();
 
-                var selectedOrgainsations = organisations.Select(name =>
-                    new PublicSectorOrganisation
-                    {
-                        Name = name
-                    }).ToList();
-
                 return new PagedResult<PublicSectorOrganisation>
                 {
-                    Data = selectedOrgainsations,
+                    Data = organisations,
                     Page = pageNumber,
                     TotalPages = totalPages
                 };
