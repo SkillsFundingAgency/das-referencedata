@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="SFA.DAS.ReferenceData.CloudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
-  <WebRole name="SFA.DAS.ReferenceData.Api" vmsize="Small">
+  <WebRole name="SFA.DAS.ReferenceData.Api" vmsize="Standard_D2_v2">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -22,8 +22,8 @@
       <Setting name="InstrumentationKey" />
     </ConfigurationSettings>
     <Endpoints>
-      <InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="WebSslCert" />
-      <InputEndpoint name="HttpIn" protocol="http" port="80" />
+      <InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="WebSslCert" loadBalancer="das-pp-ref-ilb"/>
+      <InputEndpoint name="HttpIn" protocol="http" port="80" loadBalancer="das-pp-ref-ilb" />
     </Endpoints>
     <Certificates>
       <Certificate name="WebSslCert" storeLocation="LocalMachine" storeName="My" />

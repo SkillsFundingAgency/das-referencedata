@@ -18,4 +18,19 @@
       <Certificate name="WebSslCert" thumbprint="87A28DF77BBA73983918DF4288A132588AE820F4" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="__vnet__" />
+    <AddressAssignments>
+      <InstanceAddress roleName="SFA.DAS.ReferenceData.Api">
+        <Subnets>
+          <Subnet name="__subnet__" />
+        </Subnets>
+      </InstanceAddress>
+    </AddressAssignments>
+    <LoadBalancers>
+      <LoadBalancer name="__ilbname__">
+        <FrontendIPConfiguration type="private" subnet="__subnet__" staticVirtualNetworkIPAddress="10.78.125.16" />
+      </LoadBalancer>
+    </LoadBalancers>
+  </NetworkConfiguration>
 </ServiceConfiguration>
