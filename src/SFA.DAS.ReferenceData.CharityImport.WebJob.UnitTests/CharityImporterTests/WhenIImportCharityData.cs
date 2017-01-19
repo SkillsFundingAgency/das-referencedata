@@ -68,7 +68,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         {
             //Setup
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(2017, 12, 1), Month = 12, Year = 2016 });
+                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(2016, 12, 1), Month = 12, Year = 2016 });
 
             //Act
             await _importer.RunUpdate();
@@ -77,6 +77,23 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             var expectedFile = $"January_2017";
 
             _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
+        }
+
+        [Test]
+        public async Task ThenTheDateInTheUrlIsFormattedCorrectly()
+        {
+            //Setup
+            _charityRepository.Setup(x => x.GetLastCharityDataImport())
+                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(2017, 1, 1), Month = 1, Year = 2017 });
+
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+            var expectedDatePathSegment = "201702";
+
+            _archiveDownloadService.Verify(x => x.DownloadFile(It.IsRegex(expectedDatePathSegment), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+
         }
 
         [Test]
