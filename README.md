@@ -59,7 +59,7 @@ Below is an example of what the file may look like
 
 ```
 {
-    Organisations": [
+    "Organisations": [
     {
       "Name": "Example Public Body From ONS",
       "Source": 1
