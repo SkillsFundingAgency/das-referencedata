@@ -43,11 +43,15 @@ The ONS Data set of public sector organisations can be found here [Public sector
 **(Note: Only public sector organisations that have a category that doesn't include the word 'former' should be added to the list of available public sector organisations from this dataset)**
 
 
-To add organisation names simple open up the json file:
+To add organisation names simply open up the json file:
 
 **SFA.DAS.SFA.DAS.ReferenceData.Api/App_Data/LOCAL_SFA.DAS.ReferenceData.PublicOrganisationNames_1.0.json**
 
-And add any number organisation names to the list.
+And add any number organisation names to the list. Each entry in the list is made up of a Name and a Source, where Source indicates where the data came from and is one of:
+ * 1 - ONS
+ * 2 - NHS
+ * 3 - Police
+
 
 You can then store the json text in the same way as the Reference Data configuration (as mentioned above in the Setup section) with the RowKey value of 'SFA.DAS.ReferenceData.PublicOrganisationNames_1.0'
 
@@ -55,11 +59,20 @@ Below is an example of what the file may look like
 
 ```
 {
-	"OrganisationNames": [
-		"Organisation 1", 
-		"Organisation 2", 
-		"Organisation 3",
-		"Organisation 4",
-		]
+    Organisations": [
+    {
+      "Name": "Example Public Body From ONS",
+      "Source": 1
+    },
+    {
+      "Name": "Example Public Body from NHS",
+      "Source": 2
+    },
+    {
+      "Name": "Example Public Body from Police",
+      "Source": 3
+    },
 }
 ```
+
+There is a tool - PublicSectorDataJsonFormatter - to assist with the generation of this file in the Tools folder of the EAS project. This tool runs at the command line, and looks for lists of organisations names in files named "nhs", "ons" and "police" in its executing folder. It outputs a json file in the above format.
