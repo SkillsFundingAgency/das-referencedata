@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SFA.DAS.ReferenceData.Domain.Models;
+using System.Text;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 {
@@ -49,11 +50,12 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             }
 
             var onsOrgs = await GetOnsOrganisations();
-            var policeOrgs = GetPoliceOrganisations();
             var nhsOrgs = GetNhsOrganisations();
+            var policeOrgs = GetPoliceOrganisations();
+
 
             var orgs = new PublicSectorOrganisationLookUp();
-            orgs.Organisations = onsOrgs.Organisations.Concat(policeOrgs.Organisations).Concat(nhsOrgs.Organisations).ToList();
+            orgs.Organisations = onsOrgs.Organisations.Concat(nhsOrgs.Organisations).Concat(policeOrgs.Organisations).ToList();
             var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
 
 
@@ -135,10 +137,11 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 var policeUrl = _configuration.PoliceForcesUrl;
                 var web = new HtmlWeb();
                 var doc = web.Load(policeUrl);
+
                 var englandPolice = doc.DocumentNode.SelectNodes("//*[@id=\"england\"]/ul")[0].InnerText.Split('\n')
-                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
+                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => System.Net.WebUtility.HtmlDecode(s).Trim());
                 var nationalPolice = doc.DocumentNode.SelectNodes("//*[@id=\"special\"]/ul")[0].InnerText.Split('\n')
-                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
+                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => System.Net.WebUtility.HtmlDecode(s).Trim());
 
                 ol.Organisations = englandPolice.Concat(nationalPolice)
                     .Select(x => new PublicSectorOrganisation
@@ -165,7 +168,9 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 var nhsUrl = _configuration.NHSTrustsUrl;
                 var web = new HtmlWeb();
                 var doc = web.Load(nhsUrl);
-                var nhsOrgs = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[1]/div/table")[0].InnerText.Split('\n').Select(s => s.Trim())
+                
+                var nhsOrgs = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[1]/div/table")[0].InnerText.Split('\n')
+                    .Select(s => System.Net.WebUtility.HtmlDecode(s).Trim())
                     .Where(x => !string.IsNullOrWhiteSpace(x) && x.ToLower() != "organisation");
 
                 ol.Organisations = nhsOrgs
