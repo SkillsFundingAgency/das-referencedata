@@ -44,6 +44,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 string.IsNullOrWhiteSpace(_configuration.PoliceForcesUrl) || 
                 string.IsNullOrWhiteSpace(_configuration.ONSUrl))
             {
+                _logger.Error("Missing configuration, check table storage configuration for NHSTrustsUrl, PoliceForcesUrl and ONSUrl");
                 throw new Exception("Missing configuration, check table storage configuration for NHSTrustsUrl, PoliceForcesUrl and ONSUrl");
             }
 
@@ -125,8 +126,10 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                     cmd = null;
                     conn.Close();
                 }
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
+                _logger.Error(e, "Cannot get ONS organisations, potential format change");
                 throw new Exception("Cannot get ONS organisations, potential format change", e);
             }
             return ol;
@@ -157,6 +160,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             }
             catch (Exception e)
             {
+                _logger.Error(e, "Cannot get Police organisations, potential format change");
                 throw new Exception("Cannot get Police organisations, potential format change", e);
             }
 
@@ -184,6 +188,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             }
             catch (Exception e)
             {
+                _logger.Error(e, "Cannot get NHS organisations, potential format change");
                 throw new Exception("Cannot get NHS organisations, potential format change", e);
             }
             return ol;
@@ -250,6 +255,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             }
             catch (Exception e)
             {
+                _logger.Error(e, $"Error uploading {filePath} to Blob storage");
                 throw new Exception($"Error uploading {filePath} to Blob storage", e);
             }
         }
