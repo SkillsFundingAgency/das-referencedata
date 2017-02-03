@@ -108,7 +108,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                         dt.Rows.Remove(rowDel);
 
                         var data = dt.AsEnumerable();
-                        ol.Organisations = data.Select(x =>
+                        ol.Organisations = data.Where(s => !s.Field<string>("F2").ToLower().Contains("former")).Select(x =>
                                     new PublicSectorOrganisation
                                     {
                                         Name = x.Field<string>("F1"),
