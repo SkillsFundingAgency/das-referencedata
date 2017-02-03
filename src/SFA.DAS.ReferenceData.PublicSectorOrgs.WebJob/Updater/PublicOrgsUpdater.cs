@@ -59,7 +59,6 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
             ExportFile(jsonFilePath, orgs);
             UploadJsonToStorage(jsonFilePath);
-
         }
 
         private async Task<OrganisationList> GetOnsOrganisations()
@@ -74,7 +73,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName))
                 {
                     _logger.Error($"Failed to download ONS from current and previous month, potential URL format change");
-                    return null;
+                    throw new Exception($"Failed to download ONS from current and previous month, potential URL format change");
                 }
             }
 
@@ -87,44 +86,35 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             {
                 string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties='Excel 8.0;HDR=NO;';Data Source={excelFile}";
 
-                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                using (var conn = new OleDbConnection(connectionString))
                 {
-                    conn.Open();
-                    OleDbCommand cmd = new OleDbCommand();
-                    cmd.Connection = conn;
+                    using (var cmd = new OleDbCommand())
+                    {
+                        conn.Open();
+                        cmd.Connection = conn;
+                        
+                        var dtSchema = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
-                    //Get all Sheets in Excel File
-                    DataTable dtSheet = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        var sheetName = "Index$";
+                        cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F1 <> 'Index'";
 
-                    var sheetName = "Index$";
+                        var dt = new DataTable(sheetName);
+                        var da = new OleDbDataAdapter(cmd);
+                        da.Fill(dt);
 
-                    // Get all rows from the Sheet
-                    cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F1 <> 'Index'";
+                        var rowDel = dt.Rows[0];
+                        dt.Rows.Remove(rowDel);
 
-                    DataTable dt = new DataTable();
-                    dt.TableName = sheetName;
-
-                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-
-                    da.Fill(dt);
-
-                    var rowDel = dt.Rows[0];
-                    dt.Rows.Remove(rowDel);
-
-                    dt.Columns[0].ColumnName = "Institution";
-                    dt.Columns[1].ColumnName = "Sector";
-
-                    var data = dt.AsEnumerable();
-                    ol.Organisations = data.Select(x =>
-                                new Organisation
-                                {
-                                    Name = x.Field<string>("Institution"),
-                                    Sector = x.Field<string>("Sector"),
-                                    Source = DataSource.Ons
-                                }).ToList();
-
-                    cmd = null;
-                    conn.Close();
+                        var data = dt.AsEnumerable();
+                        ol.Organisations = data.Select(x =>
+                                    new Organisation
+                                    {
+                                        Name = x.Field<string>("F1"),
+                                        Sector = x.Field<string>("F2"),
+                                        Source = DataSource.Ons
+                                    }).ToList();
+                        conn.Close();
+                    }
                 }
             }
             catch (Exception e)
@@ -143,8 +133,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             try
             {
                 var policeUrl = _configuration.PoliceForcesUrl;
-                HtmlWeb web = new HtmlWeb();
-                HtmlDocument doc = web.Load(policeUrl);
+                var web = new HtmlWeb();
+                var doc = web.Load(policeUrl);
                 var englandPolice = doc.DocumentNode.SelectNodes("//*[@id=\"england\"]/ul")[0].InnerText.Split('\n')
                     .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
                 var nationalPolice = doc.DocumentNode.SelectNodes("//*[@id=\"special\"]/ul")[0].InnerText.Split('\n')
@@ -156,7 +146,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                         Name = x,
                         Sector = "",
                         Source = DataSource.Police
-                    })?.ToList();
+                    }).ToList();
             }
             catch (Exception e)
             {
@@ -173,9 +163,9 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             try
             {
                 var nhsUrl = _configuration.NHSTrustsUrl;
-                HtmlWeb web = new HtmlWeb();
-                HtmlDocument doc = web.Load(nhsUrl);
-                var nhsOrgs = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[1]/div/table")[0]?.InnerText?.Split('\n').Select(s => s.Trim())
+                var web = new HtmlWeb();
+                var doc = web.Load(nhsUrl);
+                var nhsOrgs = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[1]/div/table")[0].InnerText.Split('\n').Select(s => s.Trim())
                     .Where(x => !string.IsNullOrWhiteSpace(x) && x.ToLower() != "organisation");
 
                 ol.Organisations = nhsOrgs
@@ -198,37 +188,37 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         {
             var urlpattern = _configuration.ONSUrl;
 
-            var now = DateTime.Now;
-
-            if (previousMonth)
-            {
-                now = now.AddMonths(-1);
-            }
+            var now = previousMonth ? DateTime.Now.AddMonths(-1) : DateTime.Now;
+                      
 
             var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(now.Month)}{now.Year}";
 
-            var url = String.Format(urlpattern, monthyear.ToLower());
+            var url = string.Format(urlpattern, monthyear.ToLower());
             return url;
         }
 
-        private static void ExportFile(string filename, OrganisationList orgs)
+        private void ExportFile(string filename, OrganisationList orgs)
         {
             try
             {
                 using (var fs = File.Open(filename, FileMode.Create))
-                using (var sw = new StreamWriter(fs))
-                using (JsonWriter jw = new JsonTextWriter(sw))
                 {
-                    jw.Formatting = Formatting.Indented;
+                    using (var sw = new StreamWriter(fs))
+                    {
+                        using (var jw = new JsonTextWriter(sw))
+                        {
+                            jw.Formatting = Formatting.Indented;
 
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(jw, orgs);
+                            var serializer = new JsonSerializer();
+                            serializer.Serialize(jw, orgs);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred exporting data to {filename}: {ex.Message}");
-                return;
+                _logger.Error($"An error occurred exporting data to {filename}: {ex.Message}");
+                throw new Exception($"An error occurred exporting data to {filename}: {ex.Message}");
             }
 
             Console.WriteLine($"Exported {orgs.Organisations.Count} records");
@@ -243,10 +233,10 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
                 var blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = blobClient.GetContainerReference(_jsonContainerName);
+                var container = blobClient.GetContainerReference(_jsonContainerName);
                 container.CreateIfNotExists();
 
-                CloudBlockBlob blockBlob = container.GetBlockBlobReference(_jsonFileName);
+                var blockBlob = container.GetBlockBlobReference(_jsonFileName);
 
                 using (var fileStream = File.OpenRead(filePath))
                 {
