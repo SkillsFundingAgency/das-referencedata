@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://schemastore.org/schemas/json/webjobs-list.json",
+  "WebJobs": [
+    {
+      "filePath": "../SFA.DAS.ReferenceData.CharityImport.WebJob/SFA.DAS.ReferenceData.CharityImport.WebJob.csproj"
+    },
+    {
+      "filePath": "../SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob/SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.csproj"
+    }
+  ]
+}

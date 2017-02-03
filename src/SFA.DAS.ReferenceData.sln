@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{6D48E921
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob", "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob\SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.csproj", "{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Host.WebJob", "SFA.DAS.ReferenceData.Host.WebJob\SFA.DAS.ReferenceData.Host.WebJob.csproj", "{52292263-4BED-44B5-9446-11D88AD03CF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
