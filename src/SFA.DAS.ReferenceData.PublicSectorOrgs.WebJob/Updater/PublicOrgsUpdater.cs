@@ -4,7 +4,6 @@ using System.Linq;
 using System.Configuration;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using NLog;
-using SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Models;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -14,6 +13,7 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 {
@@ -52,7 +52,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             var policeOrgs = GetPoliceOrganisations();
             var nhsOrgs = GetNhsOrganisations();
 
-            var orgs = new OrganisationList();
+            var orgs = new PublicSectorOrganisationLookUp();
             orgs.Organisations = onsOrgs.Organisations.Concat(policeOrgs.Organisations).Concat(nhsOrgs.Organisations).ToList();
             var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
 
@@ -61,7 +61,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             UploadJsonToStorage(jsonFilePath);
         }
 
-        private async Task<OrganisationList> GetOnsOrganisations()
+        private async Task<PublicSectorOrganisationLookUp> GetOnsOrganisations()
         {
             
             var url = GetDownloadUrlForMonthYear(false);
@@ -80,7 +80,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             var excelFile = Path.Combine(_workingFolder, _fileName);
 
             _logger.Info($"Reading ONS from {excelFile}");
-            var ol = new OrganisationList();
+            var ol = new PublicSectorOrganisationLookUp();
 
             try
             {
@@ -107,7 +107,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
                         var data = dt.AsEnumerable();
                         ol.Organisations = data.Select(x =>
-                                    new Organisation
+                                    new PublicSectorOrganisation
                                     {
                                         Name = x.Field<string>("F1"),
                                         Sector = x.Field<string>("F2"),
@@ -125,10 +125,10 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             return ol;
         }
 
-        private OrganisationList GetPoliceOrganisations()
+        private PublicSectorOrganisationLookUp GetPoliceOrganisations()
         {
             _logger.Info($"Getting Police Organisations");
-            var ol = new OrganisationList();
+            var ol = new PublicSectorOrganisationLookUp();
 
             try
             {
@@ -141,7 +141,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                     .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
 
                 ol.Organisations = englandPolice.Concat(nationalPolice)
-                    .Select(x => new Organisation
+                    .Select(x => new PublicSectorOrganisation
                     {
                         Name = x,
                         Sector = "",
@@ -157,9 +157,9 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             return ol;
         }
 
-        private OrganisationList GetNhsOrganisations()
+        private PublicSectorOrganisationLookUp GetNhsOrganisations()
         {
-            var ol = new OrganisationList();
+            var ol = new PublicSectorOrganisationLookUp();
             try
             {
                 var nhsUrl = _configuration.NHSTrustsUrl;
@@ -169,7 +169,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                     .Where(x => !string.IsNullOrWhiteSpace(x) && x.ToLower() != "organisation");
 
                 ol.Organisations = nhsOrgs
-                    .Select(x => new Organisation
+                    .Select(x => new PublicSectorOrganisation
                     {
                         Name = x,
                         Sector = "",
@@ -197,7 +197,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             return url;
         }
 
-        private void ExportFile(string filename, OrganisationList orgs)
+        private void ExportFile(string filename, PublicSectorOrganisationLookUp orgs)
         {
             try
             {
@@ -221,7 +221,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 throw new Exception($"An error occurred exporting data to {filename}: {ex.Message}");
             }
 
-            Console.WriteLine($"Exported {orgs.Organisations.Count} records");
+            Console.WriteLine($"Exported {orgs.Organisations.Count()} records");
         }
 
         private void UploadJsonToStorage(string filePath)
