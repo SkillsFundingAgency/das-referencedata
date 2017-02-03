@@ -16,7 +16,6 @@ namespace SFA.DAS.ReferenceData.Infrastructure.DependencyResolution
             {
                 instance.Dependencies.AddForConstructorParameter(logger, LogManager.GetLogger(pluginType.FullName));
             }
-
         }
     }
 }
