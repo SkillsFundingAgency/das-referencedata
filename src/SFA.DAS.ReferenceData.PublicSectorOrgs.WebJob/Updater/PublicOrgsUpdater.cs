@@ -201,21 +201,18 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
         private void UploadJsonToStorage(string filePath)
         {
-            var storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             var blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(_jsonContainerName);
             container.CreateIfNotExists();
 
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(_jsonFileName);
-
-            // Create or overwrite the "myblob" blob with contents from a local file.
+            
             using (var fileStream = File.OpenRead(filePath))
             {
                 blockBlob.UploadFromStream(fileStream);
             }
-
         }
     }
 }
