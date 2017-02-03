@@ -14,6 +14,9 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
         public string CharityBcpTargetSchema { get; set; }
         public string CharityBcpRowTerminator { get; set; }
         public string CharityBcpFieldTerminator { get; set; }
+        public string ONSUrl { get; set; }
+        public string PoliceForcesUrl { get; set; }
+        public string NHSTrustsUrl { get; set; }
 
     }
 }

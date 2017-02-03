@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{6D48E921-EC07-4EA5-A7E9-7FEC034A15F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob", "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob\SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.csproj", "{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Host.WebJob", "SFA.DAS.ReferenceData.Host.WebJob\SFA.DAS.ReferenceData.Host.WebJob.csproj", "{52292263-4BED-44B5-9446-11D88AD03CF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +109,14 @@ Global
 		{E5B82018-E6C5-4915-841C-6A40257BDAA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5B82018-E6C5-4915-841C-6A40257BDAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5B82018-E6C5-4915-841C-6A40257BDAA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52292263-4BED-44B5-9446-11D88AD03CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
