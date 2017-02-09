@@ -20,6 +20,7 @@ namespace SFA.DAS.ReferenceData.Api
                 foreach (var applicationPool in serverManager.ApplicationPools)
                 {
                     applicationPool["startMode"] = "AlwaysRunning";
+                    applicationPool.ProcessModel.IdleTimeout = new System.TimeSpan(0);
                 }
 
                 serverManager.CommitChanges();
