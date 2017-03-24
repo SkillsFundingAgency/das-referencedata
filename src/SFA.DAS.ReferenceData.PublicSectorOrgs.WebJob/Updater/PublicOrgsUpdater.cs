@@ -12,15 +12,14 @@ using System.IO;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using SFA.DAS.ReferenceData.Domain.Models;
-using System.Text;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 {
     public class PublicOrgsUpdater : IPublicOrgsUpdater
     {
         private readonly IArchiveDownloadService _archiveDownloadService;
+        private readonly INhsDataUpdater _nhsDataUpdater;
         private readonly ILogger _logger;
         private readonly ReferenceDataApiConfiguration _configuration;
         private readonly string _workingFolder;
@@ -28,9 +27,10 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         private readonly string _jsonContainerName = "sfa-das-reference-data";
         private readonly string _jsonFileName = "PublicOrganisationNames.json";
 
-        public PublicOrgsUpdater(ILogger logger, ReferenceDataApiConfiguration configuration, IArchiveDownloadService archiveDownloadService)
+        public PublicOrgsUpdater(ILogger logger, ReferenceDataApiConfiguration configuration, IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater)
         {
             _archiveDownloadService = archiveDownloadService;
+            _nhsDataUpdater = nhsDataUpdater;
             _logger = logger;
             _configuration = configuration;
             _workingFolder = Path.GetTempPath();
@@ -41,23 +41,27 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         {
             _logger.Info("Running Public Organisations updater");
 
-            if(string.IsNullOrWhiteSpace(_configuration.NHSTrustsUrl) || 
+            if(!_configuration.NhsTrustsUrls.Any() || 
                 string.IsNullOrWhiteSpace(_configuration.PoliceForcesUrl) || 
                 string.IsNullOrWhiteSpace(_configuration.ONSUrl))
             {
-                _logger.Error("Missing configuration, check table storage configuration for NHSTrustsUrl, PoliceForcesUrl and ONSUrl");
-                throw new Exception("Missing configuration, check table storage configuration for NHSTrustsUrl, PoliceForcesUrl and ONSUrl");
+                _logger.Error("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl");
+                throw new Exception("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl");
             }
 
             var onsOrgs = await GetOnsOrganisations();
-            var nhsOrgs = GetNhsOrganisations();
+            var nhsOrgs = await GetNhsOrganisations();
             var policeOrgs = GetPoliceOrganisations();
 
 
-            var orgs = new PublicSectorOrganisationLookUp();
-            orgs.Organisations = onsOrgs.Organisations.Concat(nhsOrgs.Organisations).Concat(policeOrgs.Organisations).ToList();
-            var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
+            var orgs = new PublicSectorOrganisationLookUp
+            {
+                Organisations = onsOrgs.Organisations
+                                    .Concat(nhsOrgs.Organisations)
+                                    .Concat(policeOrgs.Organisations).ToList()
+            };
 
+            var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
 
             ExportFile(jsonFilePath, orgs);
             UploadJsonToStorage(jsonFilePath);
@@ -74,8 +78,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 url = GetDownloadUrlForMonthYear(true);
                 if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName))
                 {
-                    _logger.Error($"Failed to download ONS from current and previous month, potential URL format change");
-                    throw new Exception($"Failed to download ONS from current and previous month, potential URL format change");
+                    _logger.Error("Failed to download ONS from current and previous month, potential URL format change");
+                    throw new Exception("Failed to download ONS from current and previous month, potential URL format change");
                 }
             }
 
@@ -95,7 +99,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                         conn.Open();
                         cmd.Connection = conn;
                         
-                        var dtSchema = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                         var sheetName = "Index$";
                         cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F1 <> 'Index'";
@@ -160,33 +164,10 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             return ol;
         }
 
-        private PublicSectorOrganisationLookUp GetNhsOrganisations()
+        private async Task<PublicSectorOrganisationLookUp> GetNhsOrganisations()
         {
-            var ol = new PublicSectorOrganisationLookUp();
-            try
-            {
-                var nhsUrl = _configuration.NHSTrustsUrl;
-                var web = new HtmlWeb();
-                var doc = web.Load(nhsUrl);
-                
-                var nhsOrgs = System.Net.WebUtility.HtmlDecode(doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[1]/div/table")[0].InnerText).Split('\n')
-                    .Select(s => s.Trim())
-                    .Where(x => !string.IsNullOrWhiteSpace(x) && x.ToLower() != "organisation");
-
-                ol.Organisations = nhsOrgs
-                    .Select(x => new PublicSectorOrganisation
-                    {
-                        Name = x,
-                        Sector = "",
-                        Source = DataSource.Nhs
-                    })?.ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e, "Cannot get NHS organisations, potential format change");
-                throw new Exception("Cannot get NHS organisations, potential format change", e);
-            }
-            return ol;
+            var data = await _nhsDataUpdater.GetData();
+            return data;
         }
 
         private string GetDownloadUrlForMonthYear(bool previousMonth)

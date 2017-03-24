@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -112,6 +116,7 @@
     <Compile Include="Caching\InProcessCacheProvider.cs" />
     <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Caching\TaskSynchronizationScope.cs" />
+    <Compile Include="Data\FileSystemRepository.cs" />
     <Compile Include="DependencyResolution\ConfigurationPolicy.cs" />
     <Compile Include="DependencyResolution\LoggingPolicy.cs" />
     <Compile Include="Data\CharityRepository.cs" />
@@ -120,6 +125,7 @@
     <Compile Include="Services\BcpService.cs" />
     <Compile Include="Services\ArchiveDownloadService.cs" />
     <Compile Include="Data\PublicSectorOrganisationRepository.cs" />
+    <Compile Include="Services\NhsCsvReaderHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
