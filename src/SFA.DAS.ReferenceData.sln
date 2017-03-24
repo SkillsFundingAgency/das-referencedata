@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Publi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Host.WebJob", "SFA.DAS.ReferenceData.Host.WebJob\SFA.DAS.ReferenceData.Host.WebJob.csproj", "{52292263-4BED-44B5-9446-11D88AD03CF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests", "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests\SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.csproj", "{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{52292263-4BED-44B5-9446-11D88AD03CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52292263-4BED-44B5-9446-11D88AD03CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52292263-4BED-44B5-9446-11D88AD03CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,5 +134,6 @@ Global
 		{9477BE74-E86C-4786-BB1B-52F05F608E61} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{630766FB-69F0-4E15-8B71-2708BAA2AAA6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{E5B82018-E6C5-4915-841C-6A40257BDAA1} = {6D48E921-EC07-4EA5-A7E9-7FEC034A15F7}
+		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 	EndGlobalSection
 EndGlobal
