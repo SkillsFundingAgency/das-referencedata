@@ -1,4 +1,5 @@
-﻿using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
+﻿using System.Collections.Generic;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 
 namespace SFA.DAS.ReferenceData.Domain.Configuration
 {
@@ -16,7 +17,7 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
         public string CharityBcpFieldTerminator { get; set; }
         public string ONSUrl { get; set; }
         public string PoliceForcesUrl { get; set; }
-        public string NHSTrustsUrl { get; set; }
+        public List<string> NhsTrustsUrls { get; set; }
 
     }
 }
