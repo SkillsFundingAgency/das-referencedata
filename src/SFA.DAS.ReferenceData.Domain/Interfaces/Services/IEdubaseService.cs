@@ -6,6 +6,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
     public interface IEdubaseService
     {
-        Task<IEnumerable<EducationOrganisation>> GetOrganisations();
+        Task<ICollection<EducationOrganisation>> GetOrganisations();
     }
 }

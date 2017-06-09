@@ -21,7 +21,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<EducationOrganisation>> GetOrganisations()
+        public async Task<ICollection<EducationOrganisation>> GetOrganisations()
         {
             var client = _factory.Create();
 
