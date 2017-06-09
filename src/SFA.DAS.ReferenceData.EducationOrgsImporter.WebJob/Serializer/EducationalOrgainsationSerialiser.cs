@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 using NLog;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 
-namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob
+namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer
 {
-    public class EducationalOrgainsationSerialiser
+    public class EducationalOrgainsationSerialiser : IEducationalOrgainsationSerialiser
     {
         private readonly ILogger _logger;
 
