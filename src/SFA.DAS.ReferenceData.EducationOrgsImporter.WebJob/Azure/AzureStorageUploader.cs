@@ -4,15 +4,13 @@ using System.IO;
 using Microsoft.WindowsAzure.Storage;
 using NLog;
 
-
-namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob
+namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
 {
-    class AzureStorageUploader
+    public class AzureStorageUploader : IAzureStorageUploader
     {
         private readonly ILogger _logger;
         private const string JsonContainerName = "sfa-das-reference-data";
         private const string JsonFileName = "EducationalOrganisations.json";
-
 
         public AzureStorageUploader(ILogger logger)
         {
@@ -21,7 +19,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob
 
         public void UploadDataToStorage(byte[] data)
         {
-            _logger.Info($"Uploading educational organisations to Blob storage");
+            _logger.Info("Uploading educational organisations to Blob storage");
 
             try
             {
