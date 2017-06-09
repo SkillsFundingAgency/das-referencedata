@@ -40,10 +40,14 @@
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.4.2.472, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.4.2\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -82,10 +86,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureStorageUploader.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EducationalOrgainsationSerialiser.cs" />
     <Compile Include="Updater\EducationalOrgsUpdater.cs" />
     <Compile Include="Updater\IEducationalOrgsUpdater.cs" />
   </ItemGroup>
