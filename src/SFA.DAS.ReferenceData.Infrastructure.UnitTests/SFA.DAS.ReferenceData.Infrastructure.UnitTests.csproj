@@ -34,6 +34,9 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.8\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.5.28.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.28\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -48,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Data\PublicSectorOrgainsationRepositoryTests\WhenIGetOrganisations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EdubaseServiceTests\WhenIGetEducationalOrganisations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

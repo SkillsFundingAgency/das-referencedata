@@ -39,6 +39,9 @@
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.8\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
@@ -99,6 +102,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
@@ -120,11 +124,14 @@
     <Compile Include="DependencyResolution\ConfigurationPolicy.cs" />
     <Compile Include="DependencyResolution\LoggingPolicy.cs" />
     <Compile Include="Data\CharityRepository.cs" />
+    <Compile Include="Factories\EdubaseClientFactory.cs" />
+    <Compile Include="Factories\IEdubaseClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureService.cs" />
     <Compile Include="Services\BcpService.cs" />
     <Compile Include="Services\ArchiveDownloadService.cs" />
     <Compile Include="Data\PublicSectorOrganisationRepository.cs" />
+    <Compile Include="Services\EdubaseService.cs" />
     <Compile Include="Services\NhsCsvReaderHelper.cs" />
   </ItemGroup>
   <ItemGroup />
