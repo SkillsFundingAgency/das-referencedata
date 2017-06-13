@@ -40,12 +40,12 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                 return establishments.Select(x => new EducationOrganisation
                 {
                     Name = x.EstablishmentName,
-                    EducationalType = x.TypeOfEstablishment.DisplayName,
+                    EducationalType = x.TypeOfEstablishment?.DisplayName ?? string.Empty,
                     AddressLine1 = x.Street,
                     AddressLine2 = x.Locality,
                     AddressLine3 = x.Address3,
                     Town = x.Town,
-                    County = x.County.DisplayName,
+                    County = x.County?.DisplayName ?? String.Empty,
                     PostCode = x.Postcode
                 }).ToArray();
             }
