@@ -27,7 +27,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
             var filter = new EstablishmentFilter
             {
-                Fields = new StringList { "EstablishmentName"}
+                Fields = new StringList { "EstablishmentName", "TypeOfEstablishment", "Street", "Locality", "Address3", "Town", "County", "Postcode" }
             };
 
             try
@@ -39,7 +39,14 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 return establishments.Select(x => new EducationOrganisation
                 {
-                    Name = x.EstablishmentName
+                    Name = x.EstablishmentName,
+                    EducationalType = x.TypeOfEstablishment.DisplayName,
+                    AddressLine1 = x.Street,
+                    AddressLine2 = x.Locality,
+                    AddressLine3 = x.Address3,
+                    Town = x.Town,
+                    County = x.County.DisplayName,
+                    PostCode = x.Postcode
                 }).ToArray();
             }
             catch (Exception e)

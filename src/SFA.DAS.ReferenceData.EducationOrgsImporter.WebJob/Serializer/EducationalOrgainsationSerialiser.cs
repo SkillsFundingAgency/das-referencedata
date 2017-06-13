@@ -20,19 +20,19 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer
         {
             try
             {
-                using (var ms = new MemoryStream())
+                using (var stream = new MemoryStream())
                 {
-                    using (var sw = new StreamWriter(ms))
+                    using (var writer = new StreamWriter(stream))
                     {
-                        using (var jw = new JsonTextWriter(sw))
+                        using (var jsonWriter = new JsonTextWriter(writer))
                         {
-                            jw.Formatting = Formatting.Indented;
+                            jsonWriter.Formatting = Formatting.Indented;
 
                             var serializer = new JsonSerializer();
-                            serializer.Serialize(jw, organisations);
+                            serializer.Serialize(jsonWriter, organisations);
                         }
                     }
-                    return ms.ToArray();
+                    return stream.ToArray();
                 }
             }
             catch (Exception ex)

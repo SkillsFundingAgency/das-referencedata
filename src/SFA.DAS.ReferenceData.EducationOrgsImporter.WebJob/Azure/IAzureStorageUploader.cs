@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
 {
     public interface IAzureStorageUploader
     {
-        void UploadDataToStorage(byte[] data);
+        Task UploadDataToStorage(byte[] data);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using NLog;
 
@@ -17,7 +18,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
             _logger = logger;
         }
 
-        public void UploadDataToStorage(byte[] data)
+        public async Task UploadDataToStorage(byte[] data)
         {
             _logger.Info("Uploading educational organisations to Blob storage");
 
@@ -26,6 +27,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
                 var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
                 var blobClient = storageAccount.CreateCloudBlobClient();
+                
                 var container = blobClient.GetContainerReference(JsonContainerName);
                 container.CreateIfNotExists();
 
@@ -33,7 +35,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
 
                 using (var stream = new MemoryStream(data))
                 {
-                    blockBlob.UploadFromStream(stream);
+                    await blockBlob.UploadFromStreamAsync(stream);
                 }
             }
             catch (Exception e)

@@ -3,7 +3,7 @@ using SFA.DAS.ReferenceData.Domain.Configuration;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Factories
 {
-    internal class EdubaseClientFactory : IEdubaseClientFactory
+    public class EdubaseClientFactory : IEdubaseClientFactory
     {
         private readonly ReferenceDataApiConfiguration _configuration;
 

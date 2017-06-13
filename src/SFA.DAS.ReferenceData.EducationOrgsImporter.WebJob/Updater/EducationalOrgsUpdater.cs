@@ -32,12 +32,11 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Updater
             {
                 var orgainsations = await _edubaseService.GetOrganisations();
 
-                if (orgainsations == null || !orgainsations.Any())
-                    return;
+                if (orgainsations == null || !orgainsations.Any()) return;
 
-                var jsonData = _serialiser.SerialiseToJson(orgainsations);
+                var serialisedJsonData = _serialiser.SerialiseToJson(orgainsations);
 
-                _uploader.UploadDataToStorage(jsonData);
+                await _uploader.UploadDataToStorage(serialisedJsonData);
             }
             catch (Exception e)
             {

@@ -3,7 +3,13 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using MediatR;
+using NLog;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
+using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure;
+using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Updater;
+using SFA.DAS.ReferenceData.Infrastructure.Factories;
+using SFA.DAS.ReferenceData.Infrastructure.Services;
 using StructureMap;
 
 namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.DependencyResolution
@@ -20,6 +26,10 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.DependencyResolutio
                 });
            
             For<IEducationalOrgsUpdater>().Use<EducationalOrgsUpdater>();
+            For<IEdubaseClientFactory>().Use<EdubaseClientFactory>();
+            For<IEdubaseService>().Use<EdubaseService>();
+            For<IEducationalOrgainsationSerialiser>().Use<EducationalOrgainsationSerialiser>();
+            For<IAzureStorageUploader>().Use<AzureStorageUploader>();
 
             RegisterMapper();
             RegisterMediator();

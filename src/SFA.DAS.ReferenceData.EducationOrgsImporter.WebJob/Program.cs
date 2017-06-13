@@ -9,6 +9,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob
         internal static void Main(string[] args)
         {
             var container = IoC.Initialize();
+            
             var updater = container.GetInstance<IEducationalOrgsUpdater>();
             updater.RunUpdate().Wait();
         }
