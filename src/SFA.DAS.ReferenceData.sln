@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
@@ -46,6 +46,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Host.WebJob", "SFA.DAS.ReferenceData.Host.WebJob\SFA.DAS.ReferenceData.Host.WebJob.csproj", "{52292263-4BED-44B5-9446-11D88AD03CF9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests", "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests\SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.csproj", "{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob", "SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob\SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.csproj", "{39358BDF-606F-45B5-948A-D45A5E41A42B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests", "SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests\SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.csproj", "{8182C216-4F48-4E47-ACE6-911F688F37D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +127,14 @@ Global
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39358BDF-606F-45B5-948A-D45A5E41A42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39358BDF-606F-45B5-948A-D45A5E41A42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39358BDF-606F-45B5-948A-D45A5E41A42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39358BDF-606F-45B5-948A-D45A5E41A42B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8182C216-4F48-4E47-ACE6-911F688F37D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8182C216-4F48-4E47-ACE6-911F688F37D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8182C216-4F48-4E47-ACE6-911F688F37D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8182C216-4F48-4E47-ACE6-911F688F37D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,5 +147,6 @@ Global
 		{630766FB-69F0-4E15-8B71-2708BAA2AAA6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{E5B82018-E6C5-4915-841C-6A40257BDAA1} = {6D48E921-EC07-4EA5-A7E9-7FEC034A15F7}
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703} = {2A48E4D6-D887-483D-91AD-B9500A485371}
+		{8182C216-4F48-4E47-ACE6-911F688F37D6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 	EndGlobalSection
 EndGlobal

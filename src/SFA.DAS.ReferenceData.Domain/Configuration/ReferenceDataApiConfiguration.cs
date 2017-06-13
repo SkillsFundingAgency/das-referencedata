@@ -18,6 +18,8 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
         public string ONSUrl { get; set; }
         public string PoliceForcesUrl { get; set; }
         public List<string> NhsTrustsUrls { get; set; }
+        public string EdubaseUsername { get; set; }
+        public string EdubasePassword { get; set; }
 
     }
 }
