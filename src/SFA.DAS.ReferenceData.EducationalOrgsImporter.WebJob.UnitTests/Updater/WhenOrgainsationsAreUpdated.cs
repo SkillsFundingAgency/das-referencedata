@@ -7,6 +7,7 @@ using NLog;
 using NUnit.Framework;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
+using EducationOrganisation = SFA.DAS.ReferenceData.Domain.Models.Education.EducationOrganisation;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Updater;
@@ -47,7 +48,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
             _edubaseService.Setup(x => x.GetOrganisations())
                            .ReturnsAsync(organisations);
 
-            _serialiser.Setup(x => x.SerialiseToJson(It.IsAny<IEnumerable<EducationOrganisation>>()))
+            _serialiser.Setup(x => x.SerialiseToJson(It.IsAny<EducationalOrganisationLookUp>()))
                        .Returns(jsonData);
 
             //Act
@@ -55,7 +56,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
 
             //Assert
             _edubaseService.Verify(x => x.GetOrganisations(), Times.Once);
-            _serialiser.Verify(x => x.SerialiseToJson(organisations), Times.Once);
+            _serialiser.Verify(x => x.SerialiseToJson(It.Is< EducationalOrganisationLookUp>(org => org.Organisations.Equals(organisations))), Times.Once);
             _uploader.Verify(x => x.UploadDataToStorage(jsonData), Times.Once);
         }
 
@@ -71,7 +72,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
 
             //Assert
             _edubaseService.Verify(x => x.GetOrganisations(), Times.Once);
-            _serialiser.Verify(x => x.SerialiseToJson(It.IsAny<IEnumerable<EducationOrganisation>>()), Times.Never);
+            _serialiser.Verify(x => x.SerialiseToJson(It.IsAny<EducationalOrganisationLookUp>()), Times.Never);
             _uploader.Verify(x => x.UploadDataToStorage(It.IsAny<byte[]>()), Times.Never);
         }
 
@@ -88,7 +89,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
 
             //Assert
             _logger.Verify(x => x.Error(exception, It.IsAny<string>()), Times.Once);
-            _serialiser.Verify(x => x.SerialiseToJson(It.IsAny<IEnumerable<EducationOrganisation>>()), Times.Never);
+            _serialiser.Verify(x => x.SerialiseToJson(It.IsAny<EducationalOrganisationLookUp>()), Times.Never);
         }
 
         [Test]
@@ -101,7 +102,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
             _edubaseService.Setup(x => x.GetOrganisations())
                            .ReturnsAsync(new List<EducationOrganisation> { new EducationOrganisation() });
 
-            _serialiser.Setup(x => x.SerialiseToJson(It.IsAny<IEnumerable<EducationOrganisation>>()))
+            _serialiser.Setup(x => x.SerialiseToJson(It.IsAny<EducationalOrganisationLookUp>()))
                        .Throws(exception);
 
             //Act
@@ -120,7 +121,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
             _edubaseService.Setup(x => x.GetOrganisations())
                            .ReturnsAsync(new List<EducationOrganisation> { new EducationOrganisation() });
 
-            _serialiser.Setup(x => x.SerialiseToJson(It.IsAny<IEnumerable<EducationOrganisation>>()))
+            _serialiser.Setup(x => x.SerialiseToJson(It.IsAny<EducationalOrganisationLookUp>()))
                        .Returns(new byte[10]);
 
             _uploader.Setup(x => x.UploadDataToStorage(It.IsAny<byte[]>())).Throws(exception);

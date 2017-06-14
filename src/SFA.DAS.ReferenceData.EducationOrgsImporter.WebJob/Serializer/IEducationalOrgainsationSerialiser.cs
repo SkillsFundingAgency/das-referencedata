@@ -5,6 +5,6 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer
 {
     public interface IEducationalOrgainsationSerialiser
     {
-        byte[] SerialiseToJson(IEnumerable<EducationOrganisation> organisations);
+        byte[] SerialiseToJson(EducationalOrganisationLookUp organisations);
     }
 }

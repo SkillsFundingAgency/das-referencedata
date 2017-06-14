@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\Caching\ICache.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
+    <Compile Include="Interfaces\Data\IEducationalOrganisationRepository.cs" />
     <Compile Include="Interfaces\Data\IFileSystemRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Interfaces\Services\IAzureService.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\Data\PagedResult.cs" />
+    <Compile Include="Models\Education\EducationalOrganisationLookUp.cs" />
     <Compile Include="Models\Education\EducationOrganisation.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />
     <Compile Include="Models\PublicSectorOrganisationLookUp.cs" />

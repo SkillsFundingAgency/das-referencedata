@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using NLog;
@@ -16,7 +15,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer
             _logger = logger;
         }
 
-        public byte[] SerialiseToJson(IEnumerable<EducationOrganisation> organisations)
+        public byte[] SerialiseToJson(EducationalOrganisationLookUp organisations)
         {
             try
             {

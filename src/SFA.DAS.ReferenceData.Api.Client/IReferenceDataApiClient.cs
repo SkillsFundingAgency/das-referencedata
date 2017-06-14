@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 
 namespace SFA.DAS.ReferenceData.Api.Client
@@ -12,5 +8,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
         Task<Charity> GetCharity(int registrationNumber);
 
         Task<PagedApiResponse<PublicSectorOrganisation>> SearchPublicSectorOrganisation(string searchTerm, int pageNumber, int pageSize);
+
+        Task<PagedApiResponse<EducationOrganisation>> SearchEducationalOrganisation(string searchTerm, int pageNumber, int pageSize);
     }
 }

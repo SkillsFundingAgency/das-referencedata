@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using MediatR;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
+using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
@@ -49,6 +52,28 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             }
 
             return Ok(response.Charity);
+        }
+
+        [Route("educational", Name = "Educational")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetEducaltionalOrganisation(string searchTerm = "", int pageSize = 1000, int pageNumber = 1)
+        {
+            var query = new FindEducationalOrganisationsQuery
+            {
+                SearchTerm = searchTerm,
+                PageSize = pageSize,
+                PageNumber = pageNumber
+            };
+
+            var response = await _mediator.SendAsync(query);
+
+            if (response.Organisations == null || !response.Organisations.Data.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(response.Organisations);
         }
     }
 }
