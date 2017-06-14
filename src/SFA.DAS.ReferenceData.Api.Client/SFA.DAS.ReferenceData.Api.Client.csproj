@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\Charity.cs" />
+    <Compile Include="Dto\EducationOrganisation.cs" />
     <Compile Include="Dto\PagedApiResponse.cs" />
     <Compile Include="Dto\PublicSectorOrganisation.cs" />
     <Compile Include="IReferenceDataApiClient.cs" />

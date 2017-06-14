@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {
@@ -20,7 +21,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
             _httpClient = httpClient;
         }
 
-        public async Task<Dto.Charity> GetCharity(int registrationNumber)
+        public async Task<Charity> GetCharity(int registrationNumber)
         {
             var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
                 ? _configuration.ApiBaseUrl
@@ -30,10 +31,10 @@ namespace SFA.DAS.ReferenceData.Api.Client
 
             var json = await _httpClient.GetAsync(url);
 
-            return JsonConvert.DeserializeObject<Dto.Charity>(json);
+            return JsonConvert.DeserializeObject<Charity>(json);
         }
 
-        public async Task<Dto.PagedApiResponse<Dto.PublicSectorOrganisation>> SearchPublicSectorOrganisation(string searchTerm, int pageNumber, int pageSize)
+        public async Task<PagedApiResponse<PublicSectorOrganisation>> SearchPublicSectorOrganisation(string searchTerm, int pageNumber, int pageSize)
         {
             var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
                 ? _configuration.ApiBaseUrl
@@ -42,8 +43,20 @@ namespace SFA.DAS.ReferenceData.Api.Client
             var url = $"{baseUrl}publicsectorbodies?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
 
             var json = await _httpClient.GetAsync(url);
-            return JsonConvert.DeserializeObject<Dto.PagedApiResponse<Dto.PublicSectorOrganisation>>(json);
+            return JsonConvert.DeserializeObject<PagedApiResponse<PublicSectorOrganisation>>(json);
 
+        }
+
+        public async Task<PagedApiResponse<EducationOrganisation>> SearchEducationalOrganisation(string searchTerm, int pageNumber, int pageSize)
+        {
+            var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
+                ? _configuration.ApiBaseUrl
+                : _configuration.ApiBaseUrl + "/";
+
+            var url = $"{baseUrl}educational?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
+
+            var json = await _httpClient.GetAsync(url);
+            return JsonConvert.DeserializeObject<PagedApiResponse<EducationOrganisation>>(json);
         }
     }
 }
