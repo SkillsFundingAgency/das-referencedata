@@ -63,6 +63,7 @@
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrgainsationQuery.cs" />
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrganisationResponse.cs" />
     <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrganisationsHandler.cs" />
+    <Compile Include="Services\OrganisationSearch\PublicSectorSearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
