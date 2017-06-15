@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using MediatR;
+using SFA.DAS.ReferenceData.Api.Attributes;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
@@ -21,7 +22,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("publicsectorbodies", Name = "Public Sector")]
         [HttpGet]
-        [Authorize]
+        [ApiAuthorize]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations(string searchTerm = "", int pageSize = 1000, int pageNumber = 1)
         {
             var response = await _mediator.SendAsync(new FindPublicSectorOrgainsationQuery
@@ -36,7 +37,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("charities/{registrationNumber}", Name = "Charity")]
         [HttpGet]
-        [Authorize]
+        [ApiAuthorize]
         public async Task<IHttpActionResult> GetCharity(int registrationNumber)
         {
             var query = new GetCharityByRegistrationNumberQuery
@@ -56,7 +57,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("educational", Name = "Educational")]
         [HttpGet]
-        [Authorize]
+        [ApiAuthorize]
         public async Task<IHttpActionResult> GetEducaltionalOrganisation(string searchTerm = "", int pageSize = 1000, int pageNumber = 1)
         {
             var query = new FindEducationalOrganisationsQuery

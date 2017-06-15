@@ -45,7 +45,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     AddressLine2 = x.Locality,
                     AddressLine3 = x.Address3,
                     Town = x.Town,
-                    County = x.County?.DisplayName ?? String.Empty,
+                    County = x.County?.DisplayName ?? string.Empty,
                     PostCode = x.Postcode
                 }).ToArray();
             }
