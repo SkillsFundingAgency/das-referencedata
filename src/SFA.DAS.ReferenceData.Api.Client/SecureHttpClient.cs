@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
@@ -26,7 +27,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
             return result;
         }
 
-        public virtual async Task<string> GetAsync(string url)
+        public virtual async Task<string> GetAsync(string url, bool exceptionOnNotFound = true)
         {
             var authenticationResult = await GetAuthenticationResult(_configuration.ClientId, _configuration.ClientSecret, _configuration.IdentifierUri, _configuration.Tenant);
 
@@ -35,6 +36,12 @@ namespace SFA.DAS.ReferenceData.Api.Client
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationResult.AccessToken);
 
                 var response = await client.GetAsync(url);
+
+                if (!exceptionOnNotFound && response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync();

@@ -7,6 +7,7 @@ using SFA.DAS.ReferenceData.Api.Attributes;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
+using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
@@ -70,6 +71,27 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             var response = await _mediator.SendAsync(query);
 
             if (response.Organisations == null || !response.Organisations.Data.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(response.Organisations);
+        }
+
+        [Route("", Name = "Search")]
+        [HttpGet]
+        [ApiAuthorize]
+        public async Task<IHttpActionResult> SearchOrganisations(string searchTerm = "", int maximumResults = 500)
+        {
+            var query = new SearchOrganisationsQuery
+            {
+                SearchTerm = searchTerm,
+                MaximumResults = maximumResults
+            };
+
+            var response = await _mediator.SendAsync(query);
+
+            if (response.Organisations == null || !response.Organisations.Any())
             {
                 return NotFound();
             }

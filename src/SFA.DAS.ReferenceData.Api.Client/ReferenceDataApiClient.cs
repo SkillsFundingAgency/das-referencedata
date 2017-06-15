@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 
@@ -23,9 +24,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
 
         public async Task<Charity> GetCharity(int registrationNumber)
         {
-            var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
-                ? _configuration.ApiBaseUrl
-                : _configuration.ApiBaseUrl + "/";
+            var baseUrl = GetBaseUrl();
 
             var url = $"{baseUrl}charities/{registrationNumber}";
 
@@ -36,9 +35,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
 
         public async Task<PagedApiResponse<PublicSectorOrganisation>> SearchPublicSectorOrganisation(string searchTerm, int pageNumber, int pageSize)
         {
-            var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
-                ? _configuration.ApiBaseUrl
-                : _configuration.ApiBaseUrl + "/";
+            var baseUrl = GetBaseUrl();
 
             var url = $"{baseUrl}publicsectorbodies?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
 
@@ -47,21 +44,39 @@ namespace SFA.DAS.ReferenceData.Api.Client
 
         }
 
-        public Task<PagedApiResponse<Organisation>> SearchOrganisations(string searchTerm, int pageNumber = 1, int pageSize = 20, int maximumResults = 500)
+        public async Task<IEnumerable<Organisation>> SearchOrganisations(string searchTerm, int maximumResults = 500)
         {
-            throw new System.NotImplementedException();
-	}
+            var baseUrl = GetBaseUrl();
+
+            var url = $"{baseUrl}?searchTerm={searchTerm}&maximumResults={maximumResults}";
+
+            var json = await _httpClient.GetAsync(url, false);
+
+            if (json == null)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<IEnumerable<Organisation>>(json);
+        }
 
         public async Task<PagedApiResponse<EducationOrganisation>> SearchEducationalOrganisation(string searchTerm, int pageNumber, int pageSize)
         {
-            var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
-                ? _configuration.ApiBaseUrl
-                : _configuration.ApiBaseUrl + "/";
+            var baseUrl = GetBaseUrl();
 
             var url = $"{baseUrl}educational?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
 
             var json = await _httpClient.GetAsync(url);
+
             return JsonConvert.DeserializeObject<PagedApiResponse<EducationOrganisation>>(json);
+        }
+
+        private string GetBaseUrl()
+        {
+            var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
+                ? _configuration.ApiBaseUrl
+                : _configuration.ApiBaseUrl + "/";
+            return baseUrl;
         }
     }
 }
