@@ -120,6 +120,7 @@
     <Compile Include="Caching\InProcessCacheProvider.cs" />
     <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Caching\TaskSynchronizationScope.cs" />
+    <Compile Include="Data\EducationalOrganisationRepository.cs" />
     <Compile Include="Data\FileSystemRepository.cs" />
     <Compile Include="DependencyResolution\ConfigurationPolicy.cs" />
     <Compile Include="DependencyResolution\LoggingPolicy.cs" />

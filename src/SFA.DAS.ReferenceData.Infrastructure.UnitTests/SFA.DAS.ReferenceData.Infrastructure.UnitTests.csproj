@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\EducationalOrganisationRepositoryTests\WhenIGetOrganisations.cs" />
     <Compile Include="Data\PublicSectorOrgainsationRepositoryTests\WhenIGetOrganisations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EdubaseServiceTests\WhenIGetEducationalOrganisations.cs" />

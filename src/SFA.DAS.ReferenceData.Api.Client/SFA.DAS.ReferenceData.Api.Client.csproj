@@ -58,6 +58,7 @@
     <Compile Include="Dto\OrganisationSubType.cs" />
     <Compile Include="Dto\OrganisationType.cs" />
     <Compile Include="Dto\Organisation.cs" />
+    <Compile Include="Dto\EducationOrganisation.cs" />
     <Compile Include="Dto\PagedApiResponse.cs" />
     <Compile Include="Dto\PublicSectorOrganisation.cs" />
     <Compile Include="IReferenceDataApiClient.cs" />
