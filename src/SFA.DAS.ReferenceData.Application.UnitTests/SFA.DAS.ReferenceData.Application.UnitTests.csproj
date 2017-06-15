@@ -64,6 +64,7 @@
     <Compile Include="Queries\GetCharityByRegistrationNumber\WhenIGetCharityByRegistratrionNumber.cs" />
     <Compile Include="Queries\GetEducationalOrganisations\WhenIGetEducationalOrganisations.cs" />
     <Compile Include="Queries\GetPublicSectorOrganisations\WhenIGetPublicSectorOrganisations.cs" />
+    <Compile Include="Queries\SearchOrganisations\WhenISearchOrganisations.cs" />
     <Compile Include="Services\PublicSectorSearchServiceTests\WhenISearchForAPublicSectorOrganisation.cs" />
   </ItemGroup>
   <ItemGroup>
