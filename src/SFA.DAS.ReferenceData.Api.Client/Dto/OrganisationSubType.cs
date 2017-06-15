@@ -2,6 +2,8 @@
 {
     public enum OrganisationSubType
     {
+        None = 0,
+
         // Public sector
         Ons = 1,
         Nhs = 2,

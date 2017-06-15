@@ -66,6 +66,7 @@
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsHandler.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsResponse.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsQuery.cs" />
+    <Compile Include="Services\OrganisationSearch\CharitiesSearchService.cs" />
     <Compile Include="Services\OrganisationSearch\PublicSectorSearchService.cs" />
   </ItemGroup>
   <ItemGroup>

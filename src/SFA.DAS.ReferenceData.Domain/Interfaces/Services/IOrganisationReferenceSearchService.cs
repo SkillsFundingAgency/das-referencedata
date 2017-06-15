@@ -6,6 +6,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
     public interface IOrganisationReferenceSearchService
     {
-        Task<IEnumerable<Organisation>> Search(string reference);
+        Task<Organisation> Search(string reference);
     }
 }
