@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
@@ -49,6 +50,31 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.SearchOrganisation
             allResults.AddRange(search1Results);
             allResults.AddRange(search2Results);
             CollectionAssert.AreEqual(allResults, response.Organisations);
+        }
+
+        [Test]
+        public async Task AndMoreThanTheMaximumResultsAreFoundThenTheMaximumNumberOfResultsAreReturned()
+        {
+            var query = new SearchOrganisationsQuery
+            {
+                SearchTerm = "test",
+                MaximumResults = 3
+            };
+
+            var search1Results = new List<Organisation> { new Organisation(), new Organisation() };
+            var search2Results = new List<Organisation> { new Organisation(), new Organisation() };
+
+            _textSearchService1.Setup(x => x.Search(query.SearchTerm, query.MaximumResults)).ReturnsAsync(search1Results);
+            _textSearchService2.Setup(x => x.Search(query.SearchTerm, query.MaximumResults)).ReturnsAsync(search2Results);
+
+            //Act
+            var response = await _handler.Handle(query);
+
+            //Assert
+            var expectedResults = new List<Organisation>();
+            expectedResults.AddRange(search1Results);
+            expectedResults.Add(search2Results.First());
+            CollectionAssert.AreEqual(expectedResults, response.Organisations);
         }
     }
 }

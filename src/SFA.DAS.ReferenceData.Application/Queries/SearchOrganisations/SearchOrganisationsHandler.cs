@@ -20,7 +20,13 @@ namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
         {
             var results = await PerformTextSearch(query);
 
-            return new SearchOrganisationsResponse { Organisations = CombineSearchResults(results) };
+            var combinedResults = CombineSearchResults(results);
+            return new SearchOrganisationsResponse { Organisations = LimitResultsToMaximum(combinedResults, query.MaximumResults) };
+        }
+
+        private IEnumerable<Organisation> LimitResultsToMaximum(IEnumerable<Organisation> combinedResults, int maximumResults)
+        {
+            return combinedResults.Take(maximumResults);
         }
 
         private static IEnumerable<Organisation> CombineSearchResults(IEnumerable<Organisation>[] results)
