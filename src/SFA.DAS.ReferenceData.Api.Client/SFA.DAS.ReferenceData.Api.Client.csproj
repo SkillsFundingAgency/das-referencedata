@@ -53,7 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Address.cs" />
     <Compile Include="Dto\Charity.cs" />
+    <Compile Include="Dto\OrganisationSubType.cs" />
+    <Compile Include="Dto\OrganisationType.cs" />
+    <Compile Include="Dto\Organisation.cs" />
     <Compile Include="Dto\EducationOrganisation.cs" />
     <Compile Include="Dto\PagedApiResponse.cs" />
     <Compile Include="Dto\PublicSectorOrganisation.cs" />
