@@ -4,7 +4,7 @@ using SFA.DAS.ReferenceData.Api.Client.Dto;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {
-    public class ReferenceDataApiClient :IReferenceDataApiClient
+    public class ReferenceDataApiClient : IReferenceDataApiClient
     {
         private readonly IReferenceDataApiConfiguration _configuration;
         private readonly SecureHttpClient _httpClient;
@@ -46,6 +46,11 @@ namespace SFA.DAS.ReferenceData.Api.Client
             return JsonConvert.DeserializeObject<PagedApiResponse<PublicSectorOrganisation>>(json);
 
         }
+
+        public Task<PagedApiResponse<Organisation>> SearchOrganisations(string searchTerm, int pageNumber = 1, int pageSize = 20, int maximumResults = 500)
+        {
+            throw new System.NotImplementedException();
+	}
 
         public async Task<PagedApiResponse<EducationOrganisation>> SearchEducationalOrganisation(string searchTerm, int pageNumber, int pageSize)
         {
