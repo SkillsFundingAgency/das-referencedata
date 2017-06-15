@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {
-    public class ReferenceDataApiClient :IReferenceDataApiClient
+    public class ReferenceDataApiClient : IReferenceDataApiClient
     {
         private readonly IReferenceDataApiConfiguration _configuration;
         private readonly SecureHttpClient _httpClient;
@@ -44,6 +45,11 @@ namespace SFA.DAS.ReferenceData.Api.Client
             var json = await _httpClient.GetAsync(url);
             return JsonConvert.DeserializeObject<Dto.PagedApiResponse<Dto.PublicSectorOrganisation>>(json);
 
+        }
+
+        public Task<PagedApiResponse<Organisation>> SearchOrganisations(string searchTerm, int pageNumber = 1, int pageSize = 20, int maximumResults = 500)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
