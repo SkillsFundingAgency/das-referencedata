@@ -25,7 +25,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             };
 
             _httpClient = new Mock<SecureHttpClient>();
-            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/charities/123"))).ReturnsAsync(() => JsonConvert.SerializeObject(data));
+            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/charities/123"), true)).ReturnsAsync(() => JsonConvert.SerializeObject(data));
             _apiClient = new ReferenceDataApiClient(_configuration.Object, _httpClient.Object);
         }
 
@@ -37,7 +37,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 
             //Assert
             var expectedUrl = $"http://some-url/api/organisations/charities/123";
-            _httpClient.Verify(x=> x.GetAsync(expectedUrl), Times.Once);
+            _httpClient.Verify(x=> x.GetAsync(expectedUrl, true), Times.Once);
         }
 
         [Test]

@@ -55,6 +55,8 @@
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
     <Compile Include="Interfaces\Services\IEdubaseService.cs" />
     <Compile Include="Interfaces\Services\INhsCsvReaderHelper.cs" />
+    <Compile Include="Interfaces\Services\IOrganisationReferenceSearchService.cs" />
+    <Compile Include="Interfaces\Services\IOrganisationTextSearchService.cs" />
     <Compile Include="Models\Bcp\BcpRequest.cs" />
     <Compile Include="Models\Charity\Charity.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
@@ -64,6 +66,10 @@
     <Compile Include="Models\Data\PagedResult.cs" />
     <Compile Include="Models\Education\EducationalOrganisationLookUp.cs" />
     <Compile Include="Models\Education\EducationOrganisation.cs" />
+    <Compile Include="Models\Organisation\Address.cs" />
+    <Compile Include="Models\Organisation\Organisation.cs" />
+    <Compile Include="Models\Organisation\OrganisationSubType.cs" />
+    <Compile Include="Models\Organisation\OrganisationType.cs" />
     <Compile Include="Models\PublicSectorOrganisation.cs" />
     <Compile Include="Models\PublicSectorOrganisationLookUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
