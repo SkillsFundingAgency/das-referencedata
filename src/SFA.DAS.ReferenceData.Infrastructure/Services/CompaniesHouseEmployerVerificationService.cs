@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Http;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
 using SFA.DAS.ReferenceData.Infrastructure.ExecutionPolicies;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
-    public class CompaniesHouseEmployerVerificationService
+    public class CompaniesHouseEmployerVerificationService : ICompaniesHouseEmployerVerificationService
     {
         private readonly ReferenceDataApiConfiguration _configuration;
         private readonly ILog _logger;

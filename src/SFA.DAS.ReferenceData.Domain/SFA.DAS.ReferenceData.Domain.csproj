@@ -67,6 +67,7 @@
     <Compile Include="Interfaces\Data\IFileSystemRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
+    <Compile Include="Interfaces\Services\ICompaniesHouseEmployerVerificationService.cs" />
     <Compile Include="Interfaces\Services\IEdubaseService.cs" />
     <Compile Include="Interfaces\Services\INhsCsvReaderHelper.cs" />
     <Compile Include="Interfaces\Services\IOrganisationReferenceSearchService.cs" />
