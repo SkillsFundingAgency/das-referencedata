@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
@@ -6,7 +8,7 @@ using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
-    public class CharitiesSearchService : IOrganisationReferenceSearchService
+    public class CharitiesSearchService : IOrganisationReferenceSearchService, IOrganisationTextSearchService
     {
         private readonly ICharityRepository _repository;
 
@@ -31,6 +33,12 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
         {
             int charityNumber;
             return int.TryParse(searchTerm, out charityNumber);
+        }
+
+        public async Task<IEnumerable<Organisation>> Search(string searchTerm, int maximumRecords)
+        {
+            var charities = await _repository.FindCharities(searchTerm, maximumRecords);
+            return charities.Select(ConvertToOrganisation);
         }
 
         private Organisation ConvertToOrganisation(Charity publicSectorOrganisation)

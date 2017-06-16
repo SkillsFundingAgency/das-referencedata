@@ -67,6 +67,7 @@
     <Compile Include="Queries\SearchOrganisations\WhenISearchOrganisations.cs" />
     <Compile Include="Services\CharitiesSearchServiceTests\CharitiesSearchServiceTestsBase.cs" />
     <Compile Include="Services\CharitiesSearchServiceTests\WhenIProvideASearchTerm.cs" />
+    <Compile Include="Services\CharitiesSearchServiceTests\WhenISearchForACharityByName.cs" />
     <Compile Include="Services\CharitiesSearchServiceTests\WhenISearchForACharityByNumber.cs" />
     <Compile Include="Services\EducationalOrganisationsSearchServiceTests\WhenISearchForAnEducationalOrganisation.cs" />
     <Compile Include="Services\PublicSectorSearchServiceTests\WhenISearchForAPublicSectorOrganisation.cs" />

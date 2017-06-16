@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
 using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
