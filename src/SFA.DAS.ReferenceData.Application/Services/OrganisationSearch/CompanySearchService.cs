@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
@@ -7,7 +9,7 @@ using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
-    public class CompanySearchService : IOrganisationReferenceSearchService
+    public class CompanySearchService : IOrganisationReferenceSearchService, IOrganisationTextSearchService
     {
         private readonly ICompaniesHouseEmployerVerificationService _companyVerificationService;
         private readonly ILog _logger;
@@ -63,6 +65,31 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 Line5 = address.County,
                 Postcode = address.PostCode
             };
+        }
+
+        public async Task<IEnumerable<Organisation>> Search(string searchTerm, int maximumRecords)
+        {
+            try
+            {
+                var results = await _companyVerificationService.FindCompany(searchTerm);
+
+                return results?.Companies?.Select(c => new Organisation
+                {
+                    Name = c.CompanyName,
+                    Address = FormatAddress(c.Address),
+                    Code = c.CompanyNumber,
+                    RegistrationDate = c.DateOfIncorporation,
+                    Type = OrganisationType.Company,
+                    SubType = OrganisationSubType.None
+                });
+            }
+
+            catch (Exception e)
+            {
+                _logger.Error(e, "Could not find Company when searching companies house");
+            }
+
+            return null;
         }
     }
 }

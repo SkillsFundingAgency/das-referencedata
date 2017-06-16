@@ -5,6 +5,8 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
     public interface ICompaniesHouseEmployerVerificationService
     {
-        Task<EmployerInformation> GetInformation(string id);
+        Task<CompanyInformation> GetInformation(string id);
+
+        Task<CompanySearchResults> FindCompany(string searchTerm);
     }
 }

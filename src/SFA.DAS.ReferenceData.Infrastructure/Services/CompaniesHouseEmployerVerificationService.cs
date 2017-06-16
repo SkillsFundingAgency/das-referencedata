@@ -27,7 +27,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             _httpClientWrapper.BaseUrl = _configuration.CompaniesHouse.BaseUrl;
         }
 
-        public async Task<EmployerInformation> GetInformation(string id)
+        public async Task<CompanyInformation> GetInformation(string id)
         {
             return await _executionPolicy.ExecuteAsync(async () =>
             {
@@ -35,9 +35,24 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 id = id?.ToUpper();
 
-                var result = await _httpClientWrapper.Get<EmployerInformation>(
+                var result = await _httpClientWrapper.Get<CompanyInformation>(
                     $"{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(_configuration.CompaniesHouse.ApiKey))}",
                     $"{_configuration.CompaniesHouse.BaseUrl}/company/{id}");
+                return result;
+            });
+        }
+
+        public async Task<CompanySearchResults> FindCompany(string searchTerm)
+        {
+            return await _executionPolicy.ExecuteAsync(async () =>
+            {
+                _logger.Info($"FindCompany({searchTerm})");
+
+                searchTerm = searchTerm?.ToUpper();
+
+                var result = await _httpClientWrapper.Get<CompanySearchResults>(
+                    $"{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(_configuration.CompaniesHouse.ApiKey))}",
+                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={searchTerm}");
                 return result;
             });
         }

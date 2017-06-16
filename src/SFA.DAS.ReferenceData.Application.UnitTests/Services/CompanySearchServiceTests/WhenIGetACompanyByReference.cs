@@ -11,7 +11,7 @@ using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServiceTests
 {
-    public class WhenISearchForACompany
+    public class WhenIGetACompanyByReference
     {
         private Mock<ILog> _logger;
         private Mock<ICompaniesHouseEmployerVerificationService> _verificationService;
@@ -27,11 +27,11 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
         }
 
         [Test]
-        public async Task ShouldSearchForCompaniesUsingCompanyHouseService()
+        public async Task ShouldSearchForCompanyUsingCompanyHouseService()
         {
             //Arrange
             var reference = "12345678";
-            var info = new EmployerInformation();
+            var info = new CompanyInformation();
           
             _verificationService.Setup(x => x.GetInformation(It.IsAny<string>())).ReturnsAsync(info);
 
@@ -47,7 +47,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
         {
             //Arrange
             const string reference = "12345678";
-            var info = new EmployerInformation
+            var info = new CompanyInformation
             {
                 CompanyName = "Test Corp",
                 RegisteredAddress = new Domain.Models.Company.Address
@@ -101,7 +101,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
         public async Task ShouldReturnNullIfNoCompanyFound()
         {
             //Arrange
-            _verificationService.Setup(x => x.GetInformation(It.IsAny<string>())).ReturnsAsync((EmployerInformation)null);
+            _verificationService.Setup(x => x.GetInformation(It.IsAny<string>())).ReturnsAsync((CompanyInformation)null);
 
             //Act
             var result = await _searchService.Search("12345678");

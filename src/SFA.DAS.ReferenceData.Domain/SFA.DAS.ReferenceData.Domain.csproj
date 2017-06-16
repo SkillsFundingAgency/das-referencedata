@@ -77,7 +77,10 @@
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
-    <Compile Include="Models\Company\EmployerInformation.cs" />
+    <Compile Include="Models\Company\Address.cs" />
+    <Compile Include="Models\Company\CompanySearchResults.cs" />
+    <Compile Include="Models\Company\CompanyInformation.cs" />
+    <Compile Include="Models\Company\CompanySearchResultsItem.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\Data\PagedResult.cs" />
     <Compile Include="Models\Education\EducationalOrganisationLookUp.cs" />
