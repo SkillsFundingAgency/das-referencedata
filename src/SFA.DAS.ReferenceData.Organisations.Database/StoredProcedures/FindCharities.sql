@@ -1,12 +1,13 @@
 ﻿CREATE PROCEDURE [CharityData].[FindCharities]
 (
-	@SearchTerm NVARCHAR(4000)
+	@SearchTerm NVARCHAR(4000),
+	@MaximumResults INT
 )
 AS
 
 	DECLARE @wildcardedSearch NVARCHAR(4000) = '%' + LOWER(@SearchTerm) + '%'
 
-	select
+	select top (@MaximumResults)
 	charity.regno as 'RegistrationNumber',
 	rtrim(charity.name) as 'Name',
 	rtrim(charity.add1) as 'Address1',

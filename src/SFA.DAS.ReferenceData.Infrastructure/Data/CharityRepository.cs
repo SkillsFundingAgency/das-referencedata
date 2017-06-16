@@ -72,10 +72,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             return result.SingleOrDefault();
         }
 
-        public async Task<IEnumerable<Charity>> FindCharities(string searchTerm, int pageSize, int pageNumber)
+        public async Task<IEnumerable<Charity>> FindCharities(string searchTerm, int maximumResults)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@SearchTerm", searchTerm, DbType.String);
+            parameters.Add("@MaximumResults", maximumResults, DbType.Int32);
 
             var result = await WithConnection(async c => await c.QueryAsync<Charity>(
                 sql: "[CharityData].[FindCharities]",
