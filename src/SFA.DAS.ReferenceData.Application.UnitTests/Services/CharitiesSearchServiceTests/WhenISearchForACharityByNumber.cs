@@ -10,18 +10,8 @@ using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchServiceTests
 {
     [TestFixture]
-    public class WhenISearchForACharityByNumber
+    public class WhenISearchForACharityByNumber : CharitiesSearchServiceTestsBase
     {
-        private Mock<ICharityRepository> _repository;
-        private CharitiesSearchService _service;
-
-        [SetUp]
-        public void Arrange()
-        {
-            _repository = new Mock<ICharityRepository>();
-            _service = new CharitiesSearchService(_repository.Object);
-        }
-
         [Test]
         public async Task ThenTheMatchingOrganisationIsReturned()
         {
@@ -40,9 +30,9 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchSe
                 RegistrationDate = DateTime.Now.AddYears(-3)
             };
 
-            _repository.Setup(x => x.GetCharityByRegistrationNumber(registrationNumber)).ReturnsAsync(expectedOrganisation);
+            Repository.Setup(x => x.GetCharityByRegistrationNumber(registrationNumber)).ReturnsAsync(expectedOrganisation);
 
-            var result = await _service.Search(registrationNumber.ToString());
+            var result = await Service.Search(registrationNumber.ToString());
 
             Assert.AreEqual(expectedOrganisation.Name, result.Name);
             Assert.AreEqual(expectedOrganisation.Address1, result.Address.Line1);
@@ -63,7 +53,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchSe
         {
             var registrationNumber = "A1234453";
 
-            var result = await _service.Search(registrationNumber);
+            var result = await Service.Search(registrationNumber);
 
             Assert.IsNull(result);
         }

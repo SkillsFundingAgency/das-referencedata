@@ -17,14 +17,20 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 
         public async Task<Organisation> Search(string reference)
         {
-            int charityNumber;
-            if (!int.TryParse(reference, out charityNumber))
+            if (!IsSearchTermAReference(reference))
             {
                 return null;
             }
 
+            var charityNumber = int.Parse(reference);
             var charity = await _repository.GetCharityByRegistrationNumber(charityNumber);
             return ConvertToOrganisation(charity);
+        }
+
+        public bool IsSearchTermAReference(string searchTerm)
+        {
+            int charityNumber;
+            return int.TryParse(searchTerm, out charityNumber);
         }
 
         private Organisation ConvertToOrganisation(Charity publicSectorOrganisation)
