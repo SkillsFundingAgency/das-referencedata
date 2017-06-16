@@ -4,6 +4,7 @@
     {
         Company = 1,
         Charity = 2,
-        PublicSector = 3
+        PublicSector = 3,
+        EducationOrganisation = 4
     }
 }
