@@ -106,6 +106,7 @@
     <Build Include="Tables\trustee.sql" />
     <Build Include="StoredProcedures\ImportDataFromLoadTables.sql" />
     <Build Include="StoredProcedures\GetCharityByRegistrationNumber.sql" />
+    <Build Include="StoredProcedures\FindCharities.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
