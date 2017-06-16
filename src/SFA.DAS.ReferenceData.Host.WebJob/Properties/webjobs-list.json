@@ -6,6 +6,9 @@
     },
     {
       "filePath": "../SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob/SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.csproj"
+    },
+    {
+      "filePath": "../SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob/SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.csproj"
     }
   ]
 }

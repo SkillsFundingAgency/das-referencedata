@@ -102,7 +102,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                         conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                         var sheetName = "Index$";
-                        cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F1 <> 'Index'";
+                        cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F2 IS NOT NULL AND F1 <> 'Index'";
 
                         var dt = new DataTable(sheetName);
                         var da = new OleDbDataAdapter(cmd);
@@ -112,6 +112,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                         dt.Rows.Remove(rowDel);
 
                         var data = dt.AsEnumerable();
+
                         ol.Organisations = data.Where(s => !s.Field<string>("F2").ToLower().Contains("former")).Select(x =>
                                     new PublicSectorOrganisation
                                     {
