@@ -21,5 +21,7 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
         public string EdubaseUsername { get; set; }
         public string EdubasePassword { get; set; }
 
+        public CompaniesHouseConfiguration CompaniesHouse { get; set; }
+
     }
 }

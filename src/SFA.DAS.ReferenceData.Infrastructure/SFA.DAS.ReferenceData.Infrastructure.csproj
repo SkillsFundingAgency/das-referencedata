@@ -37,7 +37,6 @@
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.8\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
@@ -74,9 +73,11 @@
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Configuration, Version=1.0.0.14492, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Configuration.1.0.0.14492\lib\net45\SFA.DAS.Configuration.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Polly, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.5.1.0\lib\net45\Polly.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Configuration, Version=1.0.0.6634, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Configuration.1.0.0.6634\lib\net45\SFA.DAS.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Configuration.AzureTableStorage, Version=1.0.0.14492, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.AzureTableStorage.1.0.0.14492\lib\net45\SFA.DAS.Configuration.AzureTableStorage.dll</HintPath>
@@ -85,6 +86,9 @@
     <Reference Include="SFA.DAS.Configuration.FileStorage, Version=1.0.0.14492, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.FileStorage.1.0.0.14492\lib\net45\SFA.DAS.Configuration.FileStorage.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.26805, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.26805\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.1.603\lib\net45\StackExchange.Redis.dll</HintPath>
@@ -125,13 +129,19 @@
     <Compile Include="DependencyResolution\ConfigurationPolicy.cs" />
     <Compile Include="DependencyResolution\LoggingPolicy.cs" />
     <Compile Include="Data\CharityRepository.cs" />
+    <Compile Include="ExecutionPolicies\CompaniesHouseExecutionPolicy.cs" />
+    <Compile Include="ExecutionPolicies\ExecutionPolicy.cs" />
+    <Compile Include="ExecutionPolicies\PolicyNameAttribute.cs" />
+    <Compile Include="ExecutionPolicies\RequiredPolicyAttribute.cs" />
     <Compile Include="Factories\EdubaseClientFactory.cs" />
     <Compile Include="Factories\IEdubaseClientFactory.cs" />
+    <Compile Include="Http\HttpClientWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureService.cs" />
     <Compile Include="Services\BcpService.cs" />
     <Compile Include="Services\ArchiveDownloadService.cs" />
     <Compile Include="Data\PublicSectorOrganisationRepository.cs" />
+    <Compile Include="Services\CompaniesHouseEmployerVerificationService.cs" />
     <Compile Include="Services\EdubaseService.cs" />
     <Compile Include="Services\NhsCsvReaderHelper.cs" />
   </ItemGroup>
