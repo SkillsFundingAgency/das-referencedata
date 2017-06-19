@@ -20,7 +20,7 @@ namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
 
         public async Task<SearchOrganisationsResponse> Handle(SearchOrganisationsQuery query)
         {
-            var matchingReferenceSearches = _referenceSearchServices.Where(x => x.IsSearchTermAReference(query.SearchTerm));
+            var matchingReferenceSearches = _referenceSearchServices.Where(x => x.IsSearchTermAReference(query.SearchTerm)).ToArray();
 
             IEnumerable<Organisation> results;
 
@@ -36,7 +36,7 @@ namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
             return new SearchOrganisationsResponse { Organisations = results };
         }
 
-        private async Task<IEnumerable<Organisation>> SearchByReference(string reference, IEnumerable<IOrganisationReferenceSearchService> matchingReferenceSearches)
+        private static async Task<IEnumerable<Organisation>> SearchByReference(string reference, IEnumerable<IOrganisationReferenceSearchService> matchingReferenceSearches)
         {
             return await PerformReferenceSearch(reference, matchingReferenceSearches);
         }
@@ -49,7 +49,7 @@ namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
             return LimitResultsToMaximum(combinedResults, query.MaximumResults);
         }
 
-        private IEnumerable<Organisation> LimitResultsToMaximum(IEnumerable<Organisation> combinedResults, int maximumResults)
+        private static IEnumerable<Organisation> LimitResultsToMaximum(IEnumerable<Organisation> combinedResults, int maximumResults)
         {
             return combinedResults.Take(maximumResults);
         }
@@ -66,7 +66,7 @@ namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
             return results;
         }
 
-        private async Task<IEnumerable<Organisation>> PerformReferenceSearch(string reference, IEnumerable<IOrganisationReferenceSearchService> matchingReferenceSearches)
+        private static async Task<IEnumerable<Organisation>> PerformReferenceSearch(string reference, IEnumerable<IOrganisationReferenceSearchService> matchingReferenceSearches)
         {
             var tasks = matchingReferenceSearches.Select(x => x.Search(reference)).ToList();
             var results = await Task.WhenAll(tasks);

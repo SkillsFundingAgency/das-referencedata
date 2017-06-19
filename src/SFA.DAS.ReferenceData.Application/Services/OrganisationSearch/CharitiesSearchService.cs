@@ -41,7 +41,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             return charities.Select(ConvertToOrganisation);
         }
 
-        private Organisation ConvertToOrganisation(Charity publicSectorOrganisation)
+        private static Organisation ConvertToOrganisation(Charity publicSectorOrganisation)
         {
             return new Organisation
             {

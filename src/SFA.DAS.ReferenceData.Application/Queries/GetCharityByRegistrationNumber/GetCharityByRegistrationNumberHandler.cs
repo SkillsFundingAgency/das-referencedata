@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
+
 namespace SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber
 {
     public class GetCharityByRegistrationNumberHandler : IAsyncRequestHandler<GetCharityByRegistrationNumberQuery, GetCharityByRegistrationNumberResponse>

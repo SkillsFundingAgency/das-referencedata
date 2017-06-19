@@ -24,12 +24,12 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             return ConvertToOrganisations(publicSectorOrganisations.Data);
         }
 
-        private IEnumerable<Organisation> ConvertToOrganisations(ICollection<PublicSectorOrganisation> publicSectorOrganisations)
+        private static IEnumerable<Organisation> ConvertToOrganisations(ICollection<PublicSectorOrganisation> publicSectorOrganisations)
         {
             return publicSectorOrganisations.Select(ConvertToOrganisation);
         }
 
-        private Organisation ConvertToOrganisation(PublicSectorOrganisation publicSectorOrganisation)
+        private static Organisation ConvertToOrganisation(PublicSectorOrganisation publicSectorOrganisation)
         {
             return new Organisation
             {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Domain.Models;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
@@ -25,12 +23,12 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             return ConvertToOrganisations(educationalOrganisations.Data);
         }
 
-        private IEnumerable<Organisation> ConvertToOrganisations(ICollection<EducationOrganisation> educationalOrganisations)
+        private static IEnumerable<Organisation> ConvertToOrganisations(ICollection<EducationOrganisation> educationalOrganisations)
         {
             return educationalOrganisations.Select(ConvertToOrganisation);
         }
 
-        private Organisation ConvertToOrganisation(EducationOrganisation educationOrganisation)
+        private static Organisation ConvertToOrganisation(EducationOrganisation educationOrganisation)
         {
             return new Organisation
             {
