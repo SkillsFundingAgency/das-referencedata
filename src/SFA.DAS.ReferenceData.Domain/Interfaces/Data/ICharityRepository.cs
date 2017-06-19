@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
 
@@ -15,5 +12,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Data
         Task CreateCharityDataImport(int month, int year);
         Task ImportDataFromLoadTables();
         Task<Charity> GetCharityByRegistrationNumber(int registrationNumber);
+        Task<IEnumerable<Charity>> FindCharities(string searchTerm, int maximumResults);
     }
 }

@@ -17,6 +17,7 @@
 
 using MediatR;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
 using StructureMap;
 
@@ -36,9 +37,37 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
                     scan.RegisterConcreteTypesAgainstTheFirstInterface();
                 });
 
+            AddOrganisationSearchServices();
+
             For<ICache>().Use<InMemoryCache>(); //RedisCache
 
             RegisterMediator();
+        }
+
+        private void AddOrganisationSearchServices()
+        {
+            AddOrganisationTextSearchServices();
+            AddOrganisationReferenceSearchServices();
+        }
+
+        private void AddOrganisationReferenceSearchServices()
+        {
+            Scan(scan =>
+            {
+                scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith(ServiceNamespace));
+                scan.AssemblyContainingType<IOrganisationReferenceSearchService>();
+                scan.AddAllTypesOf<IOrganisationReferenceSearchService>();
+            });
+        }
+
+        private void AddOrganisationTextSearchServices()
+        {
+            Scan(scan =>
+            {
+                scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith(ServiceNamespace));
+                scan.AssemblyContainingType<IOrganisationTextSearchService>();
+                scan.AddAllTypesOf<IOrganisationTextSearchService>();
+            });
         }
 
         private void RegisterMediator()

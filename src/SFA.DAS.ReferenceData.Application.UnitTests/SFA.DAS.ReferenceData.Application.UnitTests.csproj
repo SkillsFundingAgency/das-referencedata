@@ -50,6 +50,9 @@
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.26805, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.26805\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,6 +68,14 @@
     <Compile Include="Queries\GetEducationalOrganisations\WhenIGetEducationalOrganisations.cs" />
     <Compile Include="Queries\GetPublicSectorOrganisations\WhenIGetPublicSectorOrganisations.cs" />
     <Compile Include="Queries\SearchOrganisations\WhenISearchOrganisations.cs" />
+    <Compile Include="Services\CharitiesSearchServiceTests\CharitiesSearchServiceTestsBase.cs" />
+    <Compile Include="Services\CharitiesSearchServiceTests\WhenIProvideASearchTerm.cs" />
+    <Compile Include="Services\CharitiesSearchServiceTests\WhenISearchForACharityByName.cs" />
+    <Compile Include="Services\CharitiesSearchServiceTests\WhenISearchForACharityByNumber.cs" />
+    <Compile Include="Services\CompanySearchServiceTests\WhenICheckIfSearchTermIsAReference.cs" />
+    <Compile Include="Services\CompanySearchServiceTests\WhenISearchForCompany.cs" />
+    <Compile Include="Services\CompanySearchServiceTests\WhenIGetACompanyByReference.cs" />
+    <Compile Include="Services\EducationalOrganisationsSearchServiceTests\WhenISearchForAnEducationalOrganisation.cs" />
     <Compile Include="Services\PublicSectorSearchServiceTests\WhenISearchForAPublicSectorOrganisation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +103,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -34,6 +34,12 @@
     <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.8\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Polly, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.5.1.0\lib\net45\Polly.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -45,7 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CompaniesHouseConfiguration.cs" />
     <Compile Include="Configuration\ReferenceDataApiConfiguration.cs" />
+    <Compile Include="Http\HttpException.cs" />
+    <Compile Include="Http\IHttpClientWrapper.cs" />
+    <Compile Include="Http\InternalServerErrorException.cs" />
+    <Compile Include="Http\RequestTimeOutException.cs" />
+    <Compile Include="Http\ResourceNotFoundException.cs" />
+    <Compile Include="Http\ServiceUnavailableException.cs" />
+    <Compile Include="Http\TooManyRequestsException.cs" />
     <Compile Include="Interfaces\Caching\ICache.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
@@ -53,6 +67,7 @@
     <Compile Include="Interfaces\Data\IFileSystemRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
+    <Compile Include="Interfaces\Services\ICompaniesHouseEmployerVerificationService.cs" />
     <Compile Include="Interfaces\Services\IEdubaseService.cs" />
     <Compile Include="Interfaces\Services\INhsCsvReaderHelper.cs" />
     <Compile Include="Interfaces\Services\IOrganisationReferenceSearchService.cs" />
@@ -62,6 +77,10 @@
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
+    <Compile Include="Models\Company\Address.cs" />
+    <Compile Include="Models\Company\CompanySearchResults.cs" />
+    <Compile Include="Models\Company\CompanyInformation.cs" />
+    <Compile Include="Models\Company\CompanySearchResultsItem.cs" />
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\Data\PagedResult.cs" />
     <Compile Include="Models\Education\EducationalOrganisationLookUp.cs" />

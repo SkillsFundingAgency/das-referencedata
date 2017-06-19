@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
@@ -71,6 +70,19 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 param: parameters,
                 commandType: CommandType.StoredProcedure));
             return result.SingleOrDefault();
+        }
+
+        public async Task<IEnumerable<Charity>> FindCharities(string searchTerm, int maximumResults)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@SearchTerm", searchTerm, DbType.String);
+            parameters.Add("@MaximumResults", maximumResults, DbType.Int32);
+
+            var result = await WithConnection(async c => await c.QueryAsync<Charity>(
+                sql: "[CharityData].[FindCharities]",
+                param: parameters,
+                commandType: CommandType.StoredProcedure));
+            return result;
         }
     }
 }
