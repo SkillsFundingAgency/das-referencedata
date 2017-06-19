@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
 
@@ -10,9 +10,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
     public class BcpService : IBcpService
     {
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public BcpService(ILogger logger)
+        public BcpService(ILog logger)
         {
             _logger = logger;
         }

@@ -2,9 +2,8 @@
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Bcp;
@@ -17,10 +16,10 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         private readonly ICharityRepository _charityRepository;
         private readonly IBcpService _bcpService;
         private readonly IArchiveDownloadService _archiveDownloadService;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
         private readonly string _workingFolder;
         
-        public CharityImporter(ReferenceDataApiConfiguration configuration, ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService, ILogger logger)
+        public CharityImporter(ReferenceDataApiConfiguration configuration, ICharityRepository charityRepository, IBcpService bcpService, IArchiveDownloadService archiveDownloadService, ILog logger)
         {
             _configuration = configuration;
             _charityRepository = charityRepository;
@@ -61,7 +60,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, filename))
             {
-                _logger.Error($"Failed to download data from {url}");
+                _logger.Error(new Exception($"Failed to download data from {url}"), $"Failed to download data from {url}");
                 return;
             }
 
@@ -99,11 +98,11 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             var dateNumericString = $"{year}{month:D2}";
             var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}";
 
-            var url = String.Format(urlpattern, dateNumericString, monthyear);
+            var url = string.Format(urlpattern, dateNumericString, monthyear);
             return url;
         }
 
-        private string GetFilenameForMonthYear(int month, int year)
+        private static string GetFilenameForMonthYear(int month, int year)
         {
             return $"RegPlusExtract_{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}.zip";
         }

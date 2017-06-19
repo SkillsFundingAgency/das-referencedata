@@ -4,16 +4,17 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using NLog;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
 {
     public class AzureStorageUploader : IAzureStorageUploader
     {
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
         private const string JsonContainerName = "sfa-das-reference-data";
         private const string JsonFileName = "EducationalOrganisations.json";
 
-        public AzureStorageUploader(ILogger logger)
+        public AzureStorageUploader(ILog logger)
         {
             _logger = logger;
         }

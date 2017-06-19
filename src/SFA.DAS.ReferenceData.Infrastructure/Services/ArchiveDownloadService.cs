@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using NLog.Targets;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using System.IO.Compression;
-using NLog;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
     public class ArchiveDownloadService : IArchiveDownloadService
     {
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public ArchiveDownloadService(ILogger logger)
+        public ArchiveDownloadService(ILog logger)
         {
             _logger = logger;
         }
@@ -35,7 +31,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                 {
                     if (!response.IsSuccessStatusCode)
                     {
-                        _logger.Error($"Status code {response.StatusCode} returned");
+                        _logger.Error(new Exception($"Status code {response.StatusCode} returned"), $"Status code {response.StatusCode} returned");
                         return false;
                     }
 
@@ -48,7 +44,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     }
                 }
             }
-            _logger.Info($"Download complete");
+            _logger.Info("Download complete");
             return true;
         }
 

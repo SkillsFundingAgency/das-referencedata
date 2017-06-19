@@ -3,7 +3,6 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Configuration;
 using SFA.DAS.ReferenceData.Domain.Configuration;
-using NLog;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using System.IO;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Microsoft.WindowsAzure.Storage;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
@@ -20,14 +20,14 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
     {
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly INhsDataUpdater _nhsDataUpdater;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
         private readonly ReferenceDataApiConfiguration _configuration;
         private readonly string _workingFolder;
         private readonly string _fileName = "publicsectorclassificationguidelatest";
         private readonly string _jsonContainerName = "sfa-das-reference-data";
         private readonly string _jsonFileName = "PublicOrganisationNames.json";
 
-        public PublicOrgsUpdater(ILogger logger, ReferenceDataApiConfiguration configuration, IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater)
+        public PublicOrgsUpdater(ILog logger, ReferenceDataApiConfiguration configuration, IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater)
         {
             _archiveDownloadService = archiveDownloadService;
             _nhsDataUpdater = nhsDataUpdater;
@@ -45,7 +45,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 string.IsNullOrWhiteSpace(_configuration.PoliceForcesUrl) || 
                 string.IsNullOrWhiteSpace(_configuration.ONSUrl))
             {
-                _logger.Error("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl");
+                const string errorMessage = "Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl";
+                _logger.Error(new Exception(errorMessage), errorMessage);
                 throw new Exception("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl");
             }
 
@@ -78,7 +79,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 url = GetDownloadUrlForMonthYear(true);
                 if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName))
                 {
-                    _logger.Error("Failed to download ONS from current and previous month, potential URL format change");
+                    const string errorMessage = "Failed to download ONS from current and previous month, potential URL format change";
+                    _logger.Error(new Exception(errorMessage), errorMessage);
                     throw new Exception("Failed to download ONS from current and previous month, potential URL format change");
                 }
             }
@@ -90,7 +92,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
             try
             {
-                string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties='Excel 8.0;HDR=NO;';Data Source={excelFile}";
+                var connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties='Excel 8.0;HDR=NO;';Data Source={excelFile}";
 
                 using (var conn = new OleDbConnection(connectionString))
                 {
@@ -101,7 +103,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                         
                         conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
-                        var sheetName = "Index$";
+                        const string sheetName = "Index$";
                         cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F2 IS NOT NULL AND F1 <> 'Index'";
 
                         var dt = new DataTable(sheetName);
@@ -204,7 +206,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             }
             catch (Exception ex)
             {
-                _logger.Error($"An error occurred exporting data to {filename}: {ex.Message}");
+                _logger.Error(ex, $"An error occurred exporting data to {filename}: {ex.Message}");
                 throw new Exception($"An error occurred exporting data to {filename}: {ex.Message}");
             }
 

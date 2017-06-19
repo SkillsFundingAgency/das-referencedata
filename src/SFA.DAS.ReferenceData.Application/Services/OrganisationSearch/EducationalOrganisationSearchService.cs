@@ -23,7 +23,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             return ConvertToOrganisations(educationalOrganisations.Data);
         }
 
-        private static IEnumerable<Organisation> ConvertToOrganisations(ICollection<EducationOrganisation> educationalOrganisations)
+        private static IEnumerable<Organisation> ConvertToOrganisations(IEnumerable<EducationOrganisation> educationalOrganisations)
         {
             return educationalOrganisations.Select(ConvertToOrganisation);
         }

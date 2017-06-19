@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NLog;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
 using StructureMap.Pipeline;
 
@@ -10,7 +11,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.DependencyResolution
     {
         protected override void apply(Type pluginType, IConfiguredInstance instance)
         {
-            var logger = instance?.Constructor?.GetParameters().FirstOrDefault(x => x.ParameterType == typeof(ILogger));
+            var logger = instance?.Constructor?.GetParameters().FirstOrDefault(x => x.ParameterType == typeof(ILog));
 
             if (logger != null)
             {

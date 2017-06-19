@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
     public class AzureService : IAzureService
     {
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public AzureService(ILogger logger)
+        public AzureService(ILog logger)
         {
             _logger = logger;
         }

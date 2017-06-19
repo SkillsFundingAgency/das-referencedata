@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
@@ -15,13 +15,13 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
     {
         private readonly ICacheProvider _cacheProvider;
         private readonly IAzureService _azureService;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
         private const string ContainerName = "sfa-das-reference-data";
         private const string BlobName = "EducationalOrganisations.json";
 
         public EducationalOrganisationRepository(ICacheProvider cacheProvider, IAzureService azureService,
-            ILogger logger)
+            ILog logger)
         {
             _cacheProvider = cacheProvider;
             _azureService = azureService;
