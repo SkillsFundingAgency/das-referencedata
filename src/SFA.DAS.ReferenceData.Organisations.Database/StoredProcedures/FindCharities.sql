@@ -22,5 +22,5 @@ AS
 	[CharityData].[charity] charity
 	inner join [CharityData].[registration] registration on registration.regno = charity.regno and registration.subno = charity.subno
 	where
-	LOWER(charity.name) LIKE @wildcardedSearch
+	charity.name LIKE @wildcardedSearch
 	

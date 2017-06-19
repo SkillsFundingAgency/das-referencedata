@@ -19,3 +19,7 @@
 	[phone] [varchar](400) NULL,
 	[fax] [int] NULL
 )
+
+GO
+
+CREATE INDEX IDX_Charity_RegNo_SubNo ON [CharityData].[charity] ([regno],[subno])
