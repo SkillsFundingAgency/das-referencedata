@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfe.Edubase2.SoapApi.Client.EdubaseService;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Infrastructure.Factories;
@@ -13,9 +13,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
     public class EdubaseService : IEdubaseService
     {
         private readonly IEdubaseClientFactory _factory;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
-        public EdubaseService(IEdubaseClientFactory factory, ILogger logger)
+        public EdubaseService(IEdubaseClientFactory factory, ILog logger)
         {
             _factory = factory;
             _logger = logger;

@@ -7,6 +7,7 @@ using Dfe.Edubase2.SoapApi.Client.EdubaseService;
 using Moq;
 using NLog;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Infrastructure.Factories;
 using SFA.DAS.ReferenceData.Infrastructure.Services;
 
@@ -17,14 +18,14 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Services.EdubaseService
         private EdubaseService _service;
         private Mock<IEdubaseClientFactory> _clientFactory;
         private Mock<IEstablishmentClient> _client;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
         {
             _clientFactory = new Mock<IEdubaseClientFactory>();
             _client = new Mock<IEstablishmentClient>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
             _service = new EdubaseService(_clientFactory.Object, _logger.Object);
 
             _clientFactory.Setup(x => x.Create()).Returns(_client.Object);

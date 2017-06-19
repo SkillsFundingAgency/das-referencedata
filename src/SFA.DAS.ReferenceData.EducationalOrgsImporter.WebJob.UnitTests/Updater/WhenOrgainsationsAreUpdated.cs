@@ -3,8 +3,8 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Moq;
-using NLog;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using EducationOrganisation = SFA.DAS.ReferenceData.Domain.Models.Education.EducationOrganisation;
@@ -20,7 +20,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
         private Mock<IEdubaseService> _edubaseService;
         private Mock<IEducationalOrgainsationSerialiser> _serialiser;
         private Mock<IAzureStorageUploader> _uploader;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
 
         [SetUp]
@@ -29,7 +29,7 @@ namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
             _edubaseService = new Mock<IEdubaseService>();
             _serialiser = new Mock<IEducationalOrgainsationSerialiser>();
             _uploader = new Mock<IAzureStorageUploader>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _updater = new EducationalOrgsUpdater(
                 _edubaseService.Object,

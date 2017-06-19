@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
-using NLog;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
@@ -17,7 +17,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         private EducationalOrganisationRepository _repository;
         private Mock<ICacheProvider> _cacheProvider;
         private EducationalOrganisationLookUp _lookup;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
@@ -41,7 +41,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
 
             _cacheProvider = new Mock<ICacheProvider>();
 
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _repository = new EducationalOrganisationRepository(_cacheProvider.Object, _azureService.Object, _logger.Object);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure;
@@ -14,12 +14,12 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Updater
         private readonly IEdubaseService _edubaseService;
         private readonly IEducationalOrgainsationSerialiser _serialiser;
         private readonly IAzureStorageUploader _uploader;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
         public EducationalOrgsUpdater(IEdubaseService edubaseService,
             IEducationalOrgainsationSerialiser serialiser, 
             IAzureStorageUploader uploader,
-            ILogger logger)
+            ILog logger)
         {
             _edubaseService = edubaseService;
             _serialiser = serialiser;

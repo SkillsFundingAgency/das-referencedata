@@ -15,7 +15,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Web;
 using MediatR;
+using SFA.DAS.NLog.Logger;
+using SFA.DAS.ReferenceData.Api.App_Start;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
@@ -25,7 +28,6 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
 {
     public class DefaultRegistry : Registry
     {
-        private const string ServiceName = "SFA.DAS.EmployerApprenticeshipsService";
         private const string ServiceNamespace = "SFA.DAS";
 
         public DefaultRegistry()
@@ -42,6 +44,10 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
             For<ICache>().Use<InMemoryCache>(); //RedisCache
 
             RegisterMediator();
+
+            RegisterLogger();
+
+            RegisterExecutionPolicies();
         }
 
         private void AddOrganisationSearchServices()
@@ -75,6 +81,22 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
             For<IMediator>().Use<Mediator>();
+        }
+
+        private void RegisterLogger()
+        {
+            For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
+            For<ILog>().Use(x => new NLogLogger(
+                x.ParentType,
+                x.GetInstance<IRequestContext>(),
+                null)).AlwaysUnique();
+        }
+
+        private void RegisterExecutionPolicies()
+        {
+            For<Infrastructure.ExecutionPolicies.ExecutionPolicy>()
+                .Use<Infrastructure.ExecutionPolicies.CompaniesHouseExecutionPolicy>()
+                .Named(Infrastructure.ExecutionPolicies.CompaniesHouseExecutionPolicy.Name);
         }
     }
 }

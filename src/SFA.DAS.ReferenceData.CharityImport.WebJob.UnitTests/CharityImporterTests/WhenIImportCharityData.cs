@@ -4,6 +4,7 @@ using Moq;
 using NLog;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
@@ -19,7 +20,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         private Mock<ICharityRepository> _charityRepository;
         private Mock<IBcpService> _bcpService;
         private Mock<IArchiveDownloadService> _archiveDownloadService;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
@@ -27,7 +28,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             _charityRepository = new Mock<ICharityRepository>();
             _bcpService = new Mock<IBcpService>();
             _archiveDownloadService = new Mock<IArchiveDownloadService>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
                 .ReturnsAsync(() => new CharityDataImport {ImportDate = new DateTime(2016,5,4), Month = 5, Year=2016});

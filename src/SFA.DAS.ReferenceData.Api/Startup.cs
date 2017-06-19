@@ -1,5 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using System.Web;
+using Microsoft.Owin;
 using Owin;
+using SFA.DAS.NLog.Logger;
 
 [assembly: OwinStartup(typeof(SFA.DAS.ReferenceData.Api.Startup))]
 

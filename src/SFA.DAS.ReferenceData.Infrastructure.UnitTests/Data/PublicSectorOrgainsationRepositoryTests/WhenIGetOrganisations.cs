@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Moq;
 using NLog;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
@@ -17,7 +18,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         private PublicSectorOrganisationRepository _repository;
         private Mock<ICacheProvider> _cacheProvider;
         private PublicSectorOrganisationLookUp _lookup;
-        private Mock<ILogger> _logger;
+        private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
@@ -44,7 +45,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
 
             _cacheProvider = new Mock<ICacheProvider>();
 
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILog>();
 
             _repository = new PublicSectorOrganisationRepository(_cacheProvider.Object, _azureService.Object, _logger.Object);
         }
