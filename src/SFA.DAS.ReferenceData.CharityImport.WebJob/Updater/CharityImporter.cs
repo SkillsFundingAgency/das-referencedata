@@ -35,9 +35,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         {
             _logger.Info("Executing CharityImporter");
 
-            //Default to Nov 2016
-            var importMonth = 11;
-            var importYear = 2016;
+            //Default to June 2017
+            var importMonth = 06;
+            var importYear = 2017;
 
             var lastImport = await _charityRepository.GetLastCharityDataImport();
 
