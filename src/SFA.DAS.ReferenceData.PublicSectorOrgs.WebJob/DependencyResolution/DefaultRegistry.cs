@@ -1,4 +1,5 @@
-﻿using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
+﻿using SFA.DAS.NLog.Logger;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
 using SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater;
 using StructureMap;
@@ -20,6 +21,16 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.DependencyResolution
             For<ICache>().Use<InMemoryCache>();
             For<IPublicOrgsUpdater>().Use<PublicOrgsUpdater>();
             For<INhsDataUpdater>().Use<NhsDataUpdater>();
+
+            RegisterLogger();
+        }
+
+        private void RegisterLogger()
+        {
+            For<ILog>().Use(x => new NLogLogger(
+                x.ParentType,
+                null,
+                null)).AlwaysUnique();
         }
     }
 }

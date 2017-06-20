@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using MediatR;
-using NLog;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer;
@@ -33,6 +33,7 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.DependencyResolutio
 
             RegisterMapper();
             RegisterMediator();
+            RegisterLogger();
         }
 
         private void RegisterMediator()
@@ -57,6 +58,14 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.DependencyResolutio
 
             For<IConfigurationProvider>().Use(config).Singleton();
             For<IMapper>().Use(mapper).Singleton();
+        }
+
+        private void RegisterLogger()
+        {
+            For<ILog>().Use(x => new NLogLogger(
+                x.ParentType,
+                null,
+                null)).AlwaysUnique();
         }
     }
 }

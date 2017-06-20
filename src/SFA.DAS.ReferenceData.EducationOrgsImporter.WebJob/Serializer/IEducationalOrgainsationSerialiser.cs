@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SFA.DAS.ReferenceData.Domain.Models.Education;
+﻿using SFA.DAS.ReferenceData.Domain.Models.Education;
 
 namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer
 {
