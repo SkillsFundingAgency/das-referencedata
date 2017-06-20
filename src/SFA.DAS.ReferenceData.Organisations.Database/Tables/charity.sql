@@ -25,8 +25,3 @@ GO
 CREATE INDEX IDX_Charity_RegNo_SubNo ON [CharityData].[charity] ([regno],[subno])
 GO
 
-CREATE INDEX IDX_FT_Charity_Name ON [CharityData].[charity] ([name])
-GO
-
-CREATE FULLTEXT INDEX ON [CharityData].[charity] ([name]) KEY INDEX [IDX_FT_Charity_Name] ON [ftCharityCatalog] WITH CHANGE_TRACKING AUTO
-GO
