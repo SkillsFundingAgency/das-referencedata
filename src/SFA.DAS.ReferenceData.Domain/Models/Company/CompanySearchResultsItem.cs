@@ -5,7 +5,7 @@ namespace SFA.DAS.ReferenceData.Domain.Models.Company
 {
     public class CompanySearchResultsItem
     {
-        [JsonProperty("company_name")]
+        [JsonProperty("title")]
         public string CompanyName { get; set; }
 
         [JsonProperty("company_number")]
