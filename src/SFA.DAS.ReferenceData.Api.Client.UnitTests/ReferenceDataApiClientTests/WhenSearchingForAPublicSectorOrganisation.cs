@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Castle.Components.DictionaryAdapter;
 using Moq;
 using Newtonsoft.Json;
@@ -16,6 +12,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
         private Mock<IReferenceDataApiConfiguration> _configuration;
         private Mock<SecureHttpClient> _httpClient;
         private ReferenceDataApiClient _apiClient;
+        private PagedApiResponse<PublicSectorOrganisation> _data;
 
         [SetUp]
         public void Arrange()
@@ -23,7 +20,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             _configuration = new Mock<IReferenceDataApiConfiguration>();
             _configuration.SetupGet(x => x.ApiBaseUrl).Returns("http://some-url/api/organisations");
 
-            var data = new PagedApiResponse<PublicSectorOrganisation>
+            _data = new PagedApiResponse<PublicSectorOrganisation>
             {
                 Data = new EditableList<PublicSectorOrganisation>
                 {
@@ -36,7 +33,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 
                                                 
             _httpClient = new Mock<SecureHttpClient>();
-            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/publicsectorbodies?searchTerm=test&pageNumber=0&pageSize=100"), true)).ReturnsAsync(() => JsonConvert.SerializeObject(data));
+            _httpClient.Setup(c => c.GetAsync(It.Is<string>(s => s == @"http://some-url/api/organisations/publicsectorbodies?searchTerm=test&pageNumber=0&pageSize=100"), true)).ReturnsAsync(() => JsonConvert.SerializeObject(_data));
             _apiClient = new ReferenceDataApiClient(_configuration.Object, _httpClient.Object);
         }
 
@@ -61,5 +58,20 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             Assert.IsNotNull(actual);
             Assert.IsInstanceOf<Dto.PagedApiResponse<PublicSectorOrganisation>>(actual);
         }
+
+        [Test]
+        public async Task ShouldCallTheApiWithTheCorrectEncodedUrl()
+        {
+            //Arrange
+            _httpClient.Setup(c => c.GetAsync(It.IsAny<string>(), true)).ReturnsAsync(() => JsonConvert.SerializeObject(_data));
+
+            //Act
+            await _apiClient.SearchPublicSectorOrganisation("test query", 0, 100);
+
+            //Assert
+            var expectedUrl = $"http://some-url/api/organisations/publicsectorbodies?searchTerm=test%20query&pageNumber=0&pageSize=100";
+            _httpClient.Verify(x => x.GetAsync(expectedUrl, true), Times.Once);
+        }
+
     }
 }

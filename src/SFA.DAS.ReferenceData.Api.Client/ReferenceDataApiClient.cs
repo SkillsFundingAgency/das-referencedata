@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 
@@ -37,7 +38,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
         {
             var baseUrl = GetBaseUrl();
 
-            var url = $"{baseUrl}publicsectorbodies?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
+            var url = $"{baseUrl}publicsectorbodies?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
 
             var json = await _httpClient.GetAsync(url);
             return JsonConvert.DeserializeObject<PagedApiResponse<PublicSectorOrganisation>>(json);
@@ -48,8 +49,8 @@ namespace SFA.DAS.ReferenceData.Api.Client
         {
             var baseUrl = GetBaseUrl();
 
-            var url = $"{baseUrl}?searchTerm={searchTerm}&maximumResults={maximumResults}";
-
+            var url = $"{baseUrl}?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&maximumResults={maximumResults}";
+            
             var json = await _httpClient.GetAsync(url, false);
 
             if (json == null)
@@ -64,7 +65,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
         {
             var baseUrl = GetBaseUrl();
 
-            var url = $"{baseUrl}educational?searchTerm={searchTerm}&pageNumber={pageNumber}&pageSize={pageSize}";
+            var url = $"{baseUrl}educational?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
 
             var json = await _httpClient.GetAsync(url);
 
