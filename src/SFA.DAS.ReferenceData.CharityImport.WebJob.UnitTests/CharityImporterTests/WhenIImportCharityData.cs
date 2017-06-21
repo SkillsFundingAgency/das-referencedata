@@ -108,7 +108,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            var expectedFile = "November_2016";
+            var expectedFile = "June_2017";
 
             _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
         }

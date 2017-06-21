@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfe.Edubase2.SoapApi.Client;
 using Dfe.Edubase2.SoapApi.Client.EdubaseService;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;

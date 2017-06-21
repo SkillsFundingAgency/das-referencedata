@@ -5,7 +5,7 @@
 )
 AS
 
-	DECLARE @wildcardedSearch NVARCHAR(4000) = '%' + LOWER(@SearchTerm) + '%'
+	DECLARE @wildcardedSearch NVARCHAR(4000) = 'FORMSOF(FREETEXT, ' + @SearchTerm + ')'
 
 	select top (@MaximumResults)
 	charity.regno as 'RegistrationNumber',
@@ -21,6 +21,6 @@ AS
 	from
 	[CharityData].[charity] charity
 	inner join [CharityData].[registration] registration on registration.regno = charity.regno and registration.subno = charity.subno
-	where
-	charity.name LIKE @wildcardedSearch
+	inner join [CharityData].[charitynamesearch] cns on cns.regno = charity.regno
+	WHERE CONTAINS(cns.name, @wildcardedSearch)
 	

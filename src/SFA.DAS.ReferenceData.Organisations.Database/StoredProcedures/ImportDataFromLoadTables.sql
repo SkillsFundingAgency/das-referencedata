@@ -34,3 +34,12 @@ AS
 	select * into [CharityData].registration from [CharityImport].extract_registration
 	select * into [CharityData].remove_ref from [CharityImport].extract_remove_ref
 	select * into [CharityData].trustee  from [CharityImport].extract_trustee
+
+
+
+	insert into  charitydata.charitynamesearch (regno, name)
+	select c.regno,rtrim(name) + '-' + cast(c.regno as varchar) as name from charitydata.charity  c
+	inner join charitydata.registration r on r.regno = c.regno and r.subno = c.subno
+	inner join charitydata.main_charity mc on mc.regno = c.regno
+	where r.subno = 0 and orgtype <> 'RM' and remcode is null
+	group by name, c.regno

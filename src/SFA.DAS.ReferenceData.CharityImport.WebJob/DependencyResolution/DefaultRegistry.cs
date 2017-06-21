@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using MediatR;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using StructureMap;
 
@@ -23,6 +24,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution
 
             RegisterMapper();
             RegisterMediator();
+            RegisterLogger();
         }
 
         private void RegisterMediator()
@@ -47,6 +49,14 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.DependencyResolution
 
             For<IConfigurationProvider>().Use(config).Singleton();
             For<IMapper>().Use(mapper).Singleton();
+        }
+
+        private void RegisterLogger()
+        {
+            For<ILog>().Use(x => new NLogLogger(
+                x.ParentType,
+                null,
+                null)).AlwaysUnique();
         }
     }
 }
