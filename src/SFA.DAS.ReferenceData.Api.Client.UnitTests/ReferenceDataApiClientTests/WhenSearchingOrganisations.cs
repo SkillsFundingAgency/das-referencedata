@@ -52,5 +52,17 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             //Assert
             Assert.IsNull(result);
         }
+
+        [Test]
+        public async Task ShouldEncodedSearchTerm()
+        {
+            var expectedUrl = "http://some-url/api/organisations/?searchTerm=test%20query&maximumResults=100";
+
+            //Act
+            var result = await _apiClient.SearchOrganisations("test query", 100);
+
+            //Assert
+            _httpClient.Verify(c => c.GetAsync(expectedUrl, false), Times.Once);
+        }
     }
 }
