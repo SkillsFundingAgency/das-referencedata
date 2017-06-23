@@ -71,7 +71,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
         {
             try
             {
-                var results = await _companyVerificationService.FindCompany(searchTerm);
+                var results = await _companyVerificationService.FindCompany(searchTerm, maximumRecords);
 
                 return results?.Companies?.Select(c => new Organisation
                 {
