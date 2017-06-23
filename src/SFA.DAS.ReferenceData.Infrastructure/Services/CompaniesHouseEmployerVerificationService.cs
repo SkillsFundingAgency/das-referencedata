@@ -16,7 +16,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         private readonly IHttpClientWrapper _httpClientWrapper;
         private readonly ExecutionPolicy _executionPolicy;
 
-        private const int CompaniesHouseRecordLimit = 400;
+        private const int CompaniesHouseRecordLimit = 50;
 
         public CompaniesHouseEmployerVerificationService(ReferenceDataApiConfiguration configuration, ILog logger, IHttpClientWrapper httpClientWrapper,
             [RequiredPolicy(CompaniesHouseExecutionPolicy.Name)]ExecutionPolicy executionPolicy)
