@@ -16,6 +16,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         private readonly IHttpClientWrapper _httpClientWrapper;
         private readonly ExecutionPolicy _executionPolicy;
 
+        private const int CompaniesHouseRecordLimit = 400;
+
         public CompaniesHouseEmployerVerificationService(ReferenceDataApiConfiguration configuration, ILog logger, IHttpClientWrapper httpClientWrapper,
             [RequiredPolicy(CompaniesHouseExecutionPolicy.Name)]ExecutionPolicy executionPolicy)
         {
@@ -50,7 +52,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 searchTerm = searchTerm?.ToUpper();
 
-                var maxRecords = maximumRecords <= 400 ? maximumRecords : 400;
+                var maxRecords = maximumRecords <= CompaniesHouseRecordLimit ? maximumRecords : CompaniesHouseRecordLimit;
 
                 var result = await _httpClientWrapper.Get<CompanySearchResults>(
                     $"{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(_configuration.CompaniesHouse.ApiKey))}",
