@@ -52,7 +52,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
                 CompanyName = "Test Corp",
                 RegisteredAddress = new Domain.Models.Company.Address
                 {
-                    Line1 = "12 Test Street",
+                    CompaniesHouseLine1 = "12 Test Street",
                     Line2 = "Test Park",
                     TownOrCity = "Test Town",
                     County = "Testville",
