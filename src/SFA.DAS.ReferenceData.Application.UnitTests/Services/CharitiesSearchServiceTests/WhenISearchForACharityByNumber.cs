@@ -55,5 +55,17 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchSe
 
             Assert.IsNull(result);
         }
+
+        [Test]
+        public async Task AndTheCharityIsNotFoundThenNothingIsReturned()
+        {
+            var registrationNumber = 1234453;
+
+            Repository.Setup(x => x.GetCharityByRegistrationNumber(registrationNumber)).ReturnsAsync((Charity)null);
+
+            var result = await Service.Search(registrationNumber.ToString());
+
+            Assert.IsNull(result);
+        }
     }
 }

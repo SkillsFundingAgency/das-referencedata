@@ -26,7 +26,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 
             var charityNumber = int.Parse(reference);
             var charity = await _repository.GetCharityByRegistrationNumber(charityNumber);
-            return ConvertToOrganisation(charity);
+            return charity == null ? null : ConvertToOrganisation(charity);
         }
 
         public bool IsSearchTermAReference(string searchTerm)

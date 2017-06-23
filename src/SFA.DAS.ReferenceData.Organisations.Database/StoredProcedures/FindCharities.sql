@@ -5,7 +5,7 @@
 )
 AS
 
-	DECLARE @wildcardedSearch NVARCHAR(4000) = 'FORMSOF(FREETEXT, ' + @SearchTerm + ')'
+	DECLARE @wildcardedSearch NVARCHAR(4000) = 'FORMSOF(FREETEXT, "' + @SearchTerm + '")'
 
 	select top (@MaximumResults)
 	charity.regno as 'RegistrationNumber',
