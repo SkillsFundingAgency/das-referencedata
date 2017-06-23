@@ -50,9 +50,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 searchTerm = searchTerm?.ToUpper();
 
+                var maxRecords = maximumRecords <= 400 ? maximumRecords : 400;
+
                 var result = await _httpClientWrapper.Get<CompanySearchResults>(
                     $"{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(_configuration.CompaniesHouse.ApiKey))}",
-                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={searchTerm}&items_per_page={maximumRecords}");
+                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={searchTerm}&items_per_page={maxRecords}");
                 return result;
             });
         }
