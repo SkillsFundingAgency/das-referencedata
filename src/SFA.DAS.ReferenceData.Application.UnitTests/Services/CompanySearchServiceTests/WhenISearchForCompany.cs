@@ -54,7 +54,8 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
                 CompanyName = "Test Corp",
                 Address = new Domain.Models.Company.Address
                 {
-                    Line1 = "12 Test Street",
+                    Premises = "12",
+                    CompaniesHouseLine1 = "Test Street",
                     Line2 = "Test Park",
                     TownOrCity = "Test Town",
                     County = "Testville",
@@ -78,7 +79,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             Assert.IsNotNull(organisation);
             Assert.AreEqual(resultItem.CompanyName, organisation.Name);
 
-            Assert.AreEqual(resultItem.Address.Line1, organisation.Address.Line1);
+            Assert.AreEqual(resultItem.Address.Premises + " " + resultItem.Address.CompaniesHouseLine1, organisation.Address.Line1);
             Assert.AreEqual(resultItem.Address.Line2, organisation.Address.Line2);
             Assert.AreEqual(resultItem.Address.TownOrCity, organisation.Address.Line4);
             Assert.AreEqual(resultItem.Address.County, organisation.Address.Line5);
