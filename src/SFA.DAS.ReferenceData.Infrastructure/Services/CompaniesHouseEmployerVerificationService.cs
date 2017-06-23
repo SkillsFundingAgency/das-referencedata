@@ -42,7 +42,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             });
         }
 
-        public async Task<CompanySearchResults> FindCompany(string searchTerm)
+        public async Task<CompanySearchResults> FindCompany(string searchTerm, int maximumRecords)
         {
             return await _executionPolicy.ExecuteAsync(async () =>
             {
@@ -52,7 +52,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 var result = await _httpClientWrapper.Get<CompanySearchResults>(
                     $"{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(_configuration.CompaniesHouse.ApiKey))}",
-                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={searchTerm}");
+                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={searchTerm}&items_per_page={maximumRecords}");
                 return result;
             });
         }

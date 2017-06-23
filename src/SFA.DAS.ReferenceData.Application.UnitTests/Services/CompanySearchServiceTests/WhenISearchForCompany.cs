@@ -35,13 +35,13 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             var searchTerm = "test";
             var results = new CompanySearchResults();
           
-            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>())).ReturnsAsync(results);
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(results);
 
             //Act
             await _searchService.Search(searchTerm, 10);
 
             //Assert
-            _verificationService.Verify(x => x.FindCompany(searchTerm), Times.Once);
+            _verificationService.Verify(x => x.FindCompany(searchTerm, 10), Times.Once);
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
                 CompanyNumber = "12345678"
             }; 
             
-            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>())).ReturnsAsync(new CompanySearchResults
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults
             {
                 Companies = new List<CompanySearchResultsItem> { resultItem }
             });
@@ -95,7 +95,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
         {
             //Arrange
             var exception = new WebException();
-            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>()))
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10))
                 .Throws(exception);
 
             //Act
@@ -110,7 +110,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
         public async Task ShouldReturnNullIfNoCompaniesFound()
         {
             //Arrange
-            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>())).ReturnsAsync(new CompanySearchResults{Companies = new CompanySearchResultsItem[0]});
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults{Companies = new CompanySearchResultsItem[0]});
 
             //Act
             var result = await _searchService.Search("test", 10);

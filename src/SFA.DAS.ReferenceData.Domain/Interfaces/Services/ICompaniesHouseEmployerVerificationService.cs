@@ -7,6 +7,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
     {
         Task<CompanyInformation> GetInformation(string id);
 
-        Task<CompanySearchResults> FindCompany(string searchTerm);
+        Task<CompanySearchResults> FindCompany(string searchTerm, int maximumRecords);
     }
 }
