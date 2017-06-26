@@ -308,6 +308,7 @@
     <Compile Include="App_Start\ValidationErrorResult.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\ApiAuthoriseAttribute.cs" />
+    <Compile Include="Controllers\HealthCheckController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="DependancyResolution\DefaultRegistry.cs" />
     <Compile Include="DependancyResolution\IoC.cs" />
