@@ -73,6 +73,8 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.SearchOrganisation
 
             var searchResult = new Organisation();
 
+            _referenceSearchService1.Setup(x => x.IsSearchTermAReference(query.SearchTerm)).Returns(true);
+            _referenceSearchService2.Setup(x => x.Search(query.SearchTerm)).ReturnsAsync((Organisation)null);
             _referenceSearchService2.Setup(x => x.IsSearchTermAReference(query.SearchTerm)).Returns(true);
             _referenceSearchService2.Setup(x => x.Search(query.SearchTerm)).ReturnsAsync(searchResult);
 
@@ -82,7 +84,6 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.SearchOrganisation
             //Assert
             Assert.AreEqual(searchResult, response.Organisations.Single());
 
-            _referenceSearchService1.Verify(x => x.Search(It.IsAny<string>()), Times.Never);
             _textSearchService1.Verify(x => x.Search(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
             _textSearchService2.Verify(x => x.Search(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
         }

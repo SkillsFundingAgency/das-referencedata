@@ -70,7 +70,7 @@ namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
         {
             var tasks = matchingReferenceSearches.Select(x => x.Search(reference)).ToList();
             var results = await Task.WhenAll(tasks);
-            return results;
+            return results.Where(x => x != null);
         }
     }
 }
