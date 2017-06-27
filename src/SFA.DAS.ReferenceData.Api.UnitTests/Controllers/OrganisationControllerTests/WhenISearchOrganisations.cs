@@ -45,18 +45,5 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
             Assert.IsNotNull(result);
             Assert.AreEqual(response.Organisations, result.Content);
         }
-
-        [Test]
-        public async Task ThenIShouldReceiveANotFoundResponseIfNoOrganisationsAreFound()
-        {
-            //Arrange
-            _mediator.Setup(x => x.SendAsync(It.IsAny<SearchOrganisationsQuery>())).ReturnsAsync(new SearchOrganisationsResponse { Organisations = new List<Organisation>() });
-
-            //Act
-            var result = await _controller.SearchOrganisations("notfound") as NotFoundResult;
-
-            //Assert
-            Assert.IsNotNull(result);
-        }
     }
 }
