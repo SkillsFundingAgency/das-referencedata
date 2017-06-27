@@ -90,11 +90,6 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
             var response = await _mediator.SendAsync(query);
 
-            if (response.Organisations == null || !response.Organisations.Any())
-            {
-                return NotFound();
-            }
-
             return Ok(response.Organisations);
         }
     }
