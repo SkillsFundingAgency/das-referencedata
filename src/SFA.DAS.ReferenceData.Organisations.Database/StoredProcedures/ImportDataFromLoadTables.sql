@@ -17,6 +17,7 @@ AS
 	IF OBJECT_ID('[CharityData].registration', 'U') IS NOT NULL DROP TABLE [CharityData].registration
 	IF OBJECT_ID('[CharityData].remove_ref', 'U') IS NOT NULL DROP TABLE [CharityData].remove_ref
 	IF OBJECT_ID('[CharityData].trustee', 'U') IS NOT NULL DROP TABLE [CharityData].trustee
+	IF OBJECT_ID('[CharityData].charitynamesearch', 'U') IS NOT NULL DELETE FROM charitydata.charitynamesearch
 
 	select * into [CharityData].acct_submit from [CharityImport].extract_acct_submit
 	select * into [CharityData].aoo_ref from [CharityImport].extract_aoo_ref
