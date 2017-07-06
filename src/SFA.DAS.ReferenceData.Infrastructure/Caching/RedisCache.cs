@@ -13,7 +13,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Caching
 
         public RedisCache()
         {
-            var connectionMultiplexer = ConnectionMultiplexer.Connect(CloudConfigurationManager.GetSetting("RedisConnection"));
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(CloudConfigurationManager.GetSetting("RedisConnectionString"));
             _cache = connectionMultiplexer.GetDatabase();
         }
 
