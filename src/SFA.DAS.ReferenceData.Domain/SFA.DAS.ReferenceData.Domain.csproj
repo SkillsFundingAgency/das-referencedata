@@ -61,6 +61,7 @@
     <Compile Include="Http\ServiceUnavailableException.cs" />
     <Compile Include="Http\TooManyRequestsException.cs" />
     <Compile Include="Interfaces\Caching\ICache.cs" />
+    <Compile Include="Interfaces\Caching\ICachedRepository.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
     <Compile Include="Interfaces\Data\IEducationalOrganisationRepository.cs" />

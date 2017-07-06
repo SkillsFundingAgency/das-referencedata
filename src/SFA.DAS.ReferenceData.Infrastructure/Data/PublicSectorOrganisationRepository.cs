@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
@@ -11,7 +12,7 @@ using SFA.DAS.ReferenceData.Infrastructure.Caching;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
-    public class PublicSectorOrganisationRepository : IPublicSectorOrganisationRepository
+    public class PublicSectorOrganisationRepository : IPublicSectorOrganisationRepository, ICachedRepository
     {
         private readonly ICacheProvider _cacheProvider;
         private readonly IAzureService _azureService;
@@ -78,6 +79,14 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     TotalPages = totalPages
                 };
             });
+        }
+
+        public async Task RefreshCache()
+        {
+            _logger.Info("Refreshing public sector orgainsations Azure storage cache.");
+            var lookUp = await _azureService.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(ContainerName, BlobName);
+            _cacheProvider.Set(nameof(PublicSectorOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
+            _logger.Info("Public sector orgainsations Azure storage cache has been refreshed.");
         }
 
         private static int GetPageOffset(int pageSize, int pageNumber, int organisationCount)

@@ -18,6 +18,8 @@
 using System.Web.Http;
 using SFA.DAS.ReferenceData.Api;
 using SFA.DAS.ReferenceData.Api.DependancyResolution;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
+using WebGrease.Css.Extensions;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
 
@@ -26,6 +28,10 @@ namespace SFA.DAS.ReferenceData.Api {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;
             GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+
+            //Refresh all cached repositories at startup so we reduce likeihood of delay requests (which occur is cache is not populated)
+            var cachedRepositories = container.GetAllInstances<ICachedRepository>();
+            cachedRepositories.ForEach(x => x.RefreshCache());
         }
     }
 }
