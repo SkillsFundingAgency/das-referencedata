@@ -36,9 +36,10 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
 
                 if (lookUp == null)
                 {
-                    _logger.Info("Getting public sector orgainsations from Azure storage as cache is empty.");
-                    lookUp = await _azureService.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(ContainerName, BlobName);
-                    
+                    await RefreshCache();
+
+                    lookUp = _cacheProvider.Get<PublicSectorOrganisationLookUp>(nameof(PublicSectorOrganisationLookUp));
+
                     if (lookUp == null)
                     {
                         _logger.Info("No public sector organisations were retrieved from Azure.");
@@ -49,9 +50,6 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     }
 
                     _logger.Info($"{lookUp.Organisations.Count()} public sector organisations were retrieved from Azure");
-
-                    _cacheProvider.Set(nameof(PublicSectorOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
-                    _logger.Info($"Cached public sector organisations till {DateTime.Now.AddDays(14):R}");
                 }
 
                 pageSize = pageSize < 1 ? 1 : pageSize;
@@ -84,9 +82,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         public async Task RefreshCache()
         {
             _logger.Info("Refreshing public sector orgainsations Azure storage cache.");
+
             var lookUp = await _azureService.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(ContainerName, BlobName);
             _cacheProvider.Set(nameof(PublicSectorOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
-            _logger.Info("Public sector orgainsations Azure storage cache has been refreshed.");
+
+            _logger.Info($"Cached public sector organisations till {DateTime.Now.AddDays(14):R}");
         }
 
         private static int GetPageOffset(int pageSize, int pageNumber, int organisationCount)
