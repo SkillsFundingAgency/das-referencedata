@@ -41,7 +41,7 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
 
             AddOrganisationSearchServices();
 
-            For<ICache>().Use<InMemoryCache>(); //RedisCache
+            For<ICache>().Use<RedisCache>();
 
             RegisterMediator();
 

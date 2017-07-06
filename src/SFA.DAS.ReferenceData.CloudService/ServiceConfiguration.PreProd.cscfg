@@ -13,6 +13,7 @@
       <Setting name="idaAudience" value="__idaAudience__" />
       <Setting name="idaTenant" value="__idaTenant__" />
       <Setting name="InstrumentationKey" value="__InstrumentationKey__" />
+      <Setting name="RedisConnectionString" value="__RedisConnectionString__" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="WebSslCert" thumbprint="A761FC11ECBDE781DECD44E957CFB0AAACDBB8B9" thumbprintAlgorithm="sha1" />
