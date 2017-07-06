@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using SFA.DAS.ReferenceData.Api;
 using SFA.DAS.ReferenceData.Api.DependancyResolution;
@@ -31,7 +32,7 @@ namespace SFA.DAS.ReferenceData.Api {
 
             //Refresh all cached repositories at startup so we reduce likeihood of delay requests (which occur is cache is not populated)
             var cachedRepositories = container.GetAllInstances<ICachedRepository>().ToList();
-            cachedRepositories.ForEach(async x => await x.RefreshCache());
+            Parallel.ForEach(cachedRepositories, x => x.RefreshCache());
         }
     }
 }
