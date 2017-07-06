@@ -54,8 +54,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenIShouldGetOrganisationFromAzureIfNotInCache()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns((PublicSectorOrganisationLookUp) null);
+            _cacheProvider.SetupSequence(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .Returns(null)
+                          .Returns(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("", 1000, 0);
@@ -64,7 +65,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             Assert.IsNotEmpty(result.Data);
 
             _cacheProvider.Verify(x => x.Get<PublicSectorOrganisationLookUp>(
-               nameof(PublicSectorOrganisationLookUp)), Times.Once);
+               nameof(PublicSectorOrganisationLookUp)), Times.Exactly(2));
 
             _azureService.Verify(x => x.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(
                 "sfa-das-reference-data",
