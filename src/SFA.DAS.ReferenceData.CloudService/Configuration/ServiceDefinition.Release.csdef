@@ -9,7 +9,6 @@
       <Site name="Web">
         <Bindings>
           <Binding name="HttpsIn" endpointName="HttpsIn" />
-          <Binding name="HttpIn" endpointName="HttpIn" />
         </Bindings>
       </Site>
     </Sites>
@@ -28,7 +27,6 @@
     </ConfigurationSettings>
     <Endpoints>
       <InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="WebSslCert" loadBalancer="das-prd-ref-ilb"/>
-      <InputEndpoint name="HttpIn" protocol="http" port="80" loadBalancer="das-prd-ref-ilb"/>
     </Endpoints>
     <Certificates>
       <Certificate name="WebSslCert" storeLocation="LocalMachine" storeName="My" />
