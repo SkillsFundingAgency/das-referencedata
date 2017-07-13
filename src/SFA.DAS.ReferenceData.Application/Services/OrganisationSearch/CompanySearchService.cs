@@ -5,7 +5,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
+using SFA.DAS.ReferenceData.Domain.Models.Company;
 using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
@@ -55,25 +57,14 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             return null;
         }
 
-        private static Address FormatAddress(Domain.Models.Company.Address address)
-        {
-            return new Address
-            {
-                Line1 = address.Line1,
-                Line2 = address.Line2,
-                Line4 = address.TownOrCity,
-                Line5 = address.County,
-                Postcode = address.PostCode
-            };
-        }
-
         public async Task<IEnumerable<Organisation>> Search(string searchTerm, int maximumRecords)
         {
             try
             {
                 var results = await _companyVerificationService.FindCompany(searchTerm, maximumRecords);
+                var filteredResults = FilterResults(results, searchTerm);
 
-                return results?.Companies?.Select(c => new Organisation
+                return filteredResults?.Select(c => new Organisation
                 {
                     Name = c.CompanyName,
                     Address = FormatAddress(c.Address),
@@ -90,6 +81,23 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             }
 
             return null;
+        }
+
+        private IEnumerable<CompanySearchResultsItem> FilterResults(CompanySearchResults results, string searchTerm)
+        {
+            return results?.Companies?.Where(x => x.CompanyName.IndexOf(searchTerm, StringComparison.InvariantCultureIgnoreCase) != -1);
+        }
+
+        private static Address FormatAddress(Domain.Models.Company.Address address)
+        {
+            return new Address
+            {
+                Line1 = address.Line1,
+                Line2 = address.Line2,
+                Line4 = address.TownOrCity,
+                Line5 = address.County,
+                Postcode = address.PostCode
+            };
         }
     }
 }
