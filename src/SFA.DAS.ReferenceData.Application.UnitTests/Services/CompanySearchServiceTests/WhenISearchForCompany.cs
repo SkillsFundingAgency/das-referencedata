@@ -92,6 +92,30 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
         }
 
         [Test]
+        public async Task AndTheCompanyNameDoesNotContainTheSearchTermThenTheCompanyIsNotInTheResults()
+        {
+            //Arrange
+            const string searchTerm = "NHS 24";
+            var resultItem = new CompanySearchResultsItem
+            {
+                CompanyName = "This is not the nhs you're looking for",
+            };
+
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults
+            {
+                Companies = new List<CompanySearchResultsItem> { resultItem }
+            });
+
+            //Act
+            var results = await _searchService.Search(searchTerm, 10);
+
+            var organisation = results.FirstOrDefault();
+
+            //Assert
+            Assert.IsNull(organisation);
+        }
+
+        [Test]
         public async Task ShouldReturnNullIfExceptionIsThrowAndLogTheError()
         {
             //Arrange
