@@ -10,6 +10,7 @@ using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
 using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServiceTests
 {
@@ -114,7 +115,32 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             //Assert
             Assert.IsNull(organisation);
         }
+		
+		[Test]
+        public async Task ThenAnEmptyAddressIsReturnedWhenNullIsReturnedFromTheApi()
+        {
+            //Arrange
+            var resultItem = new CompanySearchResultsItem
+            {
+                CompanyName = "Test Corp",
+                Address = null,
+                DateOfIncorporation = DateTime.Now,
+                CompanyNumber = "12345678"
+            };
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults
+            {
+                Companies = new List<CompanySearchResultsItem> { resultItem }
+            });
 
+            //Act
+            var actual = await _searchService.Search("test", 10);
+
+            //Assert
+            Assert.IsNotNull(actual);
+            Assert.IsNotNull(actual.FirstOrDefault());
+            Assert.IsAssignableFrom<Address>(actual.First().Address);
+        }
+		
         [Test]
         public async Task ShouldReturnNullIfExceptionIsThrowAndLogTheError()
         {

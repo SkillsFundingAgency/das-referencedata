@@ -90,6 +90,11 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 
         private static Address FormatAddress(Domain.Models.Company.Address address)
         {
+            if (address == null)
+            {
+                return new Address();
+            }
+
             return new Address
             {
                 Line1 = address.Line1,
