@@ -40,7 +40,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                                 var organisation = new PublicSectorOrganisation
                                 {
                                     Name = csvReader.GetField<string>(1),
-                                    OrganisationCode = csvReader.GetField<string>(2),
+                                    //OrganisationCode = csvReader.GetField<string>(2),
                                     AddressLine1 = csvReader.GetField<string>(4),
                                     AddressLine2 = csvReader.GetField<string>(5),
                                     AddressLine3 = csvReader.GetField<string>(6),
@@ -50,7 +50,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                                     Source = DataSource.Nhs
                                 };
 
-                                //organisation.PopulateOrganisationCode();
+                                organisation.PopulateOrganisationCode();
 
                                 publicSectorOrganisationList.Add(organisation);
                             }
