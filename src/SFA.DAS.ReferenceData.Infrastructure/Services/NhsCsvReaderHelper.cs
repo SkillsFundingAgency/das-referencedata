@@ -48,7 +48,6 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                                 publicSectorOrganisationList.Add(organisation);
                             }
                         }
-
                     }
                 }
             }
