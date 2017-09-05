@@ -1,11 +1,5 @@
 ﻿using SFA.DAS.ReferenceData.Infrastructure.Services;
-using System;
-using System.Collections.Generic;
 using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.NhsCsvReaderHelperTests
@@ -21,10 +15,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.NhsCsvReaderHelperTests
         /// <summary>
         /// Sets up a NhsCsvReaderHelper with no properties set. You should set them in 'RefineSetup'
         /// </summary>
-        public NhsCsvReaderHelperTestBase()
-        {
-            RefineSetup();
-        }
+        protected NhsCsvReaderHelperTestBase() => RefineSetup();
 
         public abstract void RefineSetup();
     }
