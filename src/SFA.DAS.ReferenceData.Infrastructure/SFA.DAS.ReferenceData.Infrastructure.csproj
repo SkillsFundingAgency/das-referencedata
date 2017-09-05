@@ -140,7 +140,6 @@
     <Compile Include="ExecutionPolicies\ExecutionPolicy.cs" />
     <Compile Include="ExecutionPolicies\PolicyNameAttribute.cs" />
     <Compile Include="ExecutionPolicies\RequiredPolicyAttribute.cs" />
-    <Compile Include="Extensions\PublicSectorOrganisationExtensions.cs" />
     <Compile Include="Factories\EdubaseClientFactory.cs" />
     <Compile Include="Factories\IEdubaseClientFactory.cs" />
     <Compile Include="Http\HttpClientWrapper.cs" />
