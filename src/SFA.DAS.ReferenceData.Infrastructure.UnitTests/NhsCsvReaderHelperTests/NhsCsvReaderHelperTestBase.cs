@@ -6,7 +6,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.NhsCsvReaderHelperTests
 {
     public abstract class NhsCsvReaderHelperTestBase
     {
-        protected NhsCsvReaderHelper  Subject;
+        protected NhsCsvReaderHelper Subject;
         protected IFileSystem FileSystem;
         protected const string FilePath= @"c:\temp\myfile.csv";
 
@@ -15,7 +15,10 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.NhsCsvReaderHelperTests
         /// <summary>
         /// Sets up a NhsCsvReaderHelper with no properties set. You should set them in 'RefineSetup'
         /// </summary>
-        protected NhsCsvReaderHelperTestBase() => RefineSetup();
+        protected NhsCsvReaderHelperTestBase()
+        {
+            RefineSetup();
+        }
 
         public abstract void RefineSetup();
     }
