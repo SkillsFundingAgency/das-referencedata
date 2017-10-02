@@ -8,4 +8,5 @@
 )
 GO
 
-CREATE INDEX IDX_Registration_RegNo_SubNo ON [CharityData].[registration] ([regno],[subno])
+CREATE INDEX IDX_Registration_RegNo_SubNo ON [CharityData].[registration] ([regno],[subno]) INCLUDE ([regdate])
+GO
