@@ -1,16 +1,9 @@
-﻿using System.Data;
-using System.Data.OleDb;
-using System.Linq;
-using System.Configuration;
+﻿using System.Linq;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using System.IO;
-using HtmlAgilityPack;
-using Newtonsoft.Json;
-using Microsoft.WindowsAzure.Storage;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Models;
 
@@ -27,13 +20,12 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         private readonly ReferenceDataApiConfiguration _configuration;
         private readonly string _workingFolder;
         private readonly string _fileName = "publicsectorclassificationguidelatest";
-        private readonly string _jsonContainerName = "sfa-das-reference-data";
         private readonly string _jsonFileName = "PublicOrganisationNames.json";
 
         public PublicOrgsUpdater(ILog logger, ReferenceDataApiConfiguration configuration, 
             IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater, 
             IPublicSectorOrganisationDatabaseUpdater publicSectorOrganisationDatabaseUpdater,
-            IPublicSectorOrganisationHtmlScraper publicSectorOrganisationHtmlScraper, IJsonManager jsonManager)
+            IPublicSectorOrganisationHtmlScraper publicSectorOrganisationHtmlScraper, IJsonManager jsonManager, string jsonContainerName)
         {
             _archiveDownloadService = archiveDownloadService;
             _nhsDataUpdater = nhsDataUpdater;
