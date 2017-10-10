@@ -116,8 +116,11 @@
     <Compile Include="Updater\IPublicOrgsUpdater.cs" />
     <Compile Include="Updater\IPublicSectorOrganisationDatabaseUpdater.cs" />
     <Compile Include="Updater\IPublicSectorOrganisationHtmlScraper.cs" />
+    <Compile Include="Updater\JsonManager.cs" />
     <Compile Include="Updater\NhsDataUpdater.cs" />
     <Compile Include="Updater\PublicOrgsUpdater.cs" />
+    <Compile Include="Updater\PublicSectorOrganisationDatabaseUpdater.cs" />
+    <Compile Include="Updater\PublicSectorOrganisationHtmlScraper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
