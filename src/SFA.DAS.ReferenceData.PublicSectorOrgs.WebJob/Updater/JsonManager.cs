@@ -41,7 +41,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             catch (Exception ex)
             {
                 _logger.Error(ex, $"An error occurred exporting data to {filename}: {ex.Message}");
-                throw new Exception($"An error occurred exporting data to {filename}: {ex.Message}");
+                throw;
             }
 
             Console.WriteLine($"Exported {orgs.Organisations.Count()} records");
@@ -69,7 +69,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             catch (Exception e)
             {
                 _logger.Error(e, $"Error uploading {filePath} to Blob storage");
-                throw new Exception($"Error uploading {filePath} to Blob storage", e);
+                throw;
             }
         }
     }

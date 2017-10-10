@@ -32,7 +32,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             catch (Exception e)
             {
                 logger.Error(e, "Cannot get Police organisations, potential format change");
-                throw new Exception("Cannot get Police organisations, potential format change", e);
+                throw;
             }
 
             return ol;

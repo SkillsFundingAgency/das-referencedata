@@ -58,7 +58,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             catch (Exception e)
             {
                 _logger.Error(e, "Cannot get ONS organisations, potential format change");
-                throw new Exception("Cannot get ONS organisations, potential format change", e);
+                throw;
             }
             return ol;
         }
