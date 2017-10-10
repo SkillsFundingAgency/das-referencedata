@@ -2,7 +2,7 @@
 (
 	[regno] [int] NULL,
 	[subno] [int] NULL,
-	[name] [varchar](150) NOT NULL,
+	[name] [varchar](150) NOT NULL DEFAULT '',
 	[orgtype] [varchar](10) NULL,
 	[gd] [nvarchar](max) NULL,
 	[aob] [varchar](max) NULL,
