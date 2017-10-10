@@ -20,6 +20,9 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
     {
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly INhsDataUpdater _nhsDataUpdater;
+        private readonly IPublicSectorOrganisationDatabaseUpdater _publicSectorOrganisationDatabaseUpdater;
+        private readonly IPublicSectorOrganisationHtmlScraper _publicSectorOrganisationHtmlScraper;
+        private readonly IJsonManager _jsonManager;
         private readonly ILog _logger;
         private readonly ReferenceDataApiConfiguration _configuration;
         private readonly string _workingFolder;
@@ -27,10 +30,16 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         private readonly string _jsonContainerName = "sfa-das-reference-data";
         private readonly string _jsonFileName = "PublicOrganisationNames.json";
 
-        public PublicOrgsUpdater(ILog logger, ReferenceDataApiConfiguration configuration, IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater)
+        public PublicOrgsUpdater(ILog logger, ReferenceDataApiConfiguration configuration, 
+            IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater, 
+            IPublicSectorOrganisationDatabaseUpdater publicSectorOrganisationDatabaseUpdater,
+            IPublicSectorOrganisationHtmlScraper publicSectorOrganisationHtmlScraper, IJsonManager jsonManager)
         {
             _archiveDownloadService = archiveDownloadService;
             _nhsDataUpdater = nhsDataUpdater;
+            _publicSectorOrganisationDatabaseUpdater = publicSectorOrganisationDatabaseUpdater;
+            _publicSectorOrganisationHtmlScraper = publicSectorOrganisationHtmlScraper;
+            _jsonManager = jsonManager;
             _logger = logger;
             _configuration = configuration;
             _workingFolder = Path.GetTempPath();
@@ -43,18 +52,18 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
             if(!_configuration.NhsTrustsUrls.Any() || 
                 string.IsNullOrWhiteSpace(_configuration.PoliceForcesUrl) || 
-                string.IsNullOrWhiteSpace(_configuration.ONSUrl))
+                string.IsNullOrWhiteSpace(_configuration.ONSUrl) ||
+                string.IsNullOrWhiteSpace(_configuration.OnsUrlDateFormat))
             {
-                const string errorMessage = "Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl";
+                const string errorMessage = "Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl, ONSUrl and ONSUrlDateFormat";
                 _logger.Error(new Exception(errorMessage), errorMessage);
-                throw new Exception("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl and ONSUrl");
+                throw new Exception("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl, ONSUrl and ONSUrlDateFormat");
             }
 
             var onsOrgs = await GetOnsOrganisations();
             var nhsOrgs = await GetNhsOrganisations();
             var policeOrgs = GetPoliceOrganisations();
-
-
+            
             var orgs = new PublicSectorOrganisationLookUp
             {
                 Organisations = onsOrgs.Organisations
@@ -63,9 +72,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             };
 
             var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
-
-            ExportFile(jsonFilePath, orgs);
-            UploadJsonToStorage(jsonFilePath);
+            _jsonManager.ExportFile(jsonFilePath, orgs);
+            _jsonManager.UploadJsonToStorage(jsonFilePath);
         }
 
         private async Task<PublicSectorOrganisationLookUp> GetOnsOrganisations()
@@ -88,81 +96,14 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             var excelFile = Path.Combine(_workingFolder, _fileName);
 
             _logger.Info($"Reading ONS from {excelFile}");
-            var ol = new PublicSectorOrganisationLookUp();
-
-            try
-            {
-                var connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties='Excel 8.0;HDR=NO;';Data Source={excelFile}";
-
-                using (var conn = new OleDbConnection(connectionString))
-                {
-                    using (var cmd = new OleDbCommand())
-                    {
-                        conn.Open();
-                        cmd.Connection = conn;
-                        
-                        conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-
-                        const string sheetName = "Index$";
-                        cmd.CommandText = "SELECT F1, F2 FROM [" + sheetName + "] WHERE F1 IS NOT NULL AND F2 IS NOT NULL AND F1 <> 'Index'";
-
-                        var dt = new DataTable(sheetName);
-                        var da = new OleDbDataAdapter(cmd);
-                        da.Fill(dt);
-
-                        var rowDel = dt.Rows[0];
-                        dt.Rows.Remove(rowDel);
-
-                        var data = dt.AsEnumerable();
-
-                        ol.Organisations = data.Where(s => !s.Field<string>("F2").ToLower().Contains("former")).Select(x =>
-                                    new PublicSectorOrganisation
-                                    {
-                                        Name = x.Field<string>("F1"),
-                                        Sector = x.Field<string>("F2"),
-                                        Source = DataSource.Ons
-                                    }).ToList();
-                        conn.Close();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e, "Cannot get ONS organisations, potential format change");
-                throw new Exception("Cannot get ONS organisations, potential format change", e);
-            }
+            var ol = _publicSectorOrganisationDatabaseUpdater.UpdateDatabase(excelFile);
             return ol;
         }
 
         private PublicSectorOrganisationLookUp GetPoliceOrganisations()
         {
             _logger.Info($"Getting Police Organisations");
-            var ol = new PublicSectorOrganisationLookUp();
-
-            try
-            {
-                var policeUrl = _configuration.PoliceForcesUrl;
-                var web = new HtmlWeb();
-                var doc = web.Load(policeUrl);
-
-                var englandPolice = System.Net.WebUtility.HtmlDecode(doc.DocumentNode.SelectNodes("//*[@id=\"england\"]/ul")[0].InnerText).Split('\n')
-                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
-                var nationalPolice = System.Net.WebUtility.HtmlDecode(doc.DocumentNode.SelectNodes("//*[@id=\"special\"]/ul")[0].InnerText).Split('\n')
-                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
-
-                ol.Organisations = englandPolice.Concat(nationalPolice)
-                    .Select(x => new PublicSectorOrganisation
-                    {
-                        Name = x,
-                        Sector = "",
-                        Source = DataSource.Police
-                    }).ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e, "Cannot get Police organisations, potential format change");
-                throw new Exception("Cannot get Police organisations, potential format change", e);
-            }
+            var ol = _publicSectorOrganisationHtmlScraper.Scrape(_configuration.PoliceForcesUrl, _logger);
 
             return ol;
         }
@@ -176,67 +117,12 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         private string GetDownloadUrlForMonthYear(bool previousMonth)
         {
             var urlpattern = _configuration.ONSUrl;
+            var datePattern = _configuration.OnsUrlDateFormat;
 
-            var now = previousMonth ? DateTime.Now.AddMonths(-1) : DateTime.Now;
-                      
-
-            var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(now.Month)}{now.Year}";
-
-            var url = string.Format(urlpattern, monthyear.ToLower());
+            var now = previousMonth ? DateTime.UtcNow.AddMonths(-1) : DateTime.UtcNow;
+           
+            var url = string.Format(urlpattern, now.ToString(datePattern).ToLower());
             return url;
-        }
-
-        private void ExportFile(string filename, PublicSectorOrganisationLookUp orgs)
-        {
-            try
-            {
-                using (var fs = File.Open(filename, FileMode.Create))
-                {
-                    using (var sw = new StreamWriter(fs))
-                    {
-                        using (var jw = new JsonTextWriter(sw))
-                        {
-                            jw.Formatting = Formatting.Indented;
-
-                            var serializer = new JsonSerializer();
-                            serializer.Serialize(jw, orgs);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, $"An error occurred exporting data to {filename}: {ex.Message}");
-                throw new Exception($"An error occurred exporting data to {filename}: {ex.Message}");
-            }
-
-            Console.WriteLine($"Exported {orgs.Organisations.Count()} records");
-        }
-
-        private void UploadJsonToStorage(string filePath)
-        {
-            _logger.Info($"Uploading {filePath} to Blob storage");
-
-            try
-            {
-                var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
-
-                var blobClient = storageAccount.CreateCloudBlobClient();
-                var container = blobClient.GetContainerReference(_jsonContainerName);
-                container.CreateIfNotExists();
-
-                var blockBlob = container.GetBlockBlobReference(_jsonFileName);
-
-                using (var fileStream = File.OpenRead(filePath))
-                {
-                    blockBlob.UploadFromStream(fileStream);
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e, $"Error uploading {filePath} to Blob storage");
-                throw new Exception($"Error uploading {filePath} to Blob storage", e);
-            }
         }
     }
 }
