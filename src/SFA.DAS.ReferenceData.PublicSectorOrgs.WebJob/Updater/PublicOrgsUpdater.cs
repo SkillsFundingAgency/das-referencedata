@@ -25,7 +25,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         public PublicOrgsUpdater(ILog logger, ReferenceDataApiConfiguration configuration, 
             IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater, 
             IPublicSectorOrganisationDatabaseUpdater publicSectorOrganisationDatabaseUpdater,
-            IPublicSectorOrganisationHtmlScraper publicSectorOrganisationHtmlScraper, IJsonManager jsonManager, string jsonContainerName)
+            IPublicSectorOrganisationHtmlScraper publicSectorOrganisationHtmlScraper, IJsonManager jsonManager)
         {
             _archiveDownloadService = archiveDownloadService;
             _nhsDataUpdater = nhsDataUpdater;
