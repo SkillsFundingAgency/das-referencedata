@@ -23,6 +23,9 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.DependencyResolution
             For<IPublicOrgsUpdater>().Use<PublicOrgsUpdater>();
             For<INhsDataUpdater>().Use<NhsDataUpdater>();
             For<IFileSystem>().Use<FileSystem>();
+            For<IJsonManager>().Use<JsonManager>();
+            For<IPublicSectorOrganisationHtmlScraper>().Use<PublicSectorOrganisationHtmlScraper>();
+            For<IPublicSectorOrganisationDatabaseUpdater>().Use<PublicSectorOrganisationDatabaseUpdater>();
 
             RegisterLogger();
         }
