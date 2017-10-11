@@ -111,10 +111,16 @@
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updater\IJsonManager.cs" />
     <Compile Include="Updater\INhsDataUpdater.cs" />
     <Compile Include="Updater\IPublicOrgsUpdater.cs" />
+    <Compile Include="Updater\IPublicSectorOrganisationDatabaseUpdater.cs" />
+    <Compile Include="Updater\IPublicSectorOrganisationHtmlScraper.cs" />
+    <Compile Include="Updater\JsonManager.cs" />
     <Compile Include="Updater\NhsDataUpdater.cs" />
     <Compile Include="Updater\PublicOrgsUpdater.cs" />
+    <Compile Include="Updater\PublicSectorOrganisationDatabaseUpdater.cs" />
+    <Compile Include="Updater\PublicSectorOrganisationHtmlScraper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

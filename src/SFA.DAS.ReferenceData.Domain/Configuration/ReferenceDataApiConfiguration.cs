@@ -20,6 +20,7 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
         public List<string> NhsTrustsUrls { get; set; }
         public string EdubaseUsername { get; set; }
         public string EdubasePassword { get; set; }
+        public string OnsUrlDateFormat { get; set; }
 
         public CompaniesHouseConfiguration CompaniesHouse { get; set; }
 
