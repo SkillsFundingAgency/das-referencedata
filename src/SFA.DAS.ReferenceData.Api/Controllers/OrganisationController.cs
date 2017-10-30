@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using MediatR;
@@ -7,6 +9,7 @@ using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
+using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
@@ -87,8 +90,15 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
                 SearchTerm = searchTerm,
                 MaximumResults = maximumResults
             };
-
-            var response = await _mediator.SendAsync(query);
+            SearchOrganisationsResponse response;
+            try
+            {
+                response = await _mediator.SendAsync(query);
+            }
+            catch (Exception e)
+            {
+                response = new SearchOrganisationsResponse(){Organisations =  new List<Organisation>()};
+            }
 
             return Ok(response.Organisations);
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using MediatR;
@@ -44,6 +46,26 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
             //Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(response.Organisations, result.Content);
+        }
+
+        [Test]
+        public async Task ThenIShouldReturnZeroOrganisationsAfterException()
+        {
+            var searchTerm = "Test";
+            var maximumResults = 500;
+
+            _mediator.Setup(x => 
+                x.SendAsync(It.Is<SearchOrganisationsQuery>(y => 
+                    y.SearchTerm == searchTerm && y.MaximumResults == maximumResults)))
+                    .Throws<Exception>();
+
+            //Act
+            var result = await _controller.SearchOrganisations(searchTerm, maximumResults) as OkNegotiatedContentResult<IEnumerable<Organisation>>;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Content.Any());
+
         }
     }
 }
