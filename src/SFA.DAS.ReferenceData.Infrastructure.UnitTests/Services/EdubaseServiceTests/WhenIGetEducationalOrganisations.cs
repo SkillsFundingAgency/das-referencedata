@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Dfe.Edubase2.SoapApi.Client;
 using Dfe.Edubase2.SoapApi.Client.EdubaseService;
 using Moq;
-using NLog;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Infrastructure.Factories;
