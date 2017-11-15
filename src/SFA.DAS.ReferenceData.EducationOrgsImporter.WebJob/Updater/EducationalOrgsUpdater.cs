@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
@@ -32,6 +33,8 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Updater
             try
             {
                 var orgainsations = await _edubaseService.GetOrganisations();
+
+                _logger.Info("Retrieved educational organisations", new Dictionary<string, object> { {"TotalCount", orgainsations.Count}});
 
                 if (orgainsations == null || !orgainsations.Any()) return;
 
