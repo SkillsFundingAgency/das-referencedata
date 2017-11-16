@@ -50,8 +50,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenIShouldGetOrganisationFromAzureIfNotInCache()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns((EducationalOrganisationLookUp) null);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync((EducationalOrganisationLookUp) null);
 
             //Act
             var result = await _repository.FindOrganisations("", 1000, 0);
@@ -59,7 +59,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
             //Assert
             Assert.IsNotEmpty(result.Data);
 
-            _cacheProvider.Verify(x => x.Get<EducationalOrganisationLookUp>(
+            _cacheProvider.Verify(x => x.GetAsync<EducationalOrganisationLookUp>(
                nameof(EducationalOrganisationLookUp)), Times.Once);
 
             _azureService.Verify(x => x.GetModelFromBlobStorage<EducationalOrganisationLookUp>(
@@ -71,8 +71,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenIShouldGetOrganisationFromCacheIfAvailable()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("", 1000, 0);
@@ -80,7 +80,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
             //Assert
             Assert.IsNotEmpty(result.Data);
 
-            _cacheProvider.Verify(x => x.Get<EducationalOrganisationLookUp>(
+            _cacheProvider.Verify(x => x.GetAsync<EducationalOrganisationLookUp>(
                nameof(EducationalOrganisationLookUp)), Times.Once);
 
             _azureService.Verify(x => x.GetModelFromBlobStorage<EducationalOrganisationLookUp>(
@@ -92,8 +92,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenIfNullIsReturnedFromTheAzureServiceAnEmptyCollectionShouldBeReturned()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns((EducationalOrganisationLookUp)null);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync((EducationalOrganisationLookUp)null);
 
             _azureService.Setup(x => x.GetModelFromBlobStorage<EducationalOrganisationLookUp>(
                It.IsAny<string>(),
@@ -111,8 +111,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenShouldReturnOnlyResultsThatMatchSearchTerm()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 10, 0);
@@ -129,8 +129,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenShouldReturnOnlyTheNumberOfResultsSentAsThePageSize()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 2, 0);
@@ -146,8 +146,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenShouldReturnTheAFullPageOfTheLastResultsIfTheLastPageIsSelected()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 2, 2);
@@ -163,8 +163,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenShouldReturnTheFirstPageIfThePageNumberIsLessThanOne()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 2, -2);
@@ -180,8 +180,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganis
         public async Task ThenIfThePageSizeIsLessThanOneThePageSizeShouldBeSetToOne()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<EducationalOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<EducationalOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 0, -2);

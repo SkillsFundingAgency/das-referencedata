@@ -127,6 +127,7 @@
     <Compile Include="Caching\InMemoryCache.cs" />
     <Compile Include="Caching\InProcessCacheProvider.cs" />
     <Compile Include="Caching\RedisCache.cs" />
+    <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\TaskSynchronizationScope.cs" />
     <Compile Include="Data\EducationalOrganisationRepository.cs" />
     <Compile Include="Data\FileSystemRepository.cs" />
