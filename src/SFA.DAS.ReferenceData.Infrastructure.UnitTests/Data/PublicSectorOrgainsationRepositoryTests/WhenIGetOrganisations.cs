@@ -55,7 +55,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         {
             //Arrange
             _cacheProvider.SetupSequence(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(null)
+                          .ReturnsAsync(null)
                           .ReturnsAsync(_lookup);
 
             //Act
