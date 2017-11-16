@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheProviderTests\WhenICacheAnItem.cs" />
+    <Compile Include="Caching\CacheProviderTests\WhenIGetACachedItem.cs" />
     <Compile Include="Data\EducationalOrganisationRepositoryTests\WhenIGetOrganisations.cs" />
     <Compile Include="Data\PublicSectorOrgainsationRepositoryTests\WhenIGetOrganisations.cs" />
     <Compile Include="NhsCsvReaderHelperTests\NhsCsvReaderHelperTestBase.cs" />

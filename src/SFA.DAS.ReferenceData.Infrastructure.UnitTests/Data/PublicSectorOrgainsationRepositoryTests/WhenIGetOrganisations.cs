@@ -54,9 +54,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenIShouldGetOrganisationFromAzureIfNotInCache()
         {
             //Arrange
-            _cacheProvider.SetupSequence(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(null)
-                          .Returns(_lookup);
+            _cacheProvider.SetupSequence(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(null)
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("", 1000, 0);
@@ -64,7 +64,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             //Assert
             Assert.IsNotEmpty(result.Data);
 
-            _cacheProvider.Verify(x => x.Get<PublicSectorOrganisationLookUp>(
+            _cacheProvider.Verify(x => x.GetAsync<PublicSectorOrganisationLookUp>(
                nameof(PublicSectorOrganisationLookUp)), Times.Exactly(2));
 
             _azureService.Verify(x => x.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(
@@ -76,8 +76,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenIShouldGetOrganisationFromCacheIfAvailable()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("", 1000, 0);
@@ -85,7 +85,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
             //Assert
             Assert.IsNotEmpty(result.Data);
 
-            _cacheProvider.Verify(x => x.Get<PublicSectorOrganisationLookUp>(
+            _cacheProvider.Verify(x => x.GetAsync<PublicSectorOrganisationLookUp>(
                nameof(PublicSectorOrganisationLookUp)), Times.Once);
 
             _azureService.Verify(x => x.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(
@@ -97,8 +97,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenIfNullIsReturnedFromTheAzureServiceAnEmptyCollectionShouldBeReturned()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns((PublicSectorOrganisationLookUp)null);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync((PublicSectorOrganisationLookUp)null);
 
             _azureService.Setup(x => x.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(
                It.IsAny<string>(),
@@ -116,8 +116,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenShouldReturnOnlyResultsThatMatchSearchTerm()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 10, 0);
@@ -134,8 +134,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenShouldReturnOnlyTheNumberOfResultsSentAsThePageSize()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 2, 0);
@@ -151,8 +151,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenShouldReturnTheAFullPageOfTheLastResultsIfTheLastPageIsSelected()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 2, 2);
@@ -168,8 +168,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenShouldReturnTheFirstPageIfThePageNumberIsLessThanOne()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 2, -2);
@@ -185,8 +185,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.PublicSectorOrgain
         public async Task ThenIfThePageSizeIsLessThanOneThePageSizeShouldBeSetToOne()
         {
             //Arrange
-            _cacheProvider.Setup(x => x.Get<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
-                          .Returns(_lookup);
+            _cacheProvider.Setup(x => x.GetAsync<PublicSectorOrganisationLookUp>(It.IsAny<string>()))
+                          .ReturnsAsync(_lookup);
 
             //Act
             var result = await _repository.FindOrganisations("test", 0, -2);
