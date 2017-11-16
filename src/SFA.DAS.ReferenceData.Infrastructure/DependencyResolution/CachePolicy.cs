@@ -14,16 +14,19 @@ namespace SFA.DAS.ReferenceData.Infrastructure.DependencyResolution
         {
             var cacheParameter = instance?.Constructor?.GetParameters().FirstOrDefault(x => x.ParameterType == typeof(ICache));
 
+            if (cacheParameter == null)
+                return;
+
             var cache = GetCache();
 
-            instance?.Dependencies.AddForConstructorParameter(cacheParameter, cache);
+            instance.Dependencies.AddForConstructorParameter(cacheParameter, cache);
         }
         
         private static ICache GetCache()
         {
             ICache cache;
 
-            if(bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
+            if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
             {
                 cache = new InMemoryCache();
             }
