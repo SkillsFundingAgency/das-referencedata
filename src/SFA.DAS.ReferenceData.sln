@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
@@ -52,6 +52,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob", "SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob\SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.csproj", "{39358BDF-606F-45B5-948A-D45A5E41A42B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests", "SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests\SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.csproj", "{8182C216-4F48-4E47-ACE6-911F688F37D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PreReq", "PreReq", "{B86B5E34-A4C8-4873-9B62-24F61FF064A5}"
+	ProjectSection(SolutionItems) = preProject
+		DevInstall.ps1 = DevInstall.ps1
+		localhost.pfx = localhost.pfx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,5 +156,8 @@ Global
 		{E5B82018-E6C5-4915-841C-6A40257BDAA1} = {6D48E921-EC07-4EA5-A7E9-7FEC034A15F7}
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{8182C216-4F48-4E47-ACE6-911F688F37D6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {908E6E5A-F951-4D5C-B005-76C21A23E990}
 	EndGlobalSection
 EndGlobal

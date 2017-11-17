@@ -32,7 +32,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         {
             return await Task.Run(async () =>
             {
-                var lookUp = _cacheProvider.Get<EducationalOrganisationLookUp>(nameof(EducationalOrganisationLookUp));
+                var lookUp = await _cacheProvider.GetAsync<EducationalOrganisationLookUp>(nameof(EducationalOrganisationLookUp));
 
                 if (lookUp == null)
                 {
@@ -52,7 +52,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     _logger.Info(
                         $"{lookUp.Organisations.Count()} educational organisations were retrieved from Azure");
 
-                    _cacheProvider.Set(nameof(EducationalOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
+                    await _cacheProvider.SetAsync(nameof(EducationalOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
                     _logger.Info($"Cached educational organisations till {DateTime.Now.AddDays(1):R}");
                 }
 

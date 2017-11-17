@@ -32,13 +32,13 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         {
             return await Task.Run(async() =>
             {
-                var lookUp = _cacheProvider.Get<PublicSectorOrganisationLookUp>(nameof(PublicSectorOrganisationLookUp));
+                var lookUp = await _cacheProvider.GetAsync<PublicSectorOrganisationLookUp>(nameof(PublicSectorOrganisationLookUp));
 
                 if (lookUp == null)
                 {
                     await RefreshCache();
 
-                    lookUp = _cacheProvider.Get<PublicSectorOrganisationLookUp>(nameof(PublicSectorOrganisationLookUp));
+                    lookUp = await _cacheProvider.GetAsync<PublicSectorOrganisationLookUp>(nameof(PublicSectorOrganisationLookUp));
 
                     if (lookUp == null)
                     {
@@ -84,7 +84,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             _logger.Info("Refreshing public sector orgainsations Azure storage cache.");
 
             var lookUp = await _azureService.GetModelFromBlobStorage<PublicSectorOrganisationLookUp>(ContainerName, BlobName);
-            _cacheProvider.Set(nameof(PublicSectorOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
+            await _cacheProvider.SetAsync(nameof(PublicSectorOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
 
             _logger.Info($"Cached public sector organisations till {DateTime.Now.AddDays(14):R}");
         }
