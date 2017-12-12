@@ -1,4 +1,5 @@
-﻿using SFA.DAS.NLog.Logger;
+﻿using System;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.DependencyResolution;
@@ -13,10 +14,17 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob
     {
         internal static void Main(string[] args)
         {
-            var container = IoC.Initialize();
+            try
+            {
+                var container = IoC.Initialize();
 
-            var updater = container.GetInstance<IEducationalOrgsUpdater>();
-            updater.RunUpdate().Wait();
+                var updater = container.GetInstance<IEducationalOrgsUpdater>();
+                updater.RunUpdate().Wait();
+            }
+            catch (Exception ex)
+            {
+                new NLogLogger(null,null,null).Fatal(ex, "Unhandled Exception");
+            }
         }
     }
 }
