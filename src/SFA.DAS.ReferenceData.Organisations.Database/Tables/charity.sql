@@ -7,7 +7,7 @@
 	[gd] [nvarchar](max) NULL,
 	[aob] [varchar](max) NULL,
 	[aob_defined] [int] NULL,
-	[nhs] [varchar](1) NOT NULL,
+	[nhs] [varchar](1) NOT NULL DEFAULT '',
 	[ha_no] [int] NULL,
 	[corr] [varchar](255) NULL,
 	[add1] [varchar](35) NULL,
