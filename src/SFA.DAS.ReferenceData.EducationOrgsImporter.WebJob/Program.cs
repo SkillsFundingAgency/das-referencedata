@@ -14,16 +14,19 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob
     {
         internal static void Main(string[] args)
         {
+            var logger = new NLogLogger(null, null, null);
             try
             {
+                logger.Info("WebJob starting");
                 var container = IoC.Initialize();
 
                 var updater = container.GetInstance<IEducationalOrgsUpdater>();
                 updater.RunUpdate().Wait();
+                logger.Info("WebJob finished");
             }
             catch (Exception ex)
             {
-                new NLogLogger(null,null,null).Fatal(ex, "Unhandled Exception");
+                logger.Fatal(ex, "Unhandled Exception");
             }
         }
     }
