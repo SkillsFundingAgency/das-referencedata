@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using MediatR;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Attributes;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
@@ -17,10 +18,12 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
     public class OrganisationController : ApiController
     {
         private readonly IMediator _mediator;
-       
-        public OrganisationController(IMediator mediator)
+        private readonly ILog _logger;
+
+        public OrganisationController(IMediator mediator, ILog logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [Route("publicsectorbodies", Name = "Public Sector")]
@@ -97,6 +100,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             }
             catch (Exception e)
             {
+                _logger.Error(e, "Unhandled exception retreiving organisations");
                 response = new SearchOrganisationsResponse(){Organisations =  new List<Organisation>()};
             }
 
