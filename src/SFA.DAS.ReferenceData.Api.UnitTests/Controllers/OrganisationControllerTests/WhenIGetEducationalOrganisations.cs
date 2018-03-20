@@ -4,6 +4,7 @@ using System.Web.Http.Results;
 using MediatR;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
@@ -34,7 +35,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
             _mediator.Setup(x => x.SendAsync(It.IsAny<FindEducationalOrganisationsQuery>()))
                      .ReturnsAsync(_response);
 
-            _controller = new OrganisationController(_mediator.Object);
+            _controller = new OrganisationController(_mediator.Object, Mock.Of<ILog>());
         }
 
         [Test]
