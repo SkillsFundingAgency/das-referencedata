@@ -7,6 +7,7 @@ using System.Web.Http.Results;
 using MediatR;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
@@ -45,7 +46,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
                      Charity = null
                  });
 
-            _controller = new OrganisationController(_mediator.Object);
+            _controller = new OrganisationController(_mediator.Object, Mock.Of<ILog>());
         }
 
         [Test]
