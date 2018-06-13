@@ -62,8 +62,11 @@
     <Folder Include="Tables" />
     <Folder Include="StoredProcedures" />
     <Folder Include="Views" />
-    <Folder Include="SeedData" />
     <Folder Include="Schemas" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\PreDeployment" />
+    <Folder Include="Scripts\PostDeployment" />
+    <Folder Include="Scripts\Manual" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\CharityImport.sql" />
@@ -108,11 +111,12 @@
     <Build Include="StoredProcedures\GetCharityByRegistrationNumber.sql" />
     <Build Include="StoredProcedures\FindCharities.sql" />
     <Build Include="Tables\CharityNameSearch.sql" />
+    <PostDeploy Include="Scripts\PostDeployment\PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PreDeploy Include="SeedData\Script.PreDeployment.sql" />
+    <PreDeploy Include="Scripts\PreDeployment\PreDeployment.sql" />
   </ItemGroup>
 </Project>
