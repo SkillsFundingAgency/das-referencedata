@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services

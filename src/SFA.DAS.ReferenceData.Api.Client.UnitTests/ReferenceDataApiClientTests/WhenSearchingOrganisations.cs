@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
 using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetCharityByRegistrationNumber

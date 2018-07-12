@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.ReferenceData.Api.Client;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Client.Exceptions;
-using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Types;
 

@@ -6,7 +6,6 @@ using System.Web.Http;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Attributes;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;

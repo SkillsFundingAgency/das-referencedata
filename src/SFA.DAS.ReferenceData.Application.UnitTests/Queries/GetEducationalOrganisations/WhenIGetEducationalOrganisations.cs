@@ -2,11 +2,9 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
-using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetEducationalOrganisations

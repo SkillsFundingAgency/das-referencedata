@@ -1,5 +1,4 @@
-﻿using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Types;
+﻿using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Api.Client.Exceptions
 {

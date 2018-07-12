@@ -3,7 +3,6 @@ using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
-using NLog;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure

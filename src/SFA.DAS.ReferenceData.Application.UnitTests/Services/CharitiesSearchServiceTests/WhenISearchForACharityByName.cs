@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
 using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchServiceTests

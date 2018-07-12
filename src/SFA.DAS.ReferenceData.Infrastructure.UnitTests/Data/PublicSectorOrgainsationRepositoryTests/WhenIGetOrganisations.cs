@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
-using NLog;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
