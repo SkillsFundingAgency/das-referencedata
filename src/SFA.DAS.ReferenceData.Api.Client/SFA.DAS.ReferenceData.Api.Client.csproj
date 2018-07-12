@@ -54,18 +54,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Adapters\IOrganisationDetailsFactory.cs" />
+    <Compile Include="Dto\Adapters\OrganisationDetailsFactory.cs" />
+    <Compile Include="Dto\Adapters\OrganisationToNameAndAddressAdapter.cs" />
+    <Compile Include="Dto\Adapters\CharityToNameAndAddressAdapter.cs" />
+    <Compile Include="Dto\Adapters\EducationOrganisationToNameAndAddressAdapter.cs" />
     <Compile Include="Dto\Address.cs" />
     <Compile Include="Dto\Charity.cs" />
+    <Compile Include="Dto\Adapters\IOrganisationDetails.cs" />
+    <Compile Include="Dto\OrganisationDetails.cs" />
     <Compile Include="Dto\OrganisationSubType.cs" />
     <Compile Include="Dto\OrganisationType.cs" />
     <Compile Include="Dto\Organisation.cs" />
     <Compile Include="Dto\EducationOrganisation.cs" />
     <Compile Include="Dto\PagedApiResponse.cs" />
     <Compile Include="Dto\PublicSectorOrganisation.cs" />
+    <Compile Include="Dto\Adapters\PublicSectorToNameAndAddressAdapter.cs" />
     <Compile Include="IReferenceDataApiClient.cs" />
     <Compile Include="IReferenceDataApiConfiguration.cs" />
+    <Compile Include="Exceptions\OperationNotSupportedForOrganisationType.cs" />
+    <Compile Include="Exceptions\OrganisationNotFoundExeption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceDataApiClient.cs" />
+    <Compile Include="Exceptions\ReferenceDataException.cs" />
     <Compile Include="SecureHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>

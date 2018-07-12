@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
+using SFA.DAS.ReferenceData.Api.Client.Dto.Adapters;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {
@@ -70,6 +71,17 @@ namespace SFA.DAS.ReferenceData.Api.Client
             var json = await _httpClient.GetAsync(url);
 
             return JsonConvert.DeserializeObject<PagedApiResponse<EducationOrganisation>>(json);
+        }
+
+        public async Task<Organisation> GetLatestDetails(OrganisationType organisationType, string identifier)
+        {
+            var baseUrl = GetBaseUrl();
+
+            var url = $"{baseUrl}get?identifier={HttpUtility.UrlPathEncode(identifier)}&type={organisationType}";
+
+            var json = await _httpClient.GetAsync(url);
+
+            return JsonConvert.DeserializeObject<Organisation>(json);
         }
 
         private string GetBaseUrl()

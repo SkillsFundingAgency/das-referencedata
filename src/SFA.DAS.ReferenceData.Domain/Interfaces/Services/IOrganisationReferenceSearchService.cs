@@ -7,6 +7,7 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
     public interface IOrganisationReferenceSearchService
     {
+        OrganisationType OrganisationType { get; }
         bool IsSearchTermAReference(string searchTerm);
         Task<Organisation> Search(string reference);
     }

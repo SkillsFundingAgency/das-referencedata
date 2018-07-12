@@ -66,6 +66,9 @@
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrgainsationQuery.cs" />
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrganisationResponse.cs" />
     <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrganisationsHandler.cs" />
+    <Compile Include="Queries\GetOrganisation\GetOrganisationHandler.cs" />
+    <Compile Include="Queries\GetOrganisation\GetOrganisationQuery.cs" />
+    <Compile Include="Queries\GetOrganisation\GetOrganisationResponse.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsHandler.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsResponse.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsQuery.cs" />

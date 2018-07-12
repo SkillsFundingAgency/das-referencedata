@@ -106,5 +106,29 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
             return Ok(response.Organisations);
         }
+
+        [Route("get")]
+        [HttpGet]
+        [ApiAuthorize]
+        public async Task<IHttpActionResult> SearchOrganisations(string identifier, OrganisationType organisationType)
+        {
+            var query = new SearchOrganisationsQuery
+            {
+                SearchTerm = searchTerm,
+                MaximumResults = maximumResults
+            };
+            SearchOrganisationsResponse response;
+            try
+            {
+                response = await _mediator.SendAsync(query);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "Unhandled exception retreiving organisations");
+                response = new SearchOrganisationsResponse() { Organisations = new List<Organisation>() };
+            }
+
+            return Ok(response.Organisations);
+        }
     }
 }
