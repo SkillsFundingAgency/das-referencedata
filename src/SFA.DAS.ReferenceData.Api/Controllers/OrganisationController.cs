@@ -6,8 +6,10 @@ using System.Web.Http;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Attributes;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
+using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
 using SFA.DAS.ReferenceData.Domain.Models.Organisation;
@@ -112,12 +114,13 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
         [ApiAuthorize]
         public async Task<IHttpActionResult> SearchOrganisations(string identifier, OrganisationType organisationType)
         {
-            var query = new SearchOrganisationsQuery
+            var query = new GetOrganisationQuery
             {
-                SearchTerm = searchTerm,
-                MaximumResults = maximumResults
+                OrganisationType = organisationType,
+                Identifier = identifier
             };
-            SearchOrganisationsResponse response;
+
+            GetOrganisationResponse response;
             try
             {
                 response = await _mediator.SendAsync(query);
@@ -125,10 +128,13 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             catch (Exception e)
             {
                 _logger.Error(e, "Unhandled exception retreiving organisations");
-                response = new SearchOrganisationsResponse() { Organisations = new List<Organisation>() };
+                response = new GetOrganisationResponse
+                {
+
+                };
             }
 
-            return Ok(response.Organisations);
+            return Ok(response.Organisation);
         }
     }
 }

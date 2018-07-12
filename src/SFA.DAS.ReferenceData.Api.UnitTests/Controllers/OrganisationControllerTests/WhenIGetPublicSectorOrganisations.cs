@@ -8,7 +8,6 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
-using PublicSectorOrganisation = SFA.DAS.ReferenceData.Domain.Models.PublicSectorOrganisation;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
 {

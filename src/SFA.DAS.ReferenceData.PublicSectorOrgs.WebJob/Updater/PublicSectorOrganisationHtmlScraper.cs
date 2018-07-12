@@ -2,6 +2,7 @@
 using System.Linq;
 using HtmlAgilityPack;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater

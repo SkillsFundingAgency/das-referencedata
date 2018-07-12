@@ -4,6 +4,7 @@ using CsvHelper;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
 using System.IO.Abstractions;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {

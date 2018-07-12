@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
+using OrganisationSubType = SFA.DAS.ReferenceData.Domain.Models.Organisation.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
@@ -15,6 +16,8 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
     {
         private readonly ICompaniesHouseEmployerVerificationService _companyVerificationService;
         private readonly ILog _logger;
+
+        public OrganisationType OrganisationType => OrganisationType.Company;
 
         public CompanySearchService(ICompaniesHouseEmployerVerificationService companyVerificationService, ILog logger)
         {

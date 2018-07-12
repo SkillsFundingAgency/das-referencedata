@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Api.Client.Dto.Adapters;
 using SFA.DAS.ReferenceData.Api.Client.Exceptions;
+using SFA.DAS.ReferenceData.Domain.Models.Charity;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {

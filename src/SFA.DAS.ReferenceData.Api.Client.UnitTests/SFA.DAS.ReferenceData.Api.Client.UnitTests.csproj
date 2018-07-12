@@ -69,6 +69,10 @@
       <Project>{aaeeab67-1780-4d6b-8f18-801adf0023f6}</Project>
       <Name>SFA.DAS.ReferenceData.Api.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

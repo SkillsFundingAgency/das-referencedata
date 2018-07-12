@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services

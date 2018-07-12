@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using SFA.DAS.ReferenceData.Domain.Models.Charity;
 
 namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 {
@@ -18,7 +19,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
             _configuration = new Mock<IReferenceDataApiConfiguration>();
             _configuration.SetupGet(x => x.ApiBaseUrl).Returns("http://some-url/api/organisations");
 
-            var data = new Dto.Charity
+            var data = new Charity
             {
                 RegistrationNumber = 123,
                 Name = "Test Charity"
@@ -48,7 +49,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests.ReferenceDataApiClientTests
 
             //Assert
             Assert.IsNotNull(actual);
-            Assert.IsInstanceOf<Dto.Charity>(actual);
+            Assert.IsInstanceOf<Charity>(actual);
         }
     }
 }

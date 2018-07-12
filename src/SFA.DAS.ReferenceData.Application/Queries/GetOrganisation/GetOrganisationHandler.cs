@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.ReferenceData.Api.Client;
-using SFA.DAS.ReferenceData.Api.Client.Dto.Adapters;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Client.Exceptions;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
@@ -45,29 +45,18 @@ namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation
 
         public async Task<GetOrganisationResponse> Handle(GetOrganisationQuery query)
         {
-            if (!_organisationTypeHelper.TryGetReferenceSearcher(query.OrganisationType, out IOrganisationReferenceSearchService referenceSearcher))
+            if (!_organisationTypeHelper.TryGetReferenceSearcher(query.OrganisationType,
+                out IOrganisationReferenceSearchService referenceSearcher))
             {
-                throw new OrganisationNotFoundExeption();
-
-                if (referenceSearcher.IsSearchTermAReference(query.Identifier))
-                {
-
-                }
-            }
-            var matchingReferenceSearches = _referenceSearchServices.Where(x => x.IsSearchTermAReference(query.SearchTerm)).ToArray();
-
-            IEnumerable<Organisation> results;
-
-            if (matchingReferenceSearches.Any())
-            {
-                results = await SearchByReference(query.SearchTerm, matchingReferenceSearches);
-            }
-            else
-            {
-                results = await SearchByText(query);
+                throw new OperationNotSupportedForOrganisationType(query.OrganisationType, "Find by id");
             }
 
-            return new SearchOrganisationsResponse { Organisations = results };
+            if (referenceSearcher.IsSearchTermAReference(query.Identifier))
+            {
+
+            }
+
+            return await Task.FromResult(new GetOrganisationResponse());
         }
     }
 }

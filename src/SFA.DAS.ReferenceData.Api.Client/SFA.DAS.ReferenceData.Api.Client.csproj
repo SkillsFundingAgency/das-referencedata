@@ -54,22 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\Adapters\IOrganisationDetailsFactory.cs" />
-    <Compile Include="Dto\Adapters\OrganisationDetailsFactory.cs" />
-    <Compile Include="Dto\Adapters\OrganisationToNameAndAddressAdapter.cs" />
-    <Compile Include="Dto\Adapters\CharityToNameAndAddressAdapter.cs" />
-    <Compile Include="Dto\Adapters\EducationOrganisationToNameAndAddressAdapter.cs" />
-    <Compile Include="Dto\Address.cs" />
-    <Compile Include="Dto\Charity.cs" />
-    <Compile Include="Dto\Adapters\IOrganisationDetails.cs" />
-    <Compile Include="Dto\OrganisationDetails.cs" />
-    <Compile Include="Dto\OrganisationSubType.cs" />
-    <Compile Include="Dto\OrganisationType.cs" />
-    <Compile Include="Dto\Organisation.cs" />
-    <Compile Include="Dto\EducationOrganisation.cs" />
     <Compile Include="Dto\PagedApiResponse.cs" />
-    <Compile Include="Dto\PublicSectorOrganisation.cs" />
-    <Compile Include="Dto\Adapters\PublicSectorToNameAndAddressAdapter.cs" />
     <Compile Include="IReferenceDataApiClient.cs" />
     <Compile Include="IReferenceDataApiConfiguration.cs" />
     <Compile Include="Exceptions\OperationNotSupportedForOrganisationType.cs" />
@@ -81,7 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="SFA.DAS.ReferenceData.Api.Client.nuspec" />
+    <None Include="SFA.DAS.ReferenceData.Api.Client.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

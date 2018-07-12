@@ -71,6 +71,10 @@
       <Project>{39358BDF-606F-45B5-948A-D45A5E41A42B}</Project>
       <Name>SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{B4621617-E571-4118-A6F6-964F65BB67EC}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

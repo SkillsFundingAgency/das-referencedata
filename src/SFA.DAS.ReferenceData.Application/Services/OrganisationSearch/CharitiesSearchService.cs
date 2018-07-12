@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
+using Charity = SFA.DAS.ReferenceData.Domain.Models.Charity.Charity;
+using OrganisationSubType = SFA.DAS.ReferenceData.Domain.Models.Organisation.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
     public class CharitiesSearchService : IOrganisationReferenceSearchService, IOrganisationTextSearchService
     {
         private readonly ICharityRepository _repository;
+
+        public OrganisationType OrganisationType => OrganisationType.Charity;
 
         public CharitiesSearchService(ICharityRepository repository)
         {
