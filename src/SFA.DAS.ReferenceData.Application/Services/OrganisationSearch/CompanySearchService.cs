@@ -7,8 +7,9 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
-using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
-using OrganisationSubType = SFA.DAS.ReferenceData.Domain.Models.Organisation.OrganisationSubType;
+using SFA.DAS.ReferenceData.Types;
+using Address = SFA.DAS.ReferenceData.Types.Address;
+using OrganisationSubType = SFA.DAS.ReferenceData.Types.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {

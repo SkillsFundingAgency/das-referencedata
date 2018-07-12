@@ -1,7 +1,7 @@
 ﻿using SFA.DAS.ReferenceData.Infrastructure.Services;
 using System.IO.Abstractions;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Models;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.NhsCsvReaderHelperTests
 {

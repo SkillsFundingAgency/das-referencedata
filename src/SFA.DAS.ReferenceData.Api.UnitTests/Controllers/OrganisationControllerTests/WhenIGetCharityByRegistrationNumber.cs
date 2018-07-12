@@ -13,6 +13,7 @@ using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Domain.Models;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
 {

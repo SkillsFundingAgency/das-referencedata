@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
 {

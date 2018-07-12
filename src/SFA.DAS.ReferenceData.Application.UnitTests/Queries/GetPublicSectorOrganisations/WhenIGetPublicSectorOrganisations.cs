@@ -7,6 +7,7 @@ using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Queries.GetPublicSectorOrganisations
 {

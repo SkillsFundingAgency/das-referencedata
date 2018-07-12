@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Client.Exceptions;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {

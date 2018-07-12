@@ -12,7 +12,7 @@ using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {

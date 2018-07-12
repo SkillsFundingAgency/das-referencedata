@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {

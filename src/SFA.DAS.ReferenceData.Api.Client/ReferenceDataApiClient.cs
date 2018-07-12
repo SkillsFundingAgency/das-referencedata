@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {

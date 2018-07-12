@@ -3,8 +3,8 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using SFA.DAS.NLog.Logger;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Models;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 {

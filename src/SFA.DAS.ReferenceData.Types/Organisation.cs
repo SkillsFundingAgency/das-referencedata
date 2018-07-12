@@ -1,7 +1,6 @@
 ﻿using System;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
 
-namespace SFA.DAS.ReferenceData.Api.Client.Dto
+namespace SFA.DAS.ReferenceData.Types
 {
     public class Organisation
     {

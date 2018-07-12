@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
 using SFA.DAS.ReferenceData.Infrastructure.Data;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Data.EducationalOrganisationRepositoryTests
 {

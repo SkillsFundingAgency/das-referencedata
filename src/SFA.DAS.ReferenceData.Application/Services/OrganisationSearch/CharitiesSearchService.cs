@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
-using Charity = SFA.DAS.ReferenceData.Domain.Models.Charity.Charity;
-using OrganisationSubType = SFA.DAS.ReferenceData.Domain.Models.Organisation.OrganisationSubType;
+using SFA.DAS.ReferenceData.Types;
+using Address = SFA.DAS.ReferenceData.Types.Address;
+using Charity = SFA.DAS.ReferenceData.Types.Charity;
+using OrganisationSubType = SFA.DAS.ReferenceData.Types.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {

@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.ReferenceData.Domain.Models.Organisation
+﻿namespace SFA.DAS.ReferenceData.Types
 {
     public class Address
     {

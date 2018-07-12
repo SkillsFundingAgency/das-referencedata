@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Dfe.Edubase2.SoapApi.Client;
 using Dfe.Edubase2.SoapApi.Client.EdubaseService;
 using SFA.DAS.NLog.Logger;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Infrastructure.Factories;
+using SFA.DAS.ReferenceData.Types;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {

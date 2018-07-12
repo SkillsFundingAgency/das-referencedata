@@ -10,8 +10,8 @@ using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
-using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
+using SFA.DAS.ReferenceData.Types;
+using Address = SFA.DAS.ReferenceData.Types.Address;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServiceTests
 {
