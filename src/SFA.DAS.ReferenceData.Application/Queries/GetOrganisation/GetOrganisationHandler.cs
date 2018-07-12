@@ -1,36 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.ReferenceData.Api.Client.Exceptions;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.Exceptions;
 
 namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation
 {
-    public interface IOrganisationTypeHelper
-    {
-        bool TryGetReferenceSearcher(OrganisationType organisationType, out IOrganisationReferenceSearchService referenceSearcher);
-    }
-
-    public class OrganisationTypeHelper : IOrganisationTypeHelper
-    {
-        private readonly Dictionary<OrganisationType, IOrganisationReferenceSearchService> _referenceSearchers = new Dictionary<OrganisationType, IOrganisationReferenceSearchService>();
-
-        public OrganisationTypeHelper(IEnumerable<IOrganisationReferenceSearchService> referenceSearchServices)
-        {
-            _referenceSearchers = new Dictionary<OrganisationType, IOrganisationReferenceSearchService>();
-            foreach (var referenceSearchService in referenceSearchServices)
-            {
-                _referenceSearchers.Add(referenceSearchService.OrganisationType, referenceSearchService);
-            }
-        }
-
-        public bool TryGetReferenceSearcher(OrganisationType organisationType, out IOrganisationReferenceSearchService referenceSearcher)
-        {
-            return _referenceSearchers.TryGetValue(organisationType, out referenceSearcher);
-        }
-    }
-
     public class GetOrganisationHandler : IAsyncRequestHandler<GetOrganisationQuery, GetOrganisationResponse>
     {
         private readonly IOrganisationTypeHelper _organisationTypeHelper;
@@ -42,18 +16,20 @@ namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation
 
         public async Task<GetOrganisationResponse> Handle(GetOrganisationQuery query)
         {
-            if (!_organisationTypeHelper.TryGetReferenceSearcher(query.OrganisationType,
-                out IOrganisationReferenceSearchService referenceSearcher))
+            if (!_organisationTypeHelper.TryGetReferenceSearcher(query.OrganisationType, out var referenceSearcher))
             {
                 throw new OperationNotSupportedForOrganisationType(query.OrganisationType, "Find by id");
             }
 
             if (referenceSearcher.IsSearchTermAReference(query.Identifier))
             {
-
+                throw new ReferenceDataException($"The supplied identifier is not in a format recognised by the reference handler for organisation type ({query.OrganisationType}). Handler type is {referenceSearcher.GetType().FullName}");
             }
 
-            return await Task.FromResult(new GetOrganisationResponse());
+            return new GetOrganisationResponse
+            {
+                Organisation = await referenceSearcher.Search(query.Identifier)
+            };
         }
     }
 }

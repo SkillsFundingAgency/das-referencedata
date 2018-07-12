@@ -44,6 +44,9 @@
     <Compile Include="Address.cs" />
     <Compile Include="Charity.cs" />
     <Compile Include="EducationOrganisation.cs" />
+    <Compile Include="Exceptions\OperationNotSupportedForOrganisationType.cs" />
+    <Compile Include="Exceptions\OrganisationNotFoundExeption.cs" />
+    <Compile Include="Exceptions\ReferenceDataException.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="OrganisationSubType.cs" />
     <Compile Include="OrganisationType.cs" />

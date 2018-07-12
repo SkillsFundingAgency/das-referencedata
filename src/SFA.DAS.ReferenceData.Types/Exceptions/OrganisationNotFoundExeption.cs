@@ -1,6 +1,4 @@
-﻿using SFA.DAS.ReferenceData.Types;
-
-namespace SFA.DAS.ReferenceData.Api.Client.Exceptions
+﻿namespace SFA.DAS.ReferenceData.Types.Exceptions
 {
     public class OrganisationNotFoundExeption : ReferenceDataException
     {

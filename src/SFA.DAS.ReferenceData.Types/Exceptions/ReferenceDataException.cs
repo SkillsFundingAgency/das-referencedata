@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.ReferenceData.Api.Client.Exceptions
+namespace SFA.DAS.ReferenceData.Types.Exceptions
 {
     public class ReferenceDataException : Exception
     {
