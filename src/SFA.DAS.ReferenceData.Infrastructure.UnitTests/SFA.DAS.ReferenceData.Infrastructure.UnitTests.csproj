@@ -79,6 +79,7 @@
     <Compile Include="NhsCsvReaderHelperTests\WhenAllPropertiesHaveValidValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EdubaseServiceTests\WhenIGetEducationalOrganisations.cs" />
+    <Compile Include="Services\OrganisationTypeHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

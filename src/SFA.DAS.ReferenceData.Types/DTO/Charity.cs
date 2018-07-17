@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.ReferenceData.Types
+namespace SFA.DAS.ReferenceData.Types.DTO
 {
     public class Charity
     {

@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,9 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferenceDataApiClientTests\WhenGettingACharity.cs" />
-    <Compile Include="ReferenceDataApiClientTests\WhenSearchingOrganisations.cs" />
-    <Compile Include="ReferenceDataApiClientTests\WhenSearchingForAPublicSectorOrganisation.cs" />
+    <Compile Include="ReferenceDataApiClientTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 using SFA.DAS.ReferenceData.Types.Exceptions;
 
 namespace SFA.DAS.ReferenceData.Api.Client

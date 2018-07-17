@@ -11,6 +11,7 @@ using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Serializer;
 using SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Updater;
 using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.Updater
 {

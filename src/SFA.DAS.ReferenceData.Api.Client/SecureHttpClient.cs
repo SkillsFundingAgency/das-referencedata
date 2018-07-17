@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -27,19 +28,46 @@ namespace SFA.DAS.ReferenceData.Api.Client
             return result;
         }
 
-        public virtual async Task<string> GetAsync(string url, bool exceptionOnNotFound = true)
+        public virtual Task<string> GetAsync(string url, bool exceptionOnNotFound = true)
         {
-            var authenticationResult = await GetAuthenticationResult(_configuration.ClientId, _configuration.ClientSecret, _configuration.IdentifierUri, _configuration.Tenant);
+            return GetAsync(url, response =>
+            {
+                if (!exceptionOnNotFound && response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+
+                return true;
+            });
+        }
+
+        /// <summary>
+        ///     Returns the string content of the target URL. 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="responseChecker">
+        ///     A delegate that will be invoked after the response is received but before the content has been requested.
+        ///     The delegate will have the opportunity to check the status code and decide whether to continue to fetch the
+        ///     actual content (return false to skip the content checking).
+        /// </param>
+        public virtual async Task<string> GetAsync(string url, Func<HttpResponseMessage, bool> responseChecker)
+        {
+            var authenticationResult = await GetAuthenticationResult(_configuration.ClientId,
+                _configuration.ClientSecret, _configuration.IdentifierUri, _configuration.Tenant);
 
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationResult.AccessToken);
+                client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationResult.AccessToken);
 
                 var response = await client.GetAsync(url);
 
-                if (!exceptionOnNotFound && response.StatusCode == HttpStatusCode.NotFound)
+                if (responseChecker != null)
                 {
-                    return null;
+                    if (!responseChecker(response))
+                    {
+                        return null;
+                    }
                 }
 
                 response.EnsureSuccessStatusCode();

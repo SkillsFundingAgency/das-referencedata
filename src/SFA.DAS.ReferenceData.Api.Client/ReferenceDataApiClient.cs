@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
+using SFA.DAS.ReferenceData.Types.Exceptions;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {
@@ -79,7 +81,15 @@ namespace SFA.DAS.ReferenceData.Api.Client
 
             var url = $"{baseUrl}get?identifier={HttpUtility.UrlPathEncode(identifier)}&type={organisationType}";
 
-            var json = await _httpClient.GetAsync(url);
+            var json = await _httpClient.GetAsync(url, response =>
+            {
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.NotFound: throw new OrganisationNotFoundExeption(response.ReasonPhrase);
+                    case HttpStatusCode.BadRequest: throw new InvalidGetOrganisationRequest(response.ReasonPhrase);
+                }
+                return true;
+            });
 
             return JsonConvert.DeserializeObject<Organisation>(json);
         }

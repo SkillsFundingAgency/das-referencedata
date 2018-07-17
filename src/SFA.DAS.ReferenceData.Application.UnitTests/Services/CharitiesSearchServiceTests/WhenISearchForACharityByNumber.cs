@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchServiceTests
 {

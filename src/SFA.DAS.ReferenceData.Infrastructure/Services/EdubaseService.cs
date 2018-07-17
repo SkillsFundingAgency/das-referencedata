@@ -6,7 +6,7 @@ using Dfe.Edubase2.SoapApi.Client.EdubaseService;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Infrastructure.Factories;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {

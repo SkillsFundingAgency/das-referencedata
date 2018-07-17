@@ -18,17 +18,24 @@ namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation
         {
             if (!_organisationTypeHelper.TryGetReferenceSearcher(query.OrganisationType, out var referenceSearcher))
             {
-                throw new OperationNotSupportedForOrganisationType(query.OrganisationType, "Find by id");
+                throw new OperationNotSupportedForOrganisationTypeException(query.OrganisationType, "Find by id");
             }
 
-            if (referenceSearcher.IsSearchTermAReference(query.Identifier))
+            if (!referenceSearcher.IsSearchTermAReference(query.Identifier))
             {
-                throw new ReferenceDataException($"The supplied identifier is not in a format recognised by the reference handler for organisation type ({query.OrganisationType}). Handler type is {referenceSearcher.GetType().FullName}");
+                throw new BadOrganisationIdentifierExeption(query.OrganisationType, query.Identifier);
+            }
+
+            var organisation = await referenceSearcher.Search(query.Identifier);
+
+            if (organisation == null)
+            {
+                throw new OrganisationNotFoundExeption(query.OrganisationType, query.Identifier);
             }
 
             return new GetOrganisationResponse
             {
-                Organisation = await referenceSearcher.Search(query.Identifier)
+                Organisation = organisation
             };
         }
     }

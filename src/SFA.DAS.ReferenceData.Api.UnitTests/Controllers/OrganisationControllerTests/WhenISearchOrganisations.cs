@@ -9,7 +9,7 @@ using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
 {

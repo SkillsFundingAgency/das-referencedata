@@ -8,7 +8,7 @@ using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
 using SFA.DAS.ReferenceData.Domain.Models.Education;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {

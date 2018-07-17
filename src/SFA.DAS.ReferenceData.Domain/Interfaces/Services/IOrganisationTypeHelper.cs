@@ -1,7 +1,6 @@
-﻿using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Types;
+﻿using SFA.DAS.ReferenceData.Types.DTO;
 
-namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation
+namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
     public interface IOrganisationTypeHelper
     {

@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
 {

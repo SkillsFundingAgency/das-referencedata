@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
-using SFA.DAS.ReferenceData.Types;
-using Address = SFA.DAS.ReferenceData.Types.Address;
-using OrganisationSubType = SFA.DAS.ReferenceData.Types.OrganisationSubType;
+using SFA.DAS.ReferenceData.Types.DTO;
+using Address = SFA.DAS.ReferenceData.Types.DTO.Address;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {

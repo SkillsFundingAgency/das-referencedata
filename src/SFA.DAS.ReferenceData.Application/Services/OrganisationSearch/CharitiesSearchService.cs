@@ -3,10 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Types;
-using Address = SFA.DAS.ReferenceData.Types.Address;
-using Charity = SFA.DAS.ReferenceData.Types.Charity;
-using OrganisationSubType = SFA.DAS.ReferenceData.Types.OrganisationSubType;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {

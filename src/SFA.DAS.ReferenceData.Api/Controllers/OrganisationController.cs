@@ -11,7 +11,8 @@ using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
-using SFA.DAS.ReferenceData.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
+using SFA.DAS.ReferenceData.Types.Exceptions;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
@@ -111,7 +112,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
         [Route("get")]
         [HttpGet]
         [ApiAuthorize]
-        public async Task<IHttpActionResult> SearchOrganisations(string identifier, OrganisationType organisationType)
+        public async Task<IHttpActionResult> Get(string identifier, OrganisationType organisationType)
         {
             var query = new GetOrganisationQuery
             {
@@ -119,21 +120,27 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
                 Identifier = identifier
             };
 
-            GetOrganisationResponse response;
             try
             {
-                response = await _mediator.SendAsync(query);
+                var response = await _mediator.SendAsync(query);
+                return Ok(response.Organisation);
+            }
+            catch (BadOrganisationIdentifierExeption e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (OperationNotSupportedForOrganisationTypeException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (OrganisationNotFoundExeption)
+            {
+                return NotFound();
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Unhandled exception retreiving organisations");
-                response = new GetOrganisationResponse
-                {
-
-                };
+                return InternalServerError(e);
             }
-
-            return Ok(response.Organisation);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.ReferenceData.Types
+﻿namespace SFA.DAS.ReferenceData.Types.DTO
 {
     public enum OrganisationSubType
     {
