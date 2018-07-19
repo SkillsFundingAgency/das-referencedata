@@ -44,7 +44,6 @@
     <Compile Include="DTO\Address.cs" />
     <Compile Include="DTO\Charity.cs" />
     <Compile Include="DTO\EducationOrganisation.cs" />
-    <Compile Include="DTO\GetOrganisationResult.cs" />
     <Compile Include="Exceptions\InvalidGetOrganisationRequest.cs" />
     <Compile Include="Exceptions\OperationNotSupportedForOrganisationType.cs" />
     <Compile Include="Exceptions\BadOrganisationIdentifierExeption.cs" />
