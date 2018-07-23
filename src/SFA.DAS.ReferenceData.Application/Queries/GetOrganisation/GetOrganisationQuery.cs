@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation

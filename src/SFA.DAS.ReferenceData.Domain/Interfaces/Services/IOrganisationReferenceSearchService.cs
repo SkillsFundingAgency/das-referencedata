@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Types;
 using SFA.DAS.ReferenceData.Types.DTO;
 

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
 using SFA.DAS.ReferenceData.Types.DTO;
 using Address = SFA.DAS.ReferenceData.Types.DTO.Address;
-using OrganisationSubType = SFA.DAS.ReferenceData.Types.DTO.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
@@ -18,7 +16,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
         private readonly ICompaniesHouseEmployerVerificationService _companyVerificationService;
         private readonly ILog _logger;
 
-        public OrganisationType OrganisationType => OrganisationType.CompaniesHouse;
+        public OrganisationType OrganisationType => OrganisationType.Company;
 
         public CompanySearchService(ICompaniesHouseEmployerVerificationService companyVerificationService, ILog logger)
         {
@@ -47,7 +45,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                     Address = FormatAddress(info.RegisteredAddress),
                     Code = info.CompanyNumber,
                     RegistrationDate = info.DateOfIncorporation,
-                    Type = OrganisationType.CompaniesHouse,
+                    Type = OrganisationType.Company,
                     SubType = OrganisationSubType.None
                 };
 
@@ -74,7 +72,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                     Address = FormatAddress(c.Address),
                     Code = c.CompanyNumber,
                     RegistrationDate = c.DateOfIncorporation,
-                    Type = OrganisationType.CompaniesHouse,
+                    Type = OrganisationType.Company,
                     SubType = OrganisationSubType.None
                 });
             }

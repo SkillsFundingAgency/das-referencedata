@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Types.DTO;
-using OrganisationSubType = SFA.DAS.ReferenceData.Types.DTO.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
@@ -13,7 +11,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
     {
         private readonly ICharityRepository _repository;
 
-        public OrganisationType OrganisationType => OrganisationType.Charities;
+        public OrganisationType OrganisationType => OrganisationType.Charity;
 
         public CharitiesSearchService(ICharityRepository repository)
         {
@@ -61,7 +59,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 Sector = null,
                 Code = publicSectorOrganisation.RegistrationNumber.ToString(),
                 RegistrationDate = publicSectorOrganisation.RegistrationDate,
-                Type = OrganisationType.Charities,
+                Type = OrganisationType.Charity,
                 SubType = OrganisationSubType.None
             };
         }

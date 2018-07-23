@@ -7,7 +7,6 @@ using System.Web;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Types.DTO;
 using SFA.DAS.ReferenceData.Types.Exceptions;
@@ -49,8 +48,8 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests
             fixtures.ChackUrlCalled($"{fixtures.BaseUrl}charities/{charityNumber}");
         }
 
-        [TestCase(OrganisationType.CompaniesHouse, "123", HttpStatusCode.NotFound, typeof(OrganisationNotFoundExeption))]
-        [TestCase(OrganisationType.CompaniesHouse, "123", HttpStatusCode.BadRequest, typeof(InvalidGetOrganisationRequest))]
+        [TestCase(OrganisationType.Company, "123", HttpStatusCode.NotFound, typeof(OrganisationNotFoundExeption))]
+        [TestCase(OrganisationType.Company, "123", HttpStatusCode.BadRequest, typeof(InvalidGetOrganisationRequest))]
         public void GetLatestDetails_SpecifiedStatusCode_ShouldCauseExpectedExceptionInClient(
             OrganisationType organisationType, 
             string registeredId, 

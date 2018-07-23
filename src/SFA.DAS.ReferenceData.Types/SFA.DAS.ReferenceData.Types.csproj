@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SFA.DAS.Common.Domain, Version=1.3.0.44308, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Common.Domain.1.3.0.44308\lib\net45\SFA.DAS.Common.Domain.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,11 +51,9 @@
     <Compile Include="Exceptions\ReferenceDataException.cs" />
     <Compile Include="DTO\Organisation.cs" />
     <Compile Include="DTO\OrganisationSubType.cs" />
+    <Compile Include="DTO\OrganisationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DTO\PublicSectorOrganisation.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
