@@ -79,6 +79,7 @@
     <Compile Include="NhsCsvReaderHelperTests\WhenAllPropertiesHaveValidValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EdubaseServiceTests\WhenIGetEducationalOrganisations.cs" />
+    <Compile Include="Services\OrganisationTypeHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -92,6 +93,10 @@
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Infrastructure\SFA.DAS.ReferenceData.Infrastructure.csproj">
       <Project>{11D97A4B-C768-4889-B61D-3D74A6A9B463}</Project>
       <Name>SFA.DAS.ReferenceData.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -66,6 +66,9 @@
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrgainsationQuery.cs" />
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrganisationResponse.cs" />
     <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrganisationsHandler.cs" />
+    <Compile Include="Queries\GetOrganisation\GetOrganisationHandler.cs" />
+    <Compile Include="Queries\GetOrganisation\GetOrganisationQuery.cs" />
+    <Compile Include="Queries\GetOrganisation\GetOrganisationResponse.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsHandler.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsResponse.cs" />
     <Compile Include="Queries\SearchOrganisations\SearchOrganisationsQuery.cs" />
@@ -85,6 +88,10 @@
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Domain\SFA.DAS.ReferenceData.Domain.csproj">
       <Project>{E9163292-3CF5-4B9C-A4F4-D9EE0CD1C4D5}</Project>
       <Name>SFA.DAS.ReferenceData.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

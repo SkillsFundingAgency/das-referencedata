@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Moq;
-using NLog;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;

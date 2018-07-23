@@ -1,7 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
-using Microsoft.Owin.Security.OAuth;
 
 namespace SFA.DAS.ReferenceData.Api
 {

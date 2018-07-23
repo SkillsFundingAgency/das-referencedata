@@ -2,8 +2,8 @@
 using System.IO;
 using CsvHelper;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Domain.Models;
 using System.IO.Abstractions;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {

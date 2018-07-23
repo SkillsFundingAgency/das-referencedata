@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Controllers\OrganisationControllerTests\WhenIGetCharityByRegistrationNumber.cs" />
     <Compile Include="Controllers\OrganisationControllerTests\WhenIGetEducationalOrganisations.cs" />
+    <Compile Include="Controllers\OrganisationControllerTests\OrganisationControllerTests.cs" />
     <Compile Include="Controllers\OrganisationControllerTests\WhenISearchOrganisations.cs" />
     <Compile Include="Controllers\OrganisationControllerTests\WhenIGetPublicSectorOrganisations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +97,10 @@
     <ProjectReference Include="..\SFA.DAS.ReferenceData.Domain\SFA.DAS.ReferenceData.Domain.csproj">
       <Project>{E9163292-3CF5-4B9C-A4F4-D9EE0CD1C4D5}</Project>
       <Name>SFA.DAS.ReferenceData.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
+using SFA.DAS.ReferenceData.Types.DTO;
+using SFA.DAS.ReferenceData.Types.Exceptions;
 
 namespace SFA.DAS.ReferenceData.Api.Client
 {
@@ -70,6 +73,25 @@ namespace SFA.DAS.ReferenceData.Api.Client
             var json = await _httpClient.GetAsync(url);
 
             return JsonConvert.DeserializeObject<PagedApiResponse<EducationOrganisation>>(json);
+        }
+
+        public async Task<Organisation> GetLatestDetails(OrganisationType organisationType, string identifier)
+        {
+            var baseUrl = GetBaseUrl();
+
+            var url = $"{baseUrl}get?identifier={HttpUtility.UrlPathEncode(identifier)}&type={organisationType}";
+
+            var json = await _httpClient.GetAsync(url, response =>
+            {
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.NotFound: throw new OrganisationNotFoundExeption(response.ReasonPhrase);
+                    case HttpStatusCode.BadRequest: throw new InvalidGetOrganisationRequest(response.ReasonPhrase);
+                }
+                return true;
+            });
+
+            return JsonConvert.DeserializeObject<Organisation>(json);
         }
 
         private string GetBaseUrl()

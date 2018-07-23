@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.ReferenceData.Domain.Models.Education
+﻿namespace SFA.DAS.ReferenceData.Types.DTO
 {
     public class EducationOrganisation
     {

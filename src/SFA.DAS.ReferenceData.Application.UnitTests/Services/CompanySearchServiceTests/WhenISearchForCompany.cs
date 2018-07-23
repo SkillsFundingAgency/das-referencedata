@@ -9,8 +9,8 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
-using Address = SFA.DAS.ReferenceData.Domain.Models.Organisation.Address;
+using SFA.DAS.ReferenceData.Types.DTO;
+using Address = SFA.DAS.ReferenceData.Types.DTO.Address;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServiceTests
 {

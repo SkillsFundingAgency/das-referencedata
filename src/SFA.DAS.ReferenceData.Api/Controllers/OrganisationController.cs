@@ -8,9 +8,11 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Attributes;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
+using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using SFA.DAS.ReferenceData.Types.DTO;
+using SFA.DAS.ReferenceData.Types.Exceptions;
 
 namespace SFA.DAS.ReferenceData.Api.Controllers
 {
@@ -105,6 +107,40 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             }
 
             return Ok(response.Organisations);
+        }
+
+        [Route("get")]
+        [HttpGet]
+        [ApiAuthorize]
+        public async Task<IHttpActionResult> Get(string identifier, OrganisationType organisationType)
+        {
+            var query = new GetOrganisationQuery
+            {
+                OrganisationType = organisationType,
+                Identifier = identifier
+            };
+
+            try
+            {
+                var response = await _mediator.SendAsync(query);
+                return Ok(response.Organisation);
+            }
+            catch (BadOrganisationIdentifierExeption e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (OperationNotSupportedForOrganisationTypeException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (OrganisationNotFoundExeption)
+            {
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
     }
 }

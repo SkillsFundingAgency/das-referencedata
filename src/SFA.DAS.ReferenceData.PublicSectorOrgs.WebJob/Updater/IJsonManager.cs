@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using SFA.DAS.ReferenceData.Domain.Models;
+﻿using SFA.DAS.ReferenceData.Domain.Models;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 {

@@ -20,5 +20,6 @@
   </metadata>
   <files>
     <file src="bin\Release\SFA.DAS.ReferenceData.Api.Client.dll" target="lib\net45\SFA.DAS.ReferenceData.Api.Client.dll" />
+    <file src="bin\Release\SFA.DAS.ReferenceData.Types.dll" target="lib\net45\SFA.DAS.ReferenceData.Types.dll" />
   </files>
 </package>

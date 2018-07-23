@@ -73,8 +73,8 @@
     <Compile Include="Interfaces\Services\INhsCsvReaderHelper.cs" />
     <Compile Include="Interfaces\Services\IOrganisationReferenceSearchService.cs" />
     <Compile Include="Interfaces\Services\IOrganisationTextSearchService.cs" />
+    <Compile Include="Interfaces\Services\IOrganisationTypeHelper.cs" />
     <Compile Include="Models\Bcp\BcpRequest.cs" />
-    <Compile Include="Models\Charity\Charity.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
@@ -85,20 +85,21 @@
     <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\Data\PagedResult.cs" />
     <Compile Include="Models\Education\EducationalOrganisationLookUp.cs" />
-    <Compile Include="Models\Education\EducationOrganisation.cs" />
-    <Compile Include="Models\Organisation\Address.cs" />
-    <Compile Include="Models\Organisation\Organisation.cs" />
-    <Compile Include="Models\Organisation\OrganisationSubType.cs" />
-    <Compile Include="Models\Organisation\OrganisationType.cs" />
-    <Compile Include="Models\PublicSectorOrganisation.cs" />
     <Compile Include="Models\PublicSectorOrganisationLookUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\Factories\" />
+    <Folder Include="Models\Organisation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

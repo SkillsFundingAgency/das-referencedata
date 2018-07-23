@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
@@ -10,6 +8,7 @@ using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
 using SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpdaterTests
 {

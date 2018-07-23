@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using SFA.DAS.ReferenceData.Api.Client.Dto;
-using PublicSectorOrganisation = SFA.DAS.ReferenceData.Domain.Models.PublicSectorOrganisation;
+﻿using SFA.DAS.ReferenceData.Api.Client.Dto;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations
 {

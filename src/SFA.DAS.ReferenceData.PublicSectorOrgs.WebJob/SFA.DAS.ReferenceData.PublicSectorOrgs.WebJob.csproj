@@ -145,6 +145,10 @@
       <Project>{11d97a4b-c768-4889-b61d-3d74a6a9b463}</Project>
       <Name>SFA.DAS.ReferenceData.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj">
+      <Project>{b4621617-e571-4118-a6f6-964f65bb67ec}</Project>
+      <Name>SFA.DAS.ReferenceData.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

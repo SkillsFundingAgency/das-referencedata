@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations
 {

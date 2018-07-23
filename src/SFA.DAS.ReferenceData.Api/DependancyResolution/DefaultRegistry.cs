@@ -19,9 +19,7 @@ using System.Web;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.App_Start;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Infrastructure.Caching;
 using StructureMap;
 
 namespace SFA.DAS.ReferenceData.Api.DependancyResolution

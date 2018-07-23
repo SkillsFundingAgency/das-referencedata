@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.Web.Administration;
+﻿using Microsoft.Web.Administration;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System.Linq;
 

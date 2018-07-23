@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http.Results;
 using MediatR;
 using Moq;
@@ -10,9 +6,7 @@ using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
-using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
-using SFA.DAS.ReferenceData.Domain.Models;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationControllerTests
 {

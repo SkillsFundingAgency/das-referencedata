@@ -3,14 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
-using SFA.DAS.ReferenceData.Domain.Models.Organisation;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
     public class CharitiesSearchService : IOrganisationReferenceSearchService, IOrganisationTextSearchService
     {
         private readonly ICharityRepository _repository;
+
+        public OrganisationType OrganisationType => OrganisationType.Charity;
 
         public CharitiesSearchService(ICharityRepository repository)
         {
