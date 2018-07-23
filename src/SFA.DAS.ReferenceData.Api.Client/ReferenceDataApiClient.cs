@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Api.Client.Dto;
 using SFA.DAS.ReferenceData.Types.DTO;
 using SFA.DAS.ReferenceData.Types.Exceptions;

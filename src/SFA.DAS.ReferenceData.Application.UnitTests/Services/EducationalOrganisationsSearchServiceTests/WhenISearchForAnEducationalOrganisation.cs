@@ -3,12 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
 using SFA.DAS.ReferenceData.Types.DTO;
-using OrganisationSubType = SFA.DAS.ReferenceData.Types.DTO.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrganisationsSearchServiceTests
 {
@@ -55,7 +53,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrgani
                 Assert.AreEqual(expectedOrganisation.PostCode, result.Address.Postcode);
                 Assert.AreEqual(expectedOrganisation.EducationalType, result.Sector);
                 Assert.AreEqual(OrganisationSubType.None, result.SubType);
-                Assert.AreEqual(OrganisationType.Other, result.Type);
+                Assert.AreEqual(OrganisationType.EducationOrganisation, result.Type);
                 Assert.IsNull(result.RegistrationDate);
                 Assert.IsNull(result.Code);
             }

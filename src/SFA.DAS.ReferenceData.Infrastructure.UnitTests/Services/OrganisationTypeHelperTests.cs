@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Infrastructure.Services;
 using SFA.DAS.ReferenceData.Types.DTO;
@@ -13,8 +12,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Services
     public class OrganisationTypeHelperTests
     {
         [TestCase()]
-        [TestCase(OrganisationType.CompaniesHouse)]
-        [TestCase(OrganisationType.CompaniesHouse, OrganisationType.Charities)]
+        [TestCase(OrganisationType.Company)]
+        [TestCase(OrganisationType.Company, OrganisationType.Charity)]
         public void Constructor_NoSearchServices_ShouldNotThrowException(params OrganisationType[] organisationTypes)
         {
             OrganisationTypeHelper oth = new OrganisationTypeHelper(Create(organisationTypes));
@@ -25,16 +24,16 @@ namespace SFA.DAS.ReferenceData.Infrastructure.UnitTests.Services
         {
             Assert.Throws<ReferenceDataException>(() =>
             {
-                new OrganisationTypeHelper(Create(OrganisationType.Charities, OrganisationType.Charities));
+                new OrganisationTypeHelper(Create(OrganisationType.Charity, OrganisationType.Charity));
             });
         }
 
-        [TestCase(OrganisationType.CompaniesHouse, false)]
-        [TestCase(OrganisationType.CompaniesHouse, false, OrganisationType.Charities)]
-        [TestCase(OrganisationType.CompaniesHouse, false, OrganisationType.Charities, OrganisationType.PublicBodies)]
-        [TestCase(OrganisationType.CompaniesHouse, true, OrganisationType.CompaniesHouse)]
-        [TestCase(OrganisationType.CompaniesHouse, true, OrganisationType.Charities, OrganisationType.CompaniesHouse)]
-        [TestCase(OrganisationType.CompaniesHouse, true, OrganisationType.Charities, OrganisationType.CompaniesHouse, OrganisationType.PublicBodies)]
+        [TestCase(OrganisationType.Company, false)]
+        [TestCase(OrganisationType.Company, false, OrganisationType.Charity)]
+        [TestCase(OrganisationType.Company, false, OrganisationType.Charity, OrganisationType.PublicSector)]
+        [TestCase(OrganisationType.Company, true, OrganisationType.Company)]
+        [TestCase(OrganisationType.Company, true, OrganisationType.Charity, OrganisationType.Company)]
+        [TestCase(OrganisationType.Company, true, OrganisationType.Charity, OrganisationType.Company, OrganisationType.PublicSector)]
         public void TryGetReferenceSearcher_SpecifiedOrganisationType_ShouldFindIfReferenceSearchDefined(OrganisationType lookForOrganisationType, bool expectToFind, params OrganisationType[] createOrganisationTypes)
         {
             OrganisationTypeHelper oth = new OrganisationTypeHelper(Create(createOrganisationTypes));
