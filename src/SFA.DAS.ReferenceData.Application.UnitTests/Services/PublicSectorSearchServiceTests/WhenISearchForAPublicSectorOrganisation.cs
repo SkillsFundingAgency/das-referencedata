@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
@@ -54,7 +55,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.PublicSectorSearc
                 Assert.AreEqual(expectedOrganisation.PostCode, result.Address.Postcode);
                 Assert.AreEqual(expectedOrganisation.Sector, result.Sector);
                 Assert.AreEqual(expectedOrganisation.Source.ToString(), result.SubType.ToString());
-                Assert.AreEqual(OrganisationType.PublicSector, result.Type);
+                Assert.AreEqual(OrganisationType.PublicBodies, result.Type);
                 Assert.IsNull(result.RegistrationDate);
             }
         }

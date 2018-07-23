@@ -3,11 +3,12 @@ using System.Net;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Application.Services.OrganisationSearch;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models.Company;
-using SFA.DAS.ReferenceData.Types.DTO;
+using OrganisationSubType = SFA.DAS.ReferenceData.Types.DTO.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServiceTests
 {
@@ -77,7 +78,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
 
             Assert.AreEqual(info.CompanyNumber, result.Code);
             Assert.AreEqual(info.DateOfIncorporation, result.RegistrationDate);
-            Assert.AreEqual(OrganisationType.Company, result.Type);
+            Assert.AreEqual(OrganisationType.CompaniesHouse, result.Type);
             Assert.AreEqual(OrganisationSubType.None, result.SubType);
         }
 

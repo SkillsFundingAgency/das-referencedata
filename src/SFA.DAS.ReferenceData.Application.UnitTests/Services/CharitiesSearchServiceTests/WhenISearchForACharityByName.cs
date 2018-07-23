@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Types.DTO;
+using OrganisationSubType = SFA.DAS.ReferenceData.Types.DTO.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchServiceTests
 {
@@ -49,7 +51,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CharitiesSearchSe
             Assert.AreEqual(expectedOrganisations.First().RegistrationDate, result.First().RegistrationDate);
             Assert.AreEqual(null, result.First().Sector);
             Assert.AreEqual(OrganisationSubType.None, result.First().SubType);
-            Assert.AreEqual(OrganisationType.Charity, result.First().Type);
+            Assert.AreEqual(OrganisationType.Charities, result.First().Type);
         }
     }
 }
