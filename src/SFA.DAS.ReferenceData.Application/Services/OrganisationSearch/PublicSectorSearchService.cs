@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Types.DTO;
+using OrganisationSubType = SFA.DAS.ReferenceData.Types.DTO.OrganisationSubType;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
@@ -45,7 +47,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 Sector = publicSectorOrganisation.Sector,
                 Code = publicSectorOrganisation.OrganisationCode,
                 RegistrationDate = null,
-                Type = OrganisationType.PublicSector,
+                Type = OrganisationType.PublicBodies,
                 SubType = (OrganisationSubType)Enum.Parse(typeof(OrganisationSubType), publicSectorOrganisation.Source.ToString())
             };
         }

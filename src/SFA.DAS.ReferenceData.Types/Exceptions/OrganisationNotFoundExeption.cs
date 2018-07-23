@@ -1,4 +1,5 @@
-﻿using SFA.DAS.ReferenceData.Types.DTO;
+﻿using SFA.DAS.Common.Domain.Types;
+using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Types.Exceptions
 {

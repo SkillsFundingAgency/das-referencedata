@@ -1,4 +1,5 @@
 ﻿using System;
+using SFA.DAS.Common.Domain.Types;
 
 namespace SFA.DAS.ReferenceData.Types.DTO
 {

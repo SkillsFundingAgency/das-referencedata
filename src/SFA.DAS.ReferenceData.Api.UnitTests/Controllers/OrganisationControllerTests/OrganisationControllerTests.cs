@@ -7,6 +7,7 @@ using System.Web.Http;
 using MediatR;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Common.Domain.Types;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Controllers;
 using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;
@@ -52,7 +53,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
             var fixtures = new OrganisationControllerTestFixtures()
                 .SetQueryException<TException>();
 
-            var result = await fixtures.CallGetAsync("123", OrganisationType.Company);
+            var result = await fixtures.CallGetAsync("123", OrganisationType.CompaniesHouse);
 
             Assert.AreEqual(expectedStatusCode, result.StatusCode);
         }
@@ -60,7 +61,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
         private async Task CheckSuccessfulCallReturnsExpectedStatus(HttpStatusCode expectedStatusCode)
         {
             const string registeredId = "123";
-            const OrganisationType organisationType = OrganisationType.Company;
+            const OrganisationType organisationType = OrganisationType.CompaniesHouse;
 
             var organisation = new Organisation
             {
