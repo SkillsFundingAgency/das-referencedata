@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Types.DTO;
 using SFA.DAS.ReferenceData.Types.Exceptions;
@@ -26,6 +27,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         public bool TryGetReferenceSearcher(OrganisationType organisationType, out IOrganisationReferenceSearchService referenceSearcher)
         {
             return _referenceSearchers.TryGetValue(organisationType, out referenceSearcher);
+        }
+
+        public OrganisationType[] GetLocateableOrganisationTypes()
+        {
+            return _referenceSearchers.Select(rs => rs.Value.OrganisationType).ToArray();
         }
     }
 }
