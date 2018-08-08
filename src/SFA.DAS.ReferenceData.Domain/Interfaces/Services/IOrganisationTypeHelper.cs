@@ -5,6 +5,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
     public interface IOrganisationTypeHelper
     {
         bool TryGetReferenceSearcher(OrganisationType organisationType, out IOrganisationReferenceSearchService referenceSearcher);
-        OrganisationType[] GetLocateableOrganisationTypes();
+        OrganisationType[] GetIdentifiableOrganisationTypes();
     }
 }

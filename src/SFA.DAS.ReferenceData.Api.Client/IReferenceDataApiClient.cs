@@ -32,6 +32,6 @@ namespace SFA.DAS.ReferenceData.Api.Client
         ///     Returns the organisation types that may be looked up using the organisation ids.
         /// </summary>
         /// <returns></returns>
-        Task<OrganisationType[]> GetLocateableOrganisationTypes();
+        Task<OrganisationType[]> GetIdentifiableOrganisationTypes();
     }
 }

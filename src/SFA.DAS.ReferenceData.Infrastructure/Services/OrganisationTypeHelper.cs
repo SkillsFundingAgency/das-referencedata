@@ -29,7 +29,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             return _referenceSearchers.TryGetValue(organisationType, out referenceSearcher);
         }
 
-        public OrganisationType[] GetLocateableOrganisationTypes()
+        public OrganisationType[] GetIdentifiableOrganisationTypes()
         {
             return _referenceSearchers.Select(rs => rs.Value.OrganisationType).ToArray();
         }

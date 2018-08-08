@@ -63,9 +63,9 @@
     <Compile Include="Queries\GetEducationalOrganisations\FindEducationalOrganisationsHandler.cs" />
     <Compile Include="Queries\GetEducationalOrganisations\FindEducationalOrganisationsQuery.cs" />
     <Compile Include="Queries\GetEducationalOrganisations\FindEducationalOrganisationsResponse.cs" />
-    <Compile Include="Queries\GetLocateableOrganisationTypes\GetLocateableOrganisationTypesHandler.cs" />
-    <Compile Include="Queries\GetLocateableOrganisationTypes\GetLocateableOrganisationTypesQuery.cs" />
-    <Compile Include="Queries\GetLocateableOrganisationTypes\GetLocateableOrganisationTypesResponse.cs" />
+    <Compile Include="Queries\GetIdentifiableOrganisationTypes\GetIdentifiableOrganisationTypesHandler.cs" />
+    <Compile Include="Queries\GetIdentifiableOrganisationTypes\GetIdentifiableOrganisationTypesQuery.cs" />
+    <Compile Include="Queries\GetIdentifiableOrganisationTypes\GetIdentifiableOrganisationTypesResponse.cs" />
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrgainsationQuery.cs" />
     <Compile Include="Queries\GetPublicOrganisations\FindPublicSectorOrganisationResponse.cs" />
     <Compile Include="Queries\GetPublicOrganisations\GetPublicSectorOrganisationsHandler.cs" />

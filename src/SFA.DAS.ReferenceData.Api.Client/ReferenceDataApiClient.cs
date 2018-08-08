@@ -94,10 +94,10 @@ namespace SFA.DAS.ReferenceData.Api.Client
             return JsonConvert.DeserializeObject<Organisation>(json);
         }
 
-        public async Task<OrganisationType[]> GetLocateableOrganisationTypes()
+        public async Task<OrganisationType[]> GetIdentifiableOrganisationTypes()
         {
             var baseUrl = GetBaseUrl();
-            var url = $"{baseUrl}getLocateableOrganisationTypes";
+            var url = $"{baseUrl}IdentifiableOrganisationTypes";
 
             var json = await _httpClient.GetAsync(url, null);
 
