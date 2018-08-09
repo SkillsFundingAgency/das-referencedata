@@ -94,6 +94,16 @@ namespace SFA.DAS.ReferenceData.Api.Client
             return JsonConvert.DeserializeObject<Organisation>(json);
         }
 
+        public async Task<OrganisationType[]> GetIdentifiableOrganisationTypes()
+        {
+            var baseUrl = GetBaseUrl();
+            var url = $"{baseUrl}IdentifiableOrganisationTypes";
+
+            var json = await _httpClient.GetAsync(url, null);
+
+            return JsonConvert.DeserializeObject<OrganisationType[]>(json);
+        }
+
         private string GetBaseUrl()
         {
             var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")

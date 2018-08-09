@@ -8,6 +8,7 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Api.Attributes;
 using SFA.DAS.ReferenceData.Application.Queries.GetCharityByRegistrationNumber;
 using SFA.DAS.ReferenceData.Application.Queries.GetEducationalOrganisations;
+using SFA.DAS.ReferenceData.Application.Queries.GetIdentifiableOrganisationTypes;
 using SFA.DAS.ReferenceData.Application.Queries.GetOrganisation;
 using SFA.DAS.ReferenceData.Application.Queries.GetPublicOrganisations;
 using SFA.DAS.ReferenceData.Application.Queries.SearchOrganisations;
@@ -107,6 +108,18 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             }
 
             return Ok(response.Organisations);
+        }
+
+        [Route("IdentifiableOrganisationTypes")]
+        [HttpGet]
+        [ApiAuthorize]
+        public async Task<IHttpActionResult> GetIdentifiableOrganisationTypes()
+        {
+            var query = new GetIdentifiableOrganisationTypesQuery();
+
+            var results = await _mediator.SendAsync(query);
+
+            return Ok(results.OrganisationTypes);
         }
 
         [Route("get")]

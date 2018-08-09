@@ -26,5 +26,12 @@ namespace SFA.DAS.ReferenceData.Api.Client
         ///     specified identifier then an <see cref="OrganisationNotFoundExeption"/> exception will be thrown. 
         /// </returns>
         Task<Organisation> GetLatestDetails(OrganisationType organisationType, string identifier);
+
+
+        /// <summary>
+        ///     Returns the organisation types that may be looked up using the organisation ids.
+        /// </summary>
+        /// <returns></returns>
+        Task<OrganisationType[]> GetIdentifiableOrganisationTypes();
     }
 }
