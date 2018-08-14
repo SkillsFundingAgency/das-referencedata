@@ -79,7 +79,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
         {
             var baseUrl = GetBaseUrl();
 
-            var url = $"{baseUrl}get?identifier={HttpUtility.UrlPathEncode(identifier)}&type={organisationType}";
+            var url = $"{baseUrl}get?identifier={HttpUtility.UrlPathEncode(identifier)}&organisationType={organisationType}";
 
             var json = await _httpClient.GetAsync(url, response =>
             {
