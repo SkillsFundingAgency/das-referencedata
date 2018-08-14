@@ -157,7 +157,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests
         public ReferenceDataApiClientTestFixtures WithGetLatestDetailsResponse(OrganisationType organisationType, string registrationId, Organisation data, HttpStatusCode statusCode)
         {
             HttpClientMock
-                .Setup(c => c.GetAsync($"{BaseUrl}get?identifier={registrationId}&type={organisationType}", It.IsAny<Func<HttpResponseMessage, bool>>()))
+                .Setup(c => c.GetAsync($"{BaseUrl}get?identifier={registrationId}&organisationType={organisationType}", It.IsAny<Func<HttpResponseMessage, bool>>()))
                 .Callback<string, Func<HttpResponseMessage, bool>>((url, responseChecker) =>
                 {
                     CalledUrls.Add(url);
