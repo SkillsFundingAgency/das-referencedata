@@ -31,7 +31,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("publicsectorbodies", Name = "Public Sector")]
         [HttpGet]
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "SearchOrganisations")]
         public async Task<IHttpActionResult> GetPublicSectorOrganisations(string searchTerm = "", int pageSize = 1000, int pageNumber = 1)
         {
             var response = await _mediator.SendAsync(new FindPublicSectorOrgainsationQuery
@@ -46,7 +46,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("charities/{registrationNumber}", Name = "Charity")]
         [HttpGet]
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> GetCharity(int registrationNumber)
         {
             var query = new GetCharityByRegistrationNumberQuery
@@ -66,7 +66,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("educational", Name = "Educational")]
         [HttpGet]
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> GetEducaltionalOrganisation(string searchTerm = "", int pageSize = 1000, int pageNumber = 1)
         {
             var query = new FindEducationalOrganisationsQuery
@@ -88,7 +88,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("", Name = "Search")]
         [HttpGet]
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> SearchOrganisations(string searchTerm = "", int maximumResults = 500)
         {
             var query = new SearchOrganisationsQuery
@@ -112,7 +112,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("IdentifiableOrganisationTypes")]
         [HttpGet]
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> GetIdentifiableOrganisationTypes()
         {
             var query = new GetIdentifiableOrganisationTypesQuery();
@@ -125,6 +125,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
         [Route("get")]
         [HttpGet]
         [ApiAuthorize]
+        [ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> Get(string identifier, OrganisationType organisationType)
         {
             var query = new GetOrganisationQuery
