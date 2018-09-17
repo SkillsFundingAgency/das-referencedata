@@ -124,7 +124,6 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("get")]
         [HttpGet]
-        [ApiAuthorize]
         [ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> Get(string identifier, OrganisationType organisationType)
         {
