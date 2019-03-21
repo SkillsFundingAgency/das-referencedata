@@ -29,19 +29,16 @@ namespace SFA.DAS.ReferenceData.Api.Client
         public async Task<Charity> GetCharity(int registrationNumber)
         {
             var baseUrl = GetBaseUrl();
-
             var url = $"{baseUrl}charities/{registrationNumber}";
 
             var json = await _httpClient.GetAsync(url);
-
             return JsonConvert.DeserializeObject<Charity>(json);
         }
 
         public async Task<PagedApiResponse<PublicSectorOrganisation>> SearchPublicSectorOrganisation(string searchTerm, int pageNumber, int pageSize)
         {
             var baseUrl = GetBaseUrl();
-
-            var url = $"{baseUrl}publicsectorbodies?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
+            var url = $"{baseUrl}publicsectorbodies?searchTerm={HttpUtility.UrlEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
 
             var json = await _httpClient.GetAsync(url);
             return JsonConvert.DeserializeObject<PagedApiResponse<PublicSectorOrganisation>>(json);
@@ -51,35 +48,25 @@ namespace SFA.DAS.ReferenceData.Api.Client
         public async Task<IEnumerable<Organisation>> SearchOrganisations(string searchTerm, int maximumResults = 500)
         {
             var baseUrl = GetBaseUrl();
-
-            var url = $"{baseUrl}?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&maximumResults={maximumResults}";
+            var url = $"{baseUrl}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&maximumResults={maximumResults}";
             
             var json = await _httpClient.GetAsync(url, false);
-
-            if (json == null)
-            {
-                return null;
-            }
-
-            return JsonConvert.DeserializeObject<IEnumerable<Organisation>>(json);
+            return json == null ? null : JsonConvert.DeserializeObject<IEnumerable<Organisation>>(json);
         }
 
         public async Task<PagedApiResponse<EducationOrganisation>> SearchEducationalOrganisation(string searchTerm, int pageNumber, int pageSize)
         {
             var baseUrl = GetBaseUrl();
-
-            var url = $"{baseUrl}educational?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
+            var url = $"{baseUrl}educational?searchTerm={HttpUtility.UrlEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
 
             var json = await _httpClient.GetAsync(url);
-
             return JsonConvert.DeserializeObject<PagedApiResponse<EducationOrganisation>>(json);
         }
 
         public async Task<Organisation> GetLatestDetails(OrganisationType organisationType, string identifier)
         {
             var baseUrl = GetBaseUrl();
-
-            var url = $"{baseUrl}get?identifier={HttpUtility.UrlPathEncode(identifier)}&organisationType={organisationType}";
+            var url = $"{baseUrl}get?identifier={HttpUtility.UrlEncode(identifier)}&organisationType={organisationType}";
 
             var json = await _httpClient.GetAsync(url, response =>
             {
@@ -100,7 +87,6 @@ namespace SFA.DAS.ReferenceData.Api.Client
             var url = $"{baseUrl}IdentifiableOrganisationTypes";
 
             var json = await _httpClient.GetAsync(url, null);
-
             return JsonConvert.DeserializeObject<OrganisationType[]>(json);
         }
 
@@ -109,6 +95,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
             var baseUrl = _configuration.ApiBaseUrl.EndsWith("/")
                 ? _configuration.ApiBaseUrl
                 : _configuration.ApiBaseUrl + "/";
+
             return baseUrl;
         }
     }
