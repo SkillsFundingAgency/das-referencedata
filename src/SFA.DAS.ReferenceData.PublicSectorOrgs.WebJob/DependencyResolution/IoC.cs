@@ -6,7 +6,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.DependencyResolution
 {
     public static class IoC
     {
-        private const string ServiceName = "SFA.DAS.ReferenceDataAPI";
+        private const string ServiceName = "SFA.DAS.ReferenceData.API";
 
         public static IContainer Initialize()
         {

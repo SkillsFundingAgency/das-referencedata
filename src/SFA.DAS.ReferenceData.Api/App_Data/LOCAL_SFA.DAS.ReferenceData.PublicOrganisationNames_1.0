@@ -1,7 +1,16 @@
 ﻿{
-    "OrganisationNames": [
-        "Organisation 1", 
-        "Organisation 2", 
-        "Organisation 3"
-        ]
+  "Organisations": [
+    {
+      "Name": "Example Public Body From ONS",
+      "Source": 1
+    },
+    {
+      "Name": "Example Public Body from NHS",
+      "Source": 2
+    },
+    {
+      "Name": "Example Public Body from Police",
+      "Source": 3
+    }
+  ]
 }
