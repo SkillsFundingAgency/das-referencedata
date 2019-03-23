@@ -210,12 +210,12 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests
 
         public string BuildSearchOrganisationUrl(string searchTerm, int maximumResults)
         {
-            return $"{BaseUrl}?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&maximumResults={maximumResults}";
+            return $"{BaseUrl}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&maximumResults={maximumResults}";
         }
 
         public string BuildSearchPublicSectorUrl(string searchTerm, int pageNumber, int pageSize)
         {
-            return $"{BaseUrl}publicsectorbodies?searchTerm={HttpUtility.UrlPathEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
+            return $"{BaseUrl}publicsectorbodies?searchTerm={HttpUtility.UrlEncode(searchTerm)}&pageNumber={pageNumber}&pageSize={pageSize}";
         }
 
         public ReferenceDataApiClient CreateApiClient()

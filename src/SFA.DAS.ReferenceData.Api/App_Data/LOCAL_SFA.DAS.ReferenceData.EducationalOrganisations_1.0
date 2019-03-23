@@ -1,0 +1,15 @@
+﻿{
+  "Organisations": 
+  [
+    {
+      "Name": "ESFA",
+      "EducationalType": "School",
+      "AddressLine1": "ESFA",
+      "AddressLine2": "Cheylesmore House ",
+      "AddressLine3": "5 Quinton Road",
+      "Town": "Coventry",
+      "County": "West Midlands",
+      "PostCode": "CV1 2WT"
+    }
+  ]
+}
