@@ -16,7 +16,7 @@
       <Setting name="RedisConnectionString" value="__RedisConnectionString__" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate name="WebSslCert" thumbprint="0BB2E6522817C2FFDC3DF989B404F9A6D94BC63E" thumbprintAlgorithm="sha1" />
+      <Certificate name="WebSslCert" thumbprint="29ABB95629FF5CE8050F67EA3AF82F0D79C013C0" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
   <NetworkConfiguration>
