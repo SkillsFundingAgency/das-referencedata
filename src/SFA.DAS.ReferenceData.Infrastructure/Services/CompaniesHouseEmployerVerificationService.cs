@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Http;
@@ -56,7 +57,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
                 var result = await _httpClientWrapper.Get<CompanySearchResults>(
                     $"{Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(_configuration.CompaniesHouse.ApiKey))}",
-                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={searchTerm}&items_per_page={maxRecords}");
+                    $"{_configuration.CompaniesHouse.BaseUrl}/search/companies/?q={HttpUtility.UrlEncode(searchTerm)}&items_per_page={maxRecords}");
                 return result;
             });
         }
