@@ -44,7 +44,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             try
             {
                 var storageAccount =
-                    CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+                    CloudStorageAccount.Parse(ConfigurationManager.Appsettings["StorageConnectionString"]);
 
                 var client = storageAccount.CreateCloudBlobClient();
 
