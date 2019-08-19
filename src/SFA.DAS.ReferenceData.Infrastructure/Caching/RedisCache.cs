@@ -14,7 +14,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Caching
 
         public RedisCache()
         {
-            var connectionMultiplexer = ConnectionMultiplexer.Connect(ConfigurationManager.Appsettings["RedisConnectionString"]);
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["RedisConnectionString"]);
             _cache = connectionMultiplexer.GetDatabase();
         }
 
