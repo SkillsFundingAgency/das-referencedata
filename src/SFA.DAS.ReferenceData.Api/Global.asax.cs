@@ -1,5 +1,6 @@
 ﻿using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure;
+using System.Configuration;
 using System.Net;
 using System.Web.Http;
 using System.Web.Mvc;

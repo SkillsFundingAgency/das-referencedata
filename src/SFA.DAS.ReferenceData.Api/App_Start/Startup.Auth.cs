@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure;
 using Microsoft.Owin.Security.ActiveDirectory;
 using Owin;
+using System.Configuration;
 
 namespace SFA.DAS.ReferenceData.Api
 {
