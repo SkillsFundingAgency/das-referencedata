@@ -30,6 +30,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.Client.UnitTests", "SFA.DAS.ReferenceData.Api.Client.UnitTests\SFA.DAS.ReferenceData.Api.Client.UnitTests.csproj", "{630766FB-69F0-4E15-8B71-2708BAA2AAA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.Client.TestHarness", "SFA.DAS.ReferenceData.Api.Client.TestHarness\SFA.DAS.ReferenceData.Api.Client.TestHarness.csproj", "{E5B82018-E6C5-4915-841C-6A40257BDAA1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob", "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob\SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.csproj", "{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Host.WebJob", "SFA.DAS.ReferenceData.Host.WebJob\SFA.DAS.ReferenceData.Host.WebJob.csproj", "{52292263-4BED-44B5-9446-11D88AD03CF9}"
