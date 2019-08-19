@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.ReferenceData.CloudService", "SFA.DAS.ReferenceData.CloudService\SFA.DAS.ReferenceData.CloudService.ccproj", "{78CA858F-BD6B-40CF-BEA3-5B1229CEF036}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A48E4D6-D887-483D-91AD-B9500A485371}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.UnitTests", "SFA.DAS.ReferenceData.Api.UnitTests\SFA.DAS.ReferenceData.Api.UnitTests.csproj", "{C471A44D-D065-441C-8CF7-C25D8D0026C1}"
