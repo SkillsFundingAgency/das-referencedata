@@ -1,6 +1,6 @@
-# Digital Apprenticeship Service Reference Data API (BETA)
+# Reference Data API
 
-This solution represents the Reference Data API (currently pre private BETA) code base.
+This solution represents the Reference Data API code base.
 
 ### Build
 ![Build Status](https://sfa-gov-uk.visualstudio.com/_apis/public/build/definitions/c39e0c0b-7aff-4606-b160-3566f3bbce23/246/badge)
