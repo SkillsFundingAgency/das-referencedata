@@ -159,7 +159,7 @@
                                 "value": "[reference('application-insights').outputs.InstrumentationKey.value]"
                             },
                             {
-                                "name": "Environment",
+                                "name": "EnvironmentName",
                                 "value": "[parameters('environmentName')]"
                             },
                             {
@@ -348,6 +348,10 @@
         "appServiceName": {
             "type": "string",
             "value": "[variables('appServiceName')]"
+        },
+        "workerAppServiceName": {
+            "type": "string",
+            "value": "[variables('workerAppServiceName')]"
         }
     }
 }
