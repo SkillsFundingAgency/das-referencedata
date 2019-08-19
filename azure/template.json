@@ -24,6 +24,19 @@
         "sharedAppServicePlanName": {
             "type": "string"
         },
+        "workerAppServicePlanSize": {
+            "type": "string",
+            "allowedValues": [
+                "1",
+                "2",
+                "3"
+            ],
+            "defaultValue": "1"
+        },
+        "workerAppServicePlanInstances": {
+            "type": "int",
+            "defaultValue": 1
+        },
         "customHostname": {
             "type": "string"
         },
@@ -210,6 +223,29 @@
         },
         {
             "apiVersion": "2017-05-10",
+            "name": "worker-app-service-plan",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-plan.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServicePlanName": {
+                        "value": "[variables('workerAppServicePlanName')]"
+                    },
+                    "aspSize": {
+                        "value": "[parameters('workerAppServicePlanSize')]"
+                    },
+                    "aspInstances": {
+                        "value": "[parameters('workerAppServicePlanInstances')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
             "name": "worker-app-service",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -284,7 +320,10 @@
                         ]
                     }
                 }
-            }
+            },
+            "dependsOn": [
+                "worker-app-service-plan"
+            ]
         },
         {
             "apiVersion": "2017-05-10",
