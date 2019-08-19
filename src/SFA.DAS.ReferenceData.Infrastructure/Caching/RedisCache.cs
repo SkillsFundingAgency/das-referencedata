@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using Microsoft.Azure;
 using Newtonsoft.Json;
