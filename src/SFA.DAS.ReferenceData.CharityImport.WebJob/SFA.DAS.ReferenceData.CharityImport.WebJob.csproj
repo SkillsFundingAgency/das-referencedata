@@ -119,9 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="app.Debug.config">
-      <DependentUpon>app.config</DependentUpon>
-    </None>
+    <None Include="app.Debug.config" />
     <None Include="app.Release.config">
       <DependentUpon>app.config</DependentUpon>
     </None>
