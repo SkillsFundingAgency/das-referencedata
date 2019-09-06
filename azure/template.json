@@ -316,6 +316,10 @@
                             {
                                 "name": "LocalConfig",
                                 "value": false
+                            },
+                            {
+                                "name": "WEBJOBS_IDLE_TIMEOUT",
+                                "value": "3600"
                             }
                         ]
                     }
