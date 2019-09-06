@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [CharityData].[ImportDataFromLoadTables]
+	WITH EXECUTE AS OWNER
 AS
 
 	IF OBJECT_ID('[CharityData].acct_submit', 'U') IS NOT NULL DROP TABLE [CharityData].acct_submit
