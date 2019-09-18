@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
@@ -44,7 +45,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             try
             {
                 var storageAccount =
-                    CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+                    CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
                 var client = storageAccount.CreateCloudBlobClient();
 

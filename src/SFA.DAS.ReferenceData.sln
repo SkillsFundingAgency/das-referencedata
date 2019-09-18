@@ -5,19 +5,9 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.ReferenceData.CloudService", "SFA.DAS.ReferenceData.CloudService\SFA.DAS.ReferenceData.CloudService.ccproj", "{78CA858F-BD6B-40CF-BEA3-5B1229CEF036}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A48E4D6-D887-483D-91AD-B9500A485371}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.UnitTests", "SFA.DAS.ReferenceData.Api.UnitTests\SFA.DAS.ReferenceData.Api.UnitTests.csproj", "{C471A44D-D065-441C-8CF7-C25D8D0026C1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF433BAF-C8E0-45CF-9143-2CB2348BA904}"
-	ProjectSection(SolutionItems) = preProject
-		Build.fsx = Build.fsx
-		CustomTargets.fsx = CustomTargets.fsx
-		DefaultTargets.fsx = DefaultTargets.fsx
-		RunBuild.bat = RunBuild.bat
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Infrastructure", "SFA.DAS.ReferenceData.Infrastructure\SFA.DAS.ReferenceData.Infrastructure.csproj", "{11D97A4B-C768-4889-B61D-3D74A6A9B463}"
 EndProject
@@ -41,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.Client.TestHarness", "SFA.DAS.ReferenceData.Api.Client.TestHarness\SFA.DAS.ReferenceData.Api.Client.TestHarness.csproj", "{E5B82018-E6C5-4915-841C-6A40257BDAA1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{6D48E921-EC07-4EA5-A7E9-7FEC034A15F7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob", "SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob\SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.csproj", "{4FA94FAF-A8C5-42D4-9072-3A2A5BE8AF55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Host.WebJob", "SFA.DAS.ReferenceData.Host.WebJob\SFA.DAS.ReferenceData.Host.WebJob.csproj", "{52292263-4BED-44B5-9446-11D88AD03CF9}"
@@ -52,12 +40,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob", "SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob\SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.csproj", "{39358BDF-606F-45B5-948A-D45A5E41A42B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests", "SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests\SFA.DAS.ReferenceData.EducationalOrgsImporter.WebJob.UnitTests.csproj", "{8182C216-4F48-4E47-ACE6-911F688F37D6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PreReq", "PreReq", "{B86B5E34-A4C8-4873-9B62-24F61FF064A5}"
-	ProjectSection(SolutionItems) = preProject
-		DevInstall.ps1 = DevInstall.ps1
-		localhost.pfx = localhost.pfx
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Types", "SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj", "{B4621617-E571-4118-A6F6-964F65BB67EC}"
 EndProject
@@ -73,10 +55,6 @@ Global
 		{4730551F-4DEF-42CF-8229-8193A1736592}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4730551F-4DEF-42CF-8229-8193A1736592}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4730551F-4DEF-42CF-8229-8193A1736592}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{78CA858F-BD6B-40CF-BEA3-5B1229CEF036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78CA858F-BD6B-40CF-BEA3-5B1229CEF036}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78CA858F-BD6B-40CF-BEA3-5B1229CEF036}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78CA858F-BD6B-40CF-BEA3-5B1229CEF036}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -159,7 +137,6 @@ Global
 		{655DA797-11A7-4A2A-A681-908C5CFEEC83} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{9477BE74-E86C-4786-BB1B-52F05F608E61} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{630766FB-69F0-4E15-8B71-2708BAA2AAA6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
-		{E5B82018-E6C5-4915-841C-6A40257BDAA1} = {6D48E921-EC07-4EA5-A7E9-7FEC034A15F7}
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{8182C216-4F48-4E47-ACE6-911F688F37D6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 	EndGlobalSection

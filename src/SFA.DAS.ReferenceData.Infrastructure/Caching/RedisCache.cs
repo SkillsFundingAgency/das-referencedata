@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using Microsoft.Azure;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Caching
 
         public RedisCache()
         {
-            var connectionMultiplexer = ConnectionMultiplexer.Connect(CloudConfigurationManager.GetSetting("RedisConnectionString"));
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["RedisConnectionString"]);
             _cache = connectionMultiplexer.GetDatabase();
         }
 
