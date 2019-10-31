@@ -89,6 +89,9 @@
         },
         "logAnalyticsWorkspaceName": {
             "type": "string"
+        },
+        "sharedStorageAccountConnectionString": {
+            "type": "securestring"
         }
     },
     "variables": {
@@ -97,8 +100,7 @@
         "appServiceName": "[concat(variables('resourceNamePrefix'), 'api-as')]",
         "workerAppServiceName": "[concat(variables('resourceNamePrefix'), 'wkr-as')]",
         "workerAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'wkr-asp')]",
-        "databaseName": "[concat(variables('resourceNamePrefix'), '-db')]",
-        "storageAccountName": "[concat('das',toLower(parameters('resourceEnvironmentName')),parameters('serviceName'),'str')]"
+        "databaseName": "[concat(variables('resourceNamePrefix'), '-db')]"
     },
     "resources": [
         {
@@ -193,7 +195,7 @@
                             },
                             {
                                 "name": "StorageConnectionString",
-                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
+                                "value": "[parameters('sharedStorageAccountConnectionString')]"
                             },
                             {
                                 "name": "RedisConnectionString",
@@ -271,12 +273,12 @@
                         "value": [
                             {
                                 "name": "AzureWebJobsDashboard",
-                                "value": "[reference('storage-account').outputs.storageConnectionString.value]",
+                                "value": "[parameters('sharedStorageAccountConnectionString')]",
                                 "type": "Custom"
                             },
                             {
                                 "name": "AzureWebJobsStorage",
-                                "value": "[reference('storage-account').outputs.storageConnectionString.value]",
+                                "value": "[parameters('sharedStorageAccountConnectionString')]",
                                 "type": "Custom"
                             }
                         ]
@@ -305,7 +307,7 @@
                             },
                             {
                                 "name": "StorageConnectionString",
-                                "value": "[reference('storage-account').outputs.storageConnectionString.value]"
+                                "value": "[parameters('sharedStorageAccountConnectionString')]"
                             },
                             {
                                 "name": "IdaAudience",
@@ -363,23 +365,6 @@
                     },
                     "logAnalyticsWorkspaceName": {
                         "value": "[parameters('logAnalyticsWorkspaceName')]"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "storage-account",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('deploymentUrlBase'), 'storage-account-arm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountName": {
-                        "value": "[variables('storageAccountName')]"
                     }
                 }
             }
