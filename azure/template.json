@@ -273,12 +273,12 @@
                         "value": [
                             {
                                 "name": "AzureWebJobsDashboard",
-                                "value": "[parameters('sharedStorageAccountConnectionString')]",
+                                "connectionString": "[parameters('sharedStorageAccountConnectionString')]",
                                 "type": "Custom"
                             },
                             {
                                 "name": "AzureWebJobsStorage",
-                                "value": "[parameters('sharedStorageAccountConnectionString')]",
+                                "connectionString": "[parameters('sharedStorageAccountConnectionString')]",
                                 "type": "Custom"
                             }
                         ]
