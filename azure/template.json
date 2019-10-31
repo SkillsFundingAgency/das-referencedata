@@ -90,7 +90,7 @@
         "logAnalyticsWorkspaceName": {
             "type": "string"
         },
-        "sharedStorageConnectionString": {
+        "sharedStorageAccountConnectionString": {
             "type": "securestring"
         }
     },
@@ -195,7 +195,7 @@
                             },
                             {
                                 "name": "StorageConnectionString",
-                                "value": "[parameters('sharedStorageConnectionString')]"
+                                "value": "[parameters('sharedStorageAccountConnectionString')]"
                             },
                             {
                                 "name": "RedisConnectionString",
@@ -273,12 +273,12 @@
                         "value": [
                             {
                                 "name": "AzureWebJobsDashboard",
-                                "value": "[parameters('sharedStorageConnectionString')]",
+                                "value": "[parameters('sharedStorageAccountConnectionString')]",
                                 "type": "Custom"
                             },
                             {
                                 "name": "AzureWebJobsStorage",
-                                "value": "[parameters('sharedStorageConnectionString')]",
+                                "value": "[parameters('sharedStorageAccountConnectionString')]",
                                 "type": "Custom"
                             }
                         ]
@@ -307,7 +307,7 @@
                             },
                             {
                                 "name": "StorageConnectionString",
-                                "value": "[parameters('sharedStorageConnectionString')]"
+                                "value": "[parameters('sharedStorageAccountConnectionString')]"
                             },
                             {
                                 "name": "IdaAudience",
