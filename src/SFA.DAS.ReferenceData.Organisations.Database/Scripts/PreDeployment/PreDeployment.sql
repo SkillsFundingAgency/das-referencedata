@@ -10,4 +10,4 @@
 --------------------------------------------------------------------------------------
 */
 
-:r .\AddCharityDefaultValues.sql
+-- :r .\AddCharityDefaultValues.sql
