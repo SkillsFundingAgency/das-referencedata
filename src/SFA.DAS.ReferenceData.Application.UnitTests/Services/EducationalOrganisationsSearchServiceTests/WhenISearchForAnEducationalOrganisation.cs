@@ -31,8 +31,8 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrgani
 
             var expectedOrganisations = new List<EducationOrganisation>
             {
-                new EducationOrganisation { AddressLine1  = "Line1", AddressLine2 = "Line 2", AddressLine3 = "Line 3", Town = "Line 4", County = "Line 5", Name = "Name", EducationalType = "ABC123", PostCode = "AA11AA" },
-                new EducationOrganisation { AddressLine1  = "2 Line1", AddressLine2 = "2 Line 2", AddressLine3 = "2 Line 3", Town = "2 Line 4", County = "2 Line 5", Name = "2 Name", EducationalType = "ABC999", PostCode = "ZA11AA" }
+                new EducationOrganisation { AddressLine1  = "Line1", AddressLine2 = "Line 2", AddressLine3 = "Line 3", Town = "Line 4", County = "Line 5", Name = "Name", EducationalType = "ABC123", PostCode = "AA11AA", URN = 12345},
+                new EducationOrganisation { AddressLine1  = "2 Line1", AddressLine2 = "2 Line 2", AddressLine3 = "2 Line 3", Town = "2 Line 4", County = "2 Line 5", Name = "2 Name", EducationalType = "ABC999", PostCode = "ZA11AA", URN = 98765 }
             };
             var expectedResults = new PagedResult<EducationOrganisation> { Data = expectedOrganisations, Page = 1, TotalPages = 1 };
 
@@ -55,7 +55,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrgani
                 Assert.AreEqual(OrganisationSubType.None, result.SubType);
                 Assert.AreEqual(OrganisationType.EducationOrganisation, result.Type);
                 Assert.IsNull(result.RegistrationDate);
-                Assert.IsNull(result.Code);
+                Assert.AreEqual(expectedOrganisation.URN.ToString(), result.Code);
             }
         }
     }
