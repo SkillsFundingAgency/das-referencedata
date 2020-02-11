@@ -43,7 +43,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 },
                 Name = educationOrganisation.Name,
                 Sector = educationOrganisation.EducationalType,
-                Code = null,
+                Code = educationOrganisation.URN.ToString(),
                 RegistrationDate = null,
                 Type = OrganisationType.EducationOrganisation,
                 SubType = OrganisationSubType.None

@@ -27,7 +27,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
             var filter = new EstablishmentFilter
             {
-                Fields = new StringList { "EstablishmentName", "TypeOfEstablishment", "Street", "Locality", "Address3", "Town", "County", "Postcode" }
+                Fields = new StringList { "EstablishmentName", "TypeOfEstablishment", "Street", "Locality", "Address3", "Town", "County", "Postcode", "URN" }
             };
 
             try
@@ -46,7 +46,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     AddressLine3 = x.Address3,
                     Town = x.Town,
                     County = x.County?.DisplayName ?? string.Empty,
-                    PostCode = x.Postcode
+                    PostCode = x.Postcode,
+                    URN = x.URN
                 }).ToArray();
             }
             catch (Exception e)
