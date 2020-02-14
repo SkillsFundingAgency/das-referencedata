@@ -37,6 +37,8 @@ namespace SFA.DAS.ReferenceData.EducationOrgsImporter.WebJob.Azure
                 {
                     await blockBlob.UploadFromStreamAsync(stream);
                 }
+                
+                _logger.Info("Uploaded educational organisations to Blob storage");
             }
             catch (Exception e)
             {
