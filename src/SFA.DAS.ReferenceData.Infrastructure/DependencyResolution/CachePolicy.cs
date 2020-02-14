@@ -21,19 +21,19 @@ namespace SFA.DAS.ReferenceData.Infrastructure.DependencyResolution
 
             instance.Dependencies.AddForConstructorParameter(cacheParameter, cache);
         }
-        
+
         private static ICache GetCache()
         {
             ICache cache;
 
-            // if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
-            // {
-            //     cache = new InMemoryCache();
-            // }
-            // else
-            // {
+            if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
+            {
+                cache = new InMemoryCache();
+            }
+            else
+            {
                 cache = new RedisCache();
-            //}
+            }
 
             return cache;
         }
