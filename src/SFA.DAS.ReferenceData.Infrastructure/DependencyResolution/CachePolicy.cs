@@ -26,14 +26,14 @@ namespace SFA.DAS.ReferenceData.Infrastructure.DependencyResolution
         {
             ICache cache;
 
-            if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
-            {
-                cache = new InMemoryCache();
-            }
-            else
-            {
+            // if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
+            // {
+            //     cache = new InMemoryCache();
+            // }
+            // else
+            // {
                 cache = new RedisCache();
-            }
+            //}
 
             return cache;
         }
