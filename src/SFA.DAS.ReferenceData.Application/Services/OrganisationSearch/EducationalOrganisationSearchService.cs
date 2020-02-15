@@ -8,7 +8,7 @@ using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 {
-    public class EducationalOrganisationSearchService : IOrganisationTextSearchService
+    public class EducationalOrganisationSearchService : IOrganisationTextSearchService, IOrganisationReferenceSearchService
     {
         private readonly IEducationalOrganisationRepository _repository;
 
@@ -48,6 +48,27 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 Type = OrganisationType.EducationOrganisation,
                 SubType = OrganisationSubType.None
             };
+        }
+
+        public OrganisationType OrganisationType => OrganisationType.EducationOrganisation;
+
+        public bool IsSearchTermAReference(string searchTerm)
+        {
+            return int.TryParse(searchTerm, out _);
+        }
+
+        public async Task<Organisation> Search(string reference)
+        {
+            if (!IsSearchTermAReference(reference))
+            {
+                return null;
+            }
+            
+            var urn = int.Parse(reference);
+
+            var educationOrganisation = await _repository.FindOrganisationByUrn(urn);
+
+            return ConvertToOrganisation(educationOrganisation);
         }
     }
 }
