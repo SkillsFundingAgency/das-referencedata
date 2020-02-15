@@ -21,7 +21,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.DependencyResolution
 
             instance.Dependencies.AddForConstructorParameter(cacheParameter, cache);
         }
-        
+
         private static ICache GetCache()
         {
             ICache cache;
