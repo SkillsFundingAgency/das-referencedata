@@ -20,7 +20,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
         [Test]
         public Task Get_BadOrganisationIdentifierExeption_ShouldReturnBadRequest()
         {
-            return CheckExceptionTranslatesIntoStatusCode<BadOrganisationIdentifierExeption>(HttpStatusCode.BadRequest);
+            return CheckExceptionTranslatesIntoStatusCode<BadOrganisationIdentifierException>(HttpStatusCode.BadRequest);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace SFA.DAS.ReferenceData.Api.UnitTests.Controllers.OrganisationController
         [Test]
         public Task Get_OrganisationNotFoundExeption_ShouldReturnNotFound()
         {
-            return CheckExceptionTranslatesIntoStatusCode<BadOrganisationIdentifierExeption>(HttpStatusCode.BadRequest);
+            return CheckExceptionTranslatesIntoStatusCode<BadOrganisationIdentifierException>(HttpStatusCode.BadRequest);
         }
 
         [Test]

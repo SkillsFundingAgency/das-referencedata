@@ -11,18 +11,8 @@ using SFA.DAS.ReferenceData.Types.DTO;
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrganisationsSearchServiceTests
 {
     [TestFixture]
-    public class WhenISearchForAnEducationalOrganisation
+    public class WhenISearchForAnEducationalOrganisationByName : EducationalOrganisationSearchServiceTestsBase
     {
-        private Mock<IEducationalOrganisationRepository> _repository;
-        private EducationalOrganisationSearchService _service;
-
-        [SetUp]
-        public void Arrange()
-        {
-            _repository = new Mock<IEducationalOrganisationRepository>();
-            _service = new EducationalOrganisationSearchService(_repository.Object);
-        }
-
         [Test]
         public async Task ThenTheMatchingOrganisationsAreReturned()
         {
@@ -31,14 +21,14 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrgani
 
             var expectedOrganisations = new List<EducationOrganisation>
             {
-                new EducationOrganisation { AddressLine1  = "Line1", AddressLine2 = "Line 2", AddressLine3 = "Line 3", Town = "Line 4", County = "Line 5", Name = "Name", EducationalType = "ABC123", PostCode = "AA11AA" },
-                new EducationOrganisation { AddressLine1  = "2 Line1", AddressLine2 = "2 Line 2", AddressLine3 = "2 Line 3", Town = "2 Line 4", County = "2 Line 5", Name = "2 Name", EducationalType = "ABC999", PostCode = "ZA11AA" }
+                new EducationOrganisation { AddressLine1  = "Line1", AddressLine2 = "Line 2", AddressLine3 = "Line 3", Town = "Line 4", County = "Line 5", Name = "Name", EducationalType = "ABC123", PostCode = "AA11AA", URN = 12345},
+                new EducationOrganisation { AddressLine1  = "2 Line1", AddressLine2 = "2 Line 2", AddressLine3 = "2 Line 3", Town = "2 Line 4", County = "2 Line 5", Name = "2 Name", EducationalType = "ABC999", PostCode = "ZA11AA", URN = 98765 }
             };
             var expectedResults = new PagedResult<EducationOrganisation> { Data = expectedOrganisations, Page = 1, TotalPages = 1 };
 
-            _repository.Setup(x => x.FindOrganisations(searchTerm, maximumResults, 1)).ReturnsAsync(expectedResults);
+            Repository.Setup(x => x.FindOrganisations(searchTerm, maximumResults, 1)).ReturnsAsync(expectedResults);
 
-            var results = (await _service.Search(searchTerm, maximumResults)).ToList();
+            var results = (await Service.Search(searchTerm, maximumResults)).ToList();
 
             Assert.AreEqual(expectedOrganisations.Count, results.Count);
             foreach (var result in results)
@@ -55,7 +45,7 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrgani
                 Assert.AreEqual(OrganisationSubType.None, result.SubType);
                 Assert.AreEqual(OrganisationType.EducationOrganisation, result.Type);
                 Assert.IsNull(result.RegistrationDate);
-                Assert.IsNull(result.Code);
+                Assert.AreEqual(expectedOrganisation.URN.ToString(), result.Code);
             }
         }
     }

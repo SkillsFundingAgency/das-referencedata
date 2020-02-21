@@ -46,8 +46,8 @@
     <Compile Include="DTO\EducationOrganisation.cs" />
     <Compile Include="Exceptions\InvalidGetOrganisationRequest.cs" />
     <Compile Include="Exceptions\OperationNotSupportedForOrganisationType.cs" />
-    <Compile Include="Exceptions\BadOrganisationIdentifierExeption.cs" />
-    <Compile Include="Exceptions\OrganisationNotFoundExeption.cs" />
+    <Compile Include="Exceptions\BadOrganisationIdentifierException.cs" />
+    <Compile Include="Exceptions\OrganisationNotFoundException.cs" />
     <Compile Include="Exceptions\ReferenceDataException.cs" />
     <Compile Include="DTO\Organisation.cs" />
     <Compile Include="DTO\OrganisationSubType.cs" />

@@ -86,6 +86,47 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             });
         }
 
+        private async Task<EducationalOrganisationLookUp> GetOrganisationLookup()
+        {
+            var lookUp = await _cacheProvider.GetAsync<EducationalOrganisationLookUp>(nameof(EducationalOrganisationLookUp));
+
+            if (lookUp == null)
+            {
+                _logger.Info("Getting educational orgainsations from Azure storage as cache is empty.");
+                lookUp = await _azureService.GetModelFromBlobStorage<EducationalOrganisationLookUp>(ContainerName,
+                    BlobName);
+
+                if (lookUp == null)
+                {
+                    _logger.Info("No educational organisations were retrieved from Azure.");
+                    return null;
+                }
+
+                _logger.Info(
+                    $"{lookUp.Organisations.Count()} educational organisations were retrieved from Azure");
+
+                await _cacheProvider.SetAsync(nameof(EducationalOrganisationLookUp), lookUp, TimeSpan.FromDays(14));
+                _logger.Info($"Cached educational organisations till {DateTime.Now.AddDays(1):R}");
+            }
+
+            return lookUp;
+        }
+
+        public async Task<EducationOrganisation> FindOrganisationByUrn(int urn)
+        {
+            return await Task.Run(async () =>
+            {
+                var lookUp = await GetOrganisationLookup();
+                
+                var organisations = lookUp.Organisations.ToList();
+
+                var organisation = organisations
+                    .FirstOrDefault(o => o.URN == urn);
+                
+                return organisation;
+            });
+        }
+
         private static int GetPageOffset(int pageSize, int pageNumber, int organisationCount)
         {
             var maxOffset = organisationCount - pageSize;

@@ -23,7 +23,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
         /// <param name="identifier">The identifier for the required organisation</param>
         /// <returns>
         ///     Details of the supplied organisation. If the relevant repository (e.g. Companies House) does not contain the 
-        ///     specified identifier then an <see cref="OrganisationNotFoundExeption"/> exception will be thrown. 
+        ///     specified identifier then an <see cref="OrganisationNotFoundException"/> exception will be thrown. 
         /// </returns>
         Task<Organisation> GetLatestDetails(OrganisationType organisationType, string identifier);
 

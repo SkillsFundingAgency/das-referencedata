@@ -8,5 +8,6 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Data
     public interface IEducationalOrganisationRepository
     {
         Task<PagedResult<EducationOrganisation>> FindOrganisations(string searchTerm, int pageSize, int pageNumber);
+        Task<EducationOrganisation> FindOrganisationByUrn(int urn);
     }
 }

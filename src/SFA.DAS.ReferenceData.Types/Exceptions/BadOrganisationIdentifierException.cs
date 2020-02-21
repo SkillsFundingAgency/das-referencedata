@@ -2,19 +2,19 @@
 
 namespace SFA.DAS.ReferenceData.Types.Exceptions
 {
-    public class BadOrganisationIdentifierExeption : InvalidGetOrganisationRequest
+    public class BadOrganisationIdentifierException : InvalidGetOrganisationRequest
     {
-        public BadOrganisationIdentifierExeption()
+        public BadOrganisationIdentifierException()
         {
             // just call base            
         }
 
-        public BadOrganisationIdentifierExeption(string message) : base(message)
+        public BadOrganisationIdentifierException(string message) : base(message)
         {
             // just call base
         }
 
-        public BadOrganisationIdentifierExeption(OrganisationType organisationType, string identifier) :
+        public BadOrganisationIdentifierException(OrganisationType organisationType, string identifier) :
             base($"The supplied identifier is not in a format recognised by the reference handler for organisation type ({organisationType}). Invalid identifier was \"{identifier}\"")
         {
             OrganisationType = organisationType;
