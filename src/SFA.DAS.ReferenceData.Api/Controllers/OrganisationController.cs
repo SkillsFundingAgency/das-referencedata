@@ -138,7 +138,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
                 var response = await _mediator.SendAsync(query);
                 return Ok(response.Organisation);
             }
-            catch (BadOrganisationIdentifierExeption e)
+            catch (BadOrganisationIdentifierException e)
             {
                 return BadRequest(e.Message);
             }
@@ -146,7 +146,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
             {
                 return BadRequest(e.Message);
             }
-            catch (OrganisationNotFoundExeption)
+            catch (OrganisationNotFoundException)
             {
                 return NotFound();
             }

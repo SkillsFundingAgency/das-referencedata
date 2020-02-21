@@ -11,18 +11,8 @@ using SFA.DAS.ReferenceData.Types.DTO;
 namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrganisationsSearchServiceTests
 {
     [TestFixture]
-    public class WhenISearchForAnEducationalOrganisation
+    public class WhenISearchForAnEducationalOrganisationByName : EducationalOrganisationSearchServiceTestsBase
     {
-        private Mock<IEducationalOrganisationRepository> _repository;
-        private EducationalOrganisationSearchService _service;
-
-        [SetUp]
-        public void Arrange()
-        {
-            _repository = new Mock<IEducationalOrganisationRepository>();
-            _service = new EducationalOrganisationSearchService(_repository.Object);
-        }
-
         [Test]
         public async Task ThenTheMatchingOrganisationsAreReturned()
         {
@@ -36,9 +26,9 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.EducationalOrgani
             };
             var expectedResults = new PagedResult<EducationOrganisation> { Data = expectedOrganisations, Page = 1, TotalPages = 1 };
 
-            _repository.Setup(x => x.FindOrganisations(searchTerm, maximumResults, 1)).ReturnsAsync(expectedResults);
+            Repository.Setup(x => x.FindOrganisations(searchTerm, maximumResults, 1)).ReturnsAsync(expectedResults);
 
-            var results = (await _service.Search(searchTerm, maximumResults)).ToList();
+            var results = (await Service.Search(searchTerm, maximumResults)).ToList();
 
             Assert.AreEqual(expectedOrganisations.Count, results.Count);
             foreach (var result in results)

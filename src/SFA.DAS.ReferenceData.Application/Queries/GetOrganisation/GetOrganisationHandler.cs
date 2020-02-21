@@ -23,14 +23,14 @@ namespace SFA.DAS.ReferenceData.Application.Queries.GetOrganisation
 
             if (!referenceSearcher.IsSearchTermAReference(query.Identifier))
             {
-                throw new BadOrganisationIdentifierExeption(query.OrganisationType, query.Identifier);
+                throw new BadOrganisationIdentifierException(query.OrganisationType, query.Identifier);
             }
 
             var organisation = await referenceSearcher.Search(query.Identifier);
 
             if (organisation == null)
             {
-                throw new OrganisationNotFoundExeption(query.OrganisationType, query.Identifier);
+                throw new OrganisationNotFoundException(query.OrganisationType, query.Identifier);
             }
 
             return new GetOrganisationResponse

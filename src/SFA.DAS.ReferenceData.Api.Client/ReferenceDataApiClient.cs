@@ -72,7 +72,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
             {
                 switch (response.StatusCode)
                 {
-                    case HttpStatusCode.NotFound: throw new OrganisationNotFoundExeption(response.ReasonPhrase);
+                    case HttpStatusCode.NotFound: throw new OrganisationNotFoundException(response.ReasonPhrase);
                     case HttpStatusCode.BadRequest: throw new InvalidGetOrganisationRequest(response.ReasonPhrase);
                 }
                 return true;

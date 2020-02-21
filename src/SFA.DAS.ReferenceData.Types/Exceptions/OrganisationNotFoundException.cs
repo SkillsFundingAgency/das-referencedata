@@ -2,14 +2,14 @@
 
 namespace SFA.DAS.ReferenceData.Types.Exceptions
 {
-    public class OrganisationNotFoundExeption : ReferenceDataException
+    public class OrganisationNotFoundException : ReferenceDataException
     {
-        public OrganisationNotFoundExeption(string message) : base(message)
+        public OrganisationNotFoundException(string message) : base(message)
         {
             // just call base
         }
 
-        public OrganisationNotFoundExeption(OrganisationType organisationType, string identifier) :
+        public OrganisationNotFoundException(OrganisationType organisationType, string identifier) :
             base($"Did not find an organisation type {organisationType} with identifier {identifier}")
         {
             OrganisationType = organisationType;

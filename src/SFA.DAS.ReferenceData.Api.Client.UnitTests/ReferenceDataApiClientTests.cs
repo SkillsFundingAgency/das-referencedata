@@ -48,7 +48,7 @@ namespace SFA.DAS.ReferenceData.Api.Client.UnitTests
             fixtures.ChackUrlCalled($"{fixtures.BaseUrl}charities/{charityNumber}");
         }
 
-        [TestCase(OrganisationType.Company, "123", HttpStatusCode.NotFound, typeof(OrganisationNotFoundExeption))]
+        [TestCase(OrganisationType.Company, "123", HttpStatusCode.NotFound, typeof(OrganisationNotFoundException))]
         [TestCase(OrganisationType.Company, "123", HttpStatusCode.BadRequest, typeof(InvalidGetOrganisationRequest))]
         public void GetLatestDetails_SpecifiedStatusCode_ShouldCauseExpectedExceptionInClient(
             OrganisationType organisationType, 

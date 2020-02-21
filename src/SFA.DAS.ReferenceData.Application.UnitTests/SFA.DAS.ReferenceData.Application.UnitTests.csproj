@@ -76,7 +76,10 @@
     <Compile Include="Services\CompanySearchServiceTests\WhenICheckIfSearchTermIsAReference.cs" />
     <Compile Include="Services\CompanySearchServiceTests\WhenISearchForCompany.cs" />
     <Compile Include="Services\CompanySearchServiceTests\WhenIGetACompanyByReference.cs" />
-    <Compile Include="Services\EducationalOrganisationsSearchServiceTests\WhenISearchForAnEducationalOrganisation.cs" />
+    <Compile Include="Services\EducationalOrganisationsSearchServiceTests\EducationalOrganisationSearchServiceTestsBase.cs" />
+    <Compile Include="Services\EducationalOrganisationsSearchServiceTests\WhenIProvideASearchTerm.cs" />
+    <Compile Include="Services\EducationalOrganisationsSearchServiceTests\WhenISearchForAnEducationalOrganisationByName.cs" />
+    <Compile Include="Services\EducationalOrganisationsSearchServiceTests\WhenISearchForAnEducationalOrganisationByNumber.cs" />
     <Compile Include="Services\PublicSectorSearchServiceTests\WhenISearchForAPublicSectorOrganisation.cs" />
   </ItemGroup>
   <ItemGroup>
