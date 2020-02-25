@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
@@ -54,7 +55,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
 
         public bool IsSearchTermAReference(string searchTerm)
         {
-            return int.TryParse(searchTerm, out _);
+            return Regex.IsMatch(searchTerm, @"^[14]\d{5}$");
         }
 
         public async Task<Organisation> Search(string reference)
