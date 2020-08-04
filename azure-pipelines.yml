@@ -22,8 +22,10 @@ resources:
     endpoint: "GitHub (SFA)"
 
 pool:
-  name: 'DAS - Continuous Integration'
-  demands: Agent.OS -equals Windows_NT
+  name: Azure Pipelines
+  demands:
+  - msbuild
+  - visualstudio
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
