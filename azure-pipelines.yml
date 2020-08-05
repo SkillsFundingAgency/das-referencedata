@@ -21,14 +21,12 @@ resources:
     ref: refs/heads/master
     endpoint: "GitHub (SFA)"
 
-pool:
-  name: 'Continuous Integration 02 - SSD - 160ACU'
-  demands: 
-  - msbuild
-  - visualstudio
+pool: 
+  name: 'DAS - Continuous Integration'
+  demands: Agent.OS -equals Windows_NT
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@4
+- task: gittools.gitversion.gitversion-task.GitVersion@5
   displayName: GitVersion
   inputs:
     updateAssemblyInfo: true
