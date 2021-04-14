@@ -40,32 +40,40 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
         public async Task RunUpdate()
         {
-            _logger.Info("Running Public Organisations updater");
-
-            if(!_configuration.NhsTrustsUrls.Any() || 
-                string.IsNullOrWhiteSpace(_configuration.PoliceForcesUrl) || 
-                string.IsNullOrWhiteSpace(_configuration.ONSUrl) ||
-                string.IsNullOrWhiteSpace(_configuration.OnsUrlDateFormat))
+            try
             {
-                const string errorMessage = "Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl, ONSUrl and ONSUrlDateFormat";
-                _logger.Error(new Exception(errorMessage), errorMessage);
-                throw new Exception("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl, ONSUrl and ONSUrlDateFormat");
+                _logger.Info("Running Public Organisations updater");
+
+                if(!_configuration.NhsTrustsUrls.Any() || 
+                    string.IsNullOrWhiteSpace(_configuration.PoliceForcesUrl) || 
+                    string.IsNullOrWhiteSpace(_configuration.ONSUrl) ||
+                    string.IsNullOrWhiteSpace(_configuration.OnsUrlDateFormat))
+                {
+                    const string errorMessage = "Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl, ONSUrl and ONSUrlDateFormat";
+                    _logger.Error(new Exception(errorMessage), errorMessage);
+                    throw new Exception("Missing configuration, check table storage configuration for NhsTrustsUrls, PoliceForcesUrl, ONSUrl and ONSUrlDateFormat");
+                }
+
+                var onsOrgs = await GetOnsOrganisations();
+                var nhsOrgs = await GetNhsOrganisations();
+                var policeOrgs = GetPoliceOrganisations();
+
+                var orgs = new PublicSectorOrganisationLookUp
+                {
+                    Organisations = onsOrgs.Organisations
+                                        .Concat(nhsOrgs.Organisations)
+                                        .Concat(policeOrgs.Organisations).ToList()
+                };
+
+                var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
+                _jsonManager.ExportFile(jsonFilePath, orgs);
+                _jsonManager.UploadJsonToStorage(jsonFilePath);
             }
-
-            var onsOrgs = await GetOnsOrganisations();
-            var nhsOrgs = await GetNhsOrganisations();
-            var policeOrgs = GetPoliceOrganisations();
-            
-            var orgs = new PublicSectorOrganisationLookUp
+            catch(Exception ex)
             {
-                Organisations = onsOrgs.Organisations
-                                    .Concat(nhsOrgs.Organisations)
-                                    .Concat(policeOrgs.Organisations).ToList()
-            };
-
-            var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
-            _jsonManager.ExportFile(jsonFilePath, orgs);
-            _jsonManager.UploadJsonToStorage(jsonFilePath);
+                _logger.Fatal(ex, $"The {_jsonFileName} has not been updated");
+                throw;
+            }
         }
 
         private async Task<PublicSectorOrganisationLookUp> GetOnsOrganisations()
