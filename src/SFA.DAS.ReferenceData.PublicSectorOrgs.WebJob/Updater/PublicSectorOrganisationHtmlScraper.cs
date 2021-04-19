@@ -17,10 +17,13 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 var web = new HtmlWeb();
                 var doc = web.Load(url);
 
-                var englandPolice = System.Net.WebUtility.HtmlDecode(doc.DocumentNode.SelectNodes("//*[@id=\"england\"]/ul")[0].InnerText).Split('\n')
-                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
-                var nationalPolice = System.Net.WebUtility.HtmlDecode(doc.DocumentNode.SelectNodes("//*[@id=\"special\"]/ul")[0].InnerText).Split('\n')
-                    .Where(x => !string.IsNullOrWhiteSpace(x)).Select(s => s.Trim());
+                var englandPolice = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div/section/div[2]/div[4]/div/div/div[1]/div/div[2]/div/ul/li/a/text()")
+                    .Where(p => !string.IsNullOrWhiteSpace(p.InnerText))
+                    .Select(p => p.InnerText.Trim());
+
+                var nationalPolice = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div/section/div[2]/div[4]/div/div/div[5]/div/div[2]/div/ul/li/a/text()")
+                    .Where(p => !string.IsNullOrWhiteSpace(p.InnerText))
+                    .Select(p => p.InnerText.Trim());
 
                 ol.Organisations = englandPolice.Concat(nationalPolice)
                     .Select(x => new PublicSectorOrganisation
