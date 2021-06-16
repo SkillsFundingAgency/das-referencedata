@@ -52,20 +52,57 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             const string searchTerm = "test";
             var resultItem = new CompanySearchResultsItem
             {
-                CompanyName = "Test Corp",
+                CompanyName = "Test Company",
                 Address = new Domain.Models.Company.Address
                 {
                     Premises = "12",
                     CompaniesHouseLine1 = "Test Street",
-                    Line2 = "Test Park",
+                    CompaniesHouseLine2 = "Test Park",
                     TownOrCity = "Test Town",
-                    County = "Testville",
-                    PostCode = "TE12 3ST"
+                    County = "Testshire",
+                    PostCode = "TE51 3TS"
                 },
                 DateOfIncorporation = DateTime.Now,
                 CompanyNumber = "12345678"
             }; 
             
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults
+            {
+                Companies = new List<CompanySearchResultsItem> { resultItem }
+            });
+
+            //Act
+            var results = await _searchService.Search(searchTerm, 10);
+
+            //Assert
+            Assert.IsNotNull(results.FirstOrDefault());
+        }
+
+        [TestCase("12", "Test Street", "TestPark", "Test Town", "Testshire", "TE51 3TS")]
+        [TestCase(null, "Test Street", "TestPark", "Test Town", "Testshire", "TE51 3TS")]
+        [TestCase("12", "Test Street", null, "Test Town", "Testshire", "TE51 3TS")]
+        [TestCase(null, "Test Street", null, "Test Town", "Testshire", "TE51 3TS")]
+        public async Task ShouldFormatAddressCorrectlyForFoundCompanies(string premises, string companiesHouseLine1, string companiesHouseLine2, 
+            string townOrCity, string county, string postcode)
+        {
+            //Arrange
+            const string searchTerm = "Test";
+            var resultItem = new CompanySearchResultsItem
+            {
+                CompanyName = "Test Company",
+                Address = new Domain.Models.Company.Address
+                {
+                    Premises = premises,
+                    CompaniesHouseLine1 = companiesHouseLine1,
+                    CompaniesHouseLine2 = companiesHouseLine2,
+                    TownOrCity = townOrCity,
+                    County = county,
+                    PostCode = postcode
+                },
+                DateOfIncorporation = DateTime.Now,
+                CompanyNumber = "12345678"
+            };
+
             _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults
             {
                 Companies = new List<CompanySearchResultsItem> { resultItem }
@@ -80,8 +117,9 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             Assert.IsNotNull(organisation);
             Assert.AreEqual(resultItem.CompanyName, organisation.Name);
 
-            Assert.AreEqual(resultItem.Address.Premises + " " + resultItem.Address.CompaniesHouseLine1, organisation.Address.Line1);
-            Assert.AreEqual(resultItem.Address.Line2, organisation.Address.Line2);
+            Assert.AreEqual(!string.IsNullOrEmpty(resultItem.Address.Premises) ? resultItem.Address.Premises : resultItem.Address.CompaniesHouseLine1, organisation.Address.Line1);
+            Assert.AreEqual(!string.IsNullOrEmpty(resultItem.Address.Premises) ? resultItem.Address.CompaniesHouseLine1 : resultItem.Address.CompaniesHouseLine2, organisation.Address.Line2);
+            Assert.AreEqual(!string.IsNullOrEmpty(resultItem.Address.Premises) ? resultItem.Address.CompaniesHouseLine2 : null, organisation.Address.Line3);
             Assert.AreEqual(resultItem.Address.TownOrCity, organisation.Address.Line4);
             Assert.AreEqual(resultItem.Address.County, organisation.Address.Line5);
             Assert.AreEqual(resultItem.Address.PostCode, organisation.Address.Postcode);
@@ -91,8 +129,8 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             Assert.AreEqual(OrganisationType.Company, organisation.Type);
             Assert.AreEqual(OrganisationSubType.None, organisation.SubType);
         }
-		
-		[Test]
+
+        [Test]
         public async Task ThenAnEmptyAddressIsReturnedWhenNullIsReturnedFromTheApi()
         {
             //Arrange
