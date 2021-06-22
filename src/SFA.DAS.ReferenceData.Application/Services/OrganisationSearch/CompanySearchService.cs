@@ -94,6 +94,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             {
                 Line1 = address.Line1,
                 Line2 = address.Line2,
+                Line3 = address.Line3,
                 Line4 = address.TownOrCity,
                 Line5 = address.County,
                 Postcode = address.PostCode
