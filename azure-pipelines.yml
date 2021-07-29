@@ -51,7 +51,7 @@ steps:
     configuration: '$(buildConfiguration)'
     clean: true
 
-- template: azure-pipelines-templates/dependency-check.yml@das-platform-building-blocks
+- template: azure-pipelines-templates/build/step/dependency-check.yml@das-platform-building-blocks
 
 - task: VSTest@2
   displayName: 'VsTest - testAssemblies'
