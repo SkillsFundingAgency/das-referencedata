@@ -49,13 +49,13 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             const string reference = "12345678";
             var info = new CompanyInformation
             {
-                CompanyName = "Test Corp",
+                CompanyName = "Test Company",
                 RegisteredAddress = new Domain.Models.Company.Address
                 {
                     CompaniesHouseLine1 = "12 Test Street",
-                    Line2 = "Test Park",
+                    CompaniesHouseLine2 = "Test Park",
                     TownOrCity = "Test Town",
-                    County = "Testville",
+                    County = "Testshire",
                     PostCode = "TE12 3ST"
                 },
                 DateOfIncorporation = DateTime.Now,
