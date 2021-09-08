@@ -95,10 +95,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         {
             var urlpattern = _configuration.CharityDataSourceUrlPattern;
 
-            var dateNumericString = $"{year}{month:D2}";
             var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}";
 
-            var url = string.Format(urlpattern, dateNumericString, monthyear);
+            var url = string.Format(urlpattern, monthyear);
             return url;
         }
 
