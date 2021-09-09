@@ -36,10 +36,10 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             var lastImport = await _charityRepository.GetLastCharityDataImport();
             
-            // default to June 2017
+            // start at May 2017 which will import June 2017 when no previous import exists
             var importInfo = await SearchForDownload(lastImport != null 
                 ? new DateTime(lastImport.Year, lastImport.Month, 1) 
-                : new DateTime(2017, 6, 1));
+                : new DateTime(2017, 5, 1));
             
             var filename = importInfo.Item1;
             var importDate = importInfo.Item2;

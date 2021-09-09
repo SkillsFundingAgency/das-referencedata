@@ -80,7 +80,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         }
 
         [Test]
-        public async Task ThenIfNoPreviousImportExistsThenNovember2016IsUsedAsDefault()
+        public async Task ThenIfNoPreviousImportExistsThenSearchStartsAtJune2017()
         {
             //Setup
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
