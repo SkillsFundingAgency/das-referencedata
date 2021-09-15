@@ -39,7 +39,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             _configuration = new ReferenceDataApiConfiguration
             {
                 DatabaseConnectionString="",
-                CharityDataSourceUrlPattern="_{0}_{1}_",
+                CharityDataSourceUrlPattern="_{0}_",
                 CharityBcpServerName="",
                 CharityBcpTrustedConnection=false,
                 CharityBcpUsername="",
@@ -80,24 +80,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         }
 
         [Test]
-        public async Task ThenTheDateInTheUrlIsFormattedCorrectly()
-        {
-            //Setup
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(2017, 1, 1), Month = 1, Year = 2017 });
-
-            //Act
-            await _importer.RunUpdate();
-
-            //Assert
-            var expectedDatePathSegment = "201702";
-
-            _archiveDownloadService.Verify(x => x.DownloadFile(It.IsRegex(expectedDatePathSegment), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-
-        }
-
-        [Test]
-        public async Task ThenIfNoPreviousImportExistsThenNovember2016IsUsedAsDefault()
+        public async Task ThenIfNoPreviousImportExistsThenSearchStartsAtJune2017()
         {
             //Setup
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
