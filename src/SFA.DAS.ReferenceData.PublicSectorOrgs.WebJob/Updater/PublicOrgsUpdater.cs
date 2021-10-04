@@ -88,8 +88,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName))
                 {
                     const string errorMessage = "Failed to download ONS from current and previous month, potential URL format change";
-                    _logger.Error(new Exception(errorMessage), errorMessage);
-                    throw new Exception("Failed to download ONS from current and previous month, potential URL format change");
+                    _logger.Error(new Exception(errorMessage), errorMessage);                    
                 }
             }
 
