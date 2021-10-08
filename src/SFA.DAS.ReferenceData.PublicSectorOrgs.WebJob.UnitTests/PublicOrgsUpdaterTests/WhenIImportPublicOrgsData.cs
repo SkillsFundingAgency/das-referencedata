@@ -74,7 +74,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpda
         }
 
         [Test]
-        public void WhenTheOnsFileIsNotAvailableForTheCurrentMonthAndAlsoForThePreviousMonthUpdateDatabaseIsNotCalledExceptionIsThrown()
+        public void WhenTheOnsFileIsNotAvailableForTheCurrentMonthAndAlsoForThePreviousMonthsUpdateDatabaseIsNotCalledExceptionIsThrown()
         {
             _archiveDownloadService.SetupSequence(o => o.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(false)).Returns(Task.FromResult(false));
@@ -85,7 +85,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpda
                 await _updater.RunUpdate();
             });
 
-            _archiveDownloadService.Verify(o => o.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            _archiveDownloadService.Verify(o => o.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(5));
             _dbUpdater.Verify(o => o.UpdateDatabase(It.IsAny<string>()), Times.Never);
         }
 
