@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Domain.Models;
@@ -13,7 +12,7 @@ using SFA.DAS.ReferenceData.Types.DTO;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
-    public class PublicSectorOrganisationRepository : IPublicSectorOrganisationRepository, ICachedRepository
+    public class PublicSectorOrganisationRepository : IPublicSectorOrganisationRepository
     {
         private readonly ICacheProvider _cacheProvider;
         private readonly IAzureService _azureService;

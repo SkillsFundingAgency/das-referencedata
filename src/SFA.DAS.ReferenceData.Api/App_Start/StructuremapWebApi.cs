@@ -20,18 +20,19 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using SFA.DAS.ReferenceData.Api;
 using SFA.DAS.ReferenceData.Api.DependancyResolution;
-using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
 
-namespace SFA.DAS.ReferenceData.Api {
+namespace SFA.DAS.ReferenceData.Api
+{
     public static class StructuremapWebApi {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;
             GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
 
             //Refresh all cached repositories at startup so we reduce likeihood of delay requests (which occur is cache is not populated)
-            var cachedRepositories = container.GetAllInstances<ICachedRepository>().ToList();
+            var cachedRepositories = container.GetAllInstances<IPublicSectorOrganisationRepository>().ToList();
             Parallel.ForEach(cachedRepositories, x => x.RefreshCache());
         }
     }
