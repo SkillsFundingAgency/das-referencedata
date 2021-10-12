@@ -78,19 +78,26 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
         private async Task<PublicSectorOrganisationLookUp> GetOnsOrganisations()
         {
-            
-            var url = GetDownloadUrlForMonthYear(false);
-            _logger.Info($"Downloading ONS from {url}");
-            if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName))
+            var maxHistoricFileAttempts = 5;
+            var attempt = 0;
+            var downloadSuccess = false;
+
+            while(attempt < maxHistoricFileAttempts)
             {
+                var url = GetDownloadUrlForMonthYear(attempt);
                 _logger.Info($"Downloading ONS from {url}");
-                url = GetDownloadUrlForMonthYear(true);
-                if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName))
-                {
-                    const string errorMessage = "Failed to download ONS from current and previous month, potential URL format change";
-                    _logger.Error(new Exception(errorMessage), errorMessage);
-                    throw new Exception("Failed to download ONS from current and previous month, potential URL format change");
-                }
+
+                downloadSuccess = await _archiveDownloadService.DownloadFile(url, _workingFolder, _fileName);
+
+                if (downloadSuccess) break;
+                attempt++;
+            }
+
+            if (!downloadSuccess)
+            {
+                const string errorMessage = "Failed to download ONS from current and previous month, potential URL format change";
+                _logger.Error(new Exception(errorMessage), errorMessage);
+                throw new Exception("Failed to download ONS from current and previous month, potential URL format change");
             }
 
             var excelFile = Path.Combine(_workingFolder, _fileName);
@@ -114,12 +121,12 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             return data;
         }
 
-        private string GetDownloadUrlForMonthYear(bool previousMonth)
+        private string GetDownloadUrlForMonthYear(int minusMonths)
         {
             var urlpattern = _configuration.ONSUrl;
             var datePattern = _configuration.OnsUrlDateFormat;
 
-            var now = previousMonth ? DateTime.UtcNow.AddMonths(-1) : DateTime.UtcNow;
+            var now = DateTime.UtcNow.AddMonths(-minusMonths);
            
             var url = string.Format(urlpattern, now.ToString(datePattern).ToLower());
             return url;
