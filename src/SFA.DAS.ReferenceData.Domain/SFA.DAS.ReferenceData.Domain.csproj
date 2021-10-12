@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.FluentMap, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.FluentMap.2.0.0\lib\netstandard2.0\Dapper.FluentMap.dll</HintPath>
+    </Reference>
     <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.9\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
     </Reference>
@@ -41,6 +47,7 @@
       <HintPath>..\packages\Polly.5.1.0\lib\net45\Polly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +75,7 @@
     <Compile Include="Interfaces\Data\IFileSystemRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
+    <Compile Include="Interfaces\Services\ICharityService.cs" />
     <Compile Include="Interfaces\Services\ICompaniesHouseEmployerVerificationService.cs" />
     <Compile Include="Interfaces\Services\IEdubaseService.cs" />
     <Compile Include="Interfaces\Services\INhsCsvReaderHelper.cs" />
@@ -78,6 +86,8 @@
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
+    <Compile Include="Models\Charity\CharityImport.cs" />
+    <Compile Include="Models\Charity\CharityStagingTableModel.cs" />
     <Compile Include="Models\Company\Address.cs" />
     <Compile Include="Models\Company\CompanySearchResults.cs" />
     <Compile Include="Models\Company\CompanyInformation.cs" />

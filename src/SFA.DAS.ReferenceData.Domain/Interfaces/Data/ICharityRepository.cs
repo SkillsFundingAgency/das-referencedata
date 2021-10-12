@@ -13,6 +13,7 @@ namespace SFA.DAS.ReferenceData.Domain.Interfaces.Data
         Task TruncateLoadTables();
         Task CreateCharityDataImport(int month, int year);
         Task ImportDataFromLoadTables();
+        Task ImportFromPublicExtractCharityTable();
         Task<Charity> GetCharityByRegistrationNumber(int registrationNumber);
         Task<IEnumerable<Charity>> FindCharities(string searchTerm, int maximumResults);
     }

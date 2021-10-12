@@ -2,6 +2,7 @@
     WITH EXECUTE AS OWNER
 AS
 
+TRUNCATE TABLE [CharityImport].extract_charity_import
 TRUNCATE TABLE [CharityImport].extract_acct_submit
 TRUNCATE TABLE [CharityImport].extract_aoo_ref
 TRUNCATE TABLE [CharityImport].extract_ar_submit

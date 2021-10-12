@@ -16,16 +16,16 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
     {
         private CharityImporter _importer;
         private ReferenceDataApiConfiguration _configuration;
-        private Mock<ICharityRepository> _charityRepository;
-        private Mock<IBcpService> _bcpService;
+        private Mock<ICharityRepository> _charityRepository;        
+        private Mock<ICharityService> _charityService;
         private Mock<IArchiveDownloadService> _archiveDownloadService;
         private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
         {
-            _charityRepository = new Mock<ICharityRepository>();
-            _bcpService = new Mock<IBcpService>();
+            _charityRepository = new Mock<ICharityRepository>();            
+            _charityService = new Mock<ICharityService>();
             _archiveDownloadService = new Mock<IArchiveDownloadService>();
             _logger = new Mock<ILog>();
 
@@ -50,7 +50,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
                 CharityBcpFieldTerminator="",
             };
 
-            _importer = new CharityImporter(_configuration, _charityRepository.Object, _bcpService.Object, _archiveDownloadService.Object, _logger.Object);
+            _importer = new CharityImporter(_configuration, _charityRepository.Object, _charityService.Object,  _archiveDownloadService.Object, _logger.Object);
         }
 
         [Test]
@@ -74,7 +74,8 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            var expectedFile = $"January_2017";
+            //var expectedFile = $"January_2017";
+            var expectedFile = "publicextract.charity.zip";
 
             _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
         }
@@ -90,7 +91,8 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            var expectedFile = "June_2017";
+            //var expectedFile = "June_2017";
+            var expectedFile = "publicextract.charity.zip";
 
             _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
         }
@@ -118,13 +120,13 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         }
 
         [Test]
-        public async Task ThenABcpCommandIsIssued()
+        public async Task ThenExecuteCharityImportIsIssued()
         {
             //Act
             await _importer.RunUpdate();
 
             //Assert
-            _bcpService.Verify(x => x.ExecuteBcp(It.IsAny<BcpRequest>()), Times.Once);
+            _charityService.Verify(x => x.ExecuteCharityImport(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -157,8 +159,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            _archiveDownloadService.Verify(x=> x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-            _bcpService.Verify(x=> x.ExecuteBcp(It.IsAny<BcpRequest>()), Times.Never);
+            _archiveDownloadService.Verify(x=> x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()), Times.Never);            
             _charityRepository.Verify(x=> x.RecordCharityDataImport(It.IsAny<int>(), It.IsAny<int>()),Times.Never);
         }
     }
