@@ -10,9 +10,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob
             var container = IoC.Initialize();
             var updater = container.GetInstance<ICharityImporter>();
             updater.RunUpdate().Wait();
-
-            //var updater = container.GetInstance<INewCharityImporter>();
-            //updater.RunUpdate();
         }
     }
 }

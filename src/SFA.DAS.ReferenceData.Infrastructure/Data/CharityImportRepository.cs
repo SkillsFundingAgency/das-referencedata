@@ -11,8 +11,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
     public interface ICharityImportRepository
     {
-        Task ImportToStagingTable(IEnumerable<ExistingCharity> charityData, IEnumerable<ExistingCharityRegistration> charityRegistrations,
-           IEnumerable<ExistingMainCharity> mainCharity, IEnumerable<CharityImport> charityImports);
+        Task ImportToStagingTable(IEnumerable<CharityImport> charityImports);
     }
 
     public class CharityImportRepository : BaseRepository, ICharityImportRepository
@@ -24,10 +23,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             _connectionString = configuration.DatabaseConnectionString;
         }
 
-        public async Task ImportToStagingTable(IEnumerable<ExistingCharity> charityData, 
-            IEnumerable<ExistingCharityRegistration> charityRegistrations,
-            IEnumerable<ExistingMainCharity> mainCharity, 
-            IEnumerable<CharityImport> charityImports)
+        public async Task ImportToStagingTable(IEnumerable<CharityImport> charityImports)
         {
             try
             {
@@ -36,7 +32,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 {
                     await connection.OpenAsync().ConfigureAwait(false);
                     bulkCopy.BatchSize = 1000;
-                    bulkCopy.BulkCopyTimeout = 1200;
+                    bulkCopy.BulkCopyTimeout = 3600;
 
                     bulkCopy.DestinationTableName = "[CharityImport].[extract_charity_import]";
                     bulkCopy.ColumnMappings.Clear();
@@ -46,33 +42,6 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                     {
                         await bulkCopy.WriteToServerAsync(reader).ConfigureAwait(false);
                     }
-
-                    //bulkCopy.DestinationTableName = "[CharityImport].[extract_charity]";
-                    //bulkCopy.ColumnMappings.Clear();
-                    //PopulateBulkCopy(bulkCopy, typeof(ExistingCharity));
-
-                    //using (var reader = ObjectReader.Create(charityData))
-                    //{
-                    //    await bulkCopy.WriteToServerAsync(reader).ConfigureAwait(false);
-                    //}
-
-                    //bulkCopy.DestinationTableName = "[CharityImport].[extract_registration]";
-                    //bulkCopy.ColumnMappings.Clear();
-                    //PopulateBulkCopy(bulkCopy, typeof(ExistingCharityRegistration));
-
-                    //using (var reader = ObjectReader.Create(charityRegistrations))
-                    //{
-                    //    await bulkCopy.WriteToServerAsync(reader).ConfigureAwait(false);
-                    //}
-
-                    //bulkCopy.DestinationTableName = "[CharityImport].[extract_main_charity]";
-                    //bulkCopy.ColumnMappings.Clear();
-                    //PopulateBulkCopy(bulkCopy, typeof(ExistingMainCharity));
-
-                    //using (var reader = ObjectReader.Create(mainCharity))
-                    //{
-                    //    await bulkCopy.WriteToServerAsync(reader).ConfigureAwait(false);
-                    //}
                 }
             }
 

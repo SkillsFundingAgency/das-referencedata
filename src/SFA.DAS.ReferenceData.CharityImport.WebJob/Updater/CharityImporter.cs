@@ -14,7 +14,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
     public class CharityImporter : ICharityImporter
     {
         private readonly ReferenceDataApiConfiguration _configuration;
-        private readonly ICharityRepository _charityRepository;        
+        private readonly ICharityRepository _charityRepository;
         private readonly ICharityService _charityService;
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly ILog _logger;
@@ -27,7 +27,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             ILog logger)
         {
             _configuration = configuration;
-            _charityRepository = charityRepository;            
+            _charityRepository = charityRepository; 
             _charityService = charityService;
             _archiveDownloadService = archiveDownloadService;
             _logger = logger;
@@ -130,14 +130,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
         {
             return $"RegPlusExtract_{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}.zip";
         }
-
-        private void PopulateBulkCopy(SqlBulkCopy bulkCopy, Type entityType)
-        {
-            var columns = entityType.GetProperties();
-            foreach (var propertyInfo in columns)
-            {
-                bulkCopy.ColumnMappings.Add(new SqlBulkCopyColumnMapping(propertyInfo.Name, propertyInfo.Name));
-            }
-        }     
+    
     }
 }

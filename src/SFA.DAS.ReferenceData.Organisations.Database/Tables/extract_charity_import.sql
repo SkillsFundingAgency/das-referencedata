@@ -1,37 +1,37 @@
 CREATE TABLE [CharityImport].[extract_charity_import]
 (	
-	[DateOfExtract] [smalldatetime] NULL, --1
-	[OrganisationNumber] [int] NULL, -- 2
-	[RegisteredCharityNumber] [int] NULL, --3
-	[LinkedCharityNumber] [int] NULL, -- 4
-	[CharityName] [varchar](500) NULL, --5
-	[CharityType] [varchar](50) NULL, --6
-	[CharityRegistrationStatus] [varchar](50) NULL, --7 
-	[DateOfRegistration] [smalldatetime] NULL, --8
-	[DateOfRemoval] [smalldatetime] NULL, --9
-	[CharityReportingStatus] [varchar](150) NULL, --10
-	[LatestAccFinPeriodStartDate] [smalldatetime] NULL, --11
-	[LatestAccFinPeriodEndDate] [smalldatetime] NULL, --12
-	LatestIncome [numeric](12, 0) NULL, --13
-	[LatestExpenditure] [numeric](12, 0) NULL, --13
-	[CharityContactAddress1] [varchar](50) NULL, --14
-	[CharityContactAddress2] [varchar](50) NULL, --15
-	[CharityContactAddress3] [varchar](50) NULL, --16
-	[CharityContactAddress4] [varchar](50) NULL, --17
-	[CharityContactAddress5] [varchar](50) NULL, --18
-	[CharityContactPostcode] [varchar](8) NULL, --19
-	[CharityContactPhone] [varchar](100) NULL, --20
-	[CharityContactEmail] [varchar](100) NULL, --21 
-	[CharityContactWeb] [varchar](400) NULL, -- 22
-	[CharityCompanyRegistrationNumber] [varchar](100) NULL, --23
-	[CharityInsolvent] [bit] NULL, -- 24
-	[CharityInAdministration] [bit] NULL, --25
-	[CharityPreviouslyExcepted] [bit] NULL, --26
-	[CharityIsCdfOrCif] [varchar](100) NULL, --27
-	[CharityIsCio] [bit] NULL, --28
-	[CioIsDissolved] [bit] NULL, --29
-	[DateCioDissolutionNotice]  [smalldatetime] NULL, --30
-	[CharityActivities] [nvarchar](max) NULL, --31
-	[CharityGiftAid] [bit] NULL, -- 32
-	[CharityHasLand] [bit] NULL, -- 33
+	[DateOfExtract] [smalldatetime] NULL,
+	[OrganisationNumber] [int] NULL,
+	[RegisteredCharityNumber] [int] NULL,
+	[LinkedCharityNumber] [int] NULL,
+	[CharityName] [varchar](500) NULL,
+	[CharityType] [varchar](50) NULL,
+	[CharityRegistrationStatus] [varchar](50) NULL,
+	[DateOfRegistration] [smalldatetime] NULL,
+	[DateOfRemoval] [smalldatetime] NULL,
+	[CharityReportingStatus] [varchar](150) NULL,
+	[LatestAccFinPeriodStartDate] [smalldatetime] NULL,
+	[LatestAccFinPeriodEndDate] [smalldatetime] NULL,
+	LatestIncome [numeric](12, 0) NULL,
+	[LatestExpenditure] [numeric](12, 0) NULL,
+	[CharityContactAddress1] [varchar](50) NULL,
+	[CharityContactAddress2] [varchar](50) NULL,
+	[CharityContactAddress3] [varchar](50) NULL,
+	[CharityContactAddress4] [varchar](50) NULL,
+	[CharityContactAddress5] [varchar](50) NULL,
+	[CharityContactPostcode] [varchar](8) NULL,
+	[CharityContactPhone] [varchar](100) NULL,
+	[CharityContactEmail] [varchar](100) NULL,
+	[CharityContactWeb] [varchar](400) NULL,
+	[CharityCompanyRegistrationNumber] [varchar](100) NULL,
+	[CharityInsolvent] [bit] NULL,
+	[CharityInAdministration] [bit] NULL,
+	[CharityPreviouslyExcepted] [bit] NULL,
+	[CharityIsCdfOrCif] [varchar](100) NULL,
+	[CharityIsCio] [bit] NULL,
+	[CioIsDissolved] [bit] NULL,
+	[DateCioDissolutionNotice]  [smalldatetime] NULL,
+	[CharityActivities] [nvarchar](max) NULL,
+	[CharityGiftAid] [bit] NULL,
+	[CharityHasLand] [bit] NULL,
 )

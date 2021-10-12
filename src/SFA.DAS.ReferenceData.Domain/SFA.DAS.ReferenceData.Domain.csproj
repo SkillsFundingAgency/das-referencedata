@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper.FluentMap, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.FluentMap.2.0.0\lib\netstandard2.0\Dapper.FluentMap.dll</HintPath>
-    </Reference>
     <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.9\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
     </Reference>
@@ -87,7 +81,6 @@
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
     <Compile Include="Models\Charity\CharityImport.cs" />
-    <Compile Include="Models\Charity\CharityStagingTableModel.cs" />
     <Compile Include="Models\Company\Address.cs" />
     <Compile Include="Models\Company\CompanySearchResults.cs" />
     <Compile Include="Models\Company\CompanyInformation.cs" />
