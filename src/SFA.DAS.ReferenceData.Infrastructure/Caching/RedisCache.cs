@@ -32,18 +32,12 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Caching
 
         public async Task SetCustomValueAsync<T>(string key, T customType, int secondsInCache = 300)
         {
-            if (!await _cache.KeyExistsAsync(key))
-            {
-                var _lock = new TaskSynchronizationScope();
+            var _lock = new TaskSynchronizationScope();
 
-                await _lock.RunAsync(async () =>
-                {
-                    if (!await _cache.KeyExistsAsync(key))
-                    {
-                        await _cache.StringSetAsync(key, JsonConvert.SerializeObject(customType), TimeSpan.FromSeconds(secondsInCache));
-                    }
-                });
-            }
+            await _lock.RunAsync(async () =>
+            {
+                await _cache.StringSetAsync(key, JsonConvert.SerializeObject(customType), TimeSpan.FromSeconds(secondsInCache));
+            });
         }
     }
 }
