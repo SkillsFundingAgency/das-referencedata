@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
-using SFA.DAS.ReferenceData.Infrastructure.Data;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Services
 {
@@ -34,7 +34,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                 throw new InvalidOperationException("Import aborted - no files found in directory");
             }
 
-            IEnumerable<CharityImport> charityImport = new List<CharityImport>();
+            IEnumerable<CharityImport> charityImport;
             var totalStopwatch = Stopwatch.StartNew();
             try
             {   
@@ -43,17 +43,17 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
                     var stopwatch = Stopwatch.StartNew();
                     _logger.Info($"Beginning Json import for {sourceDirectory}");
                     string json = r.ReadToEnd();
-                    charityImport = JsonConvert.DeserializeObject<IEnumerable<CharityImport>>(json); // TODO : change to response CharityExtractResponse
+                    charityImport = JsonConvert.DeserializeObject<IEnumerable<CharityImport>>(json);
                     stopwatch.Stop();
-                    _logger.Info($"Complete Json import  for {sourceDirectory}: {stopwatch.Elapsed} elapsed");
-                }                
+                    _logger.Info($"Complete Json import for {sourceDirectory}: {stopwatch.Elapsed} elapsed");
+                }
+
+                await _charityImportRepository.ImportToStagingTable(charityImport);
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Charity Json Import Error");
             }
-            
-            await _charityImportRepository.ImportToStagingTable(charityImport);
 
             totalStopwatch.Stop();
             _logger.Info($"Charity Json import complete for all files: {totalStopwatch.Elapsed} elapsed");

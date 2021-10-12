@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-
 
 namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 {
@@ -42,7 +39,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             var lastImport = await _charityRepository.GetLastCharityDataImport();
             
             // start at May 2017 which will import June 2017 when no previous import exists
-            var importInfo = await SearchForJsonDownload(lastImport != null 
+            var importInfo = await DownloadPublicCharityFile(lastImport != null 
                 ? new DateTime(lastImport.Year, lastImport.Month, 1) 
                 : new DateTime(2017, 5, 1));
             
@@ -71,65 +68,26 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
 
             // record import in db
             _logger.Info("Recording successful import in database");
-            await _charityRepository.CreateCharityDataImport(importDate.Month, importDate.Year);
+            await _charityRepository.CreateCharityDataImport(DateTime.UtcNow.Month, DateTime.UtcNow.Year);
         }
 
-        private async Task<(string, DateTime)> SearchForJsonDownload(DateTime lastImportDate)
+        private async Task<(string, DateTime)> DownloadPublicCharityFile(DateTime lastImportDate)
         {
-            // search for next months file
+            // file is updated but the name doesn’t change so we schedule the job accordingly (once per month).            
             var nextImportDate = lastImportDate.AddMonths(1);
             if (nextImportDate > DateTime.Now)
                 return (null, nextImportDate);
-
-            //var url = GetExtractUrlForMonthYear(nextImportDate.Month, nextImportDate.Year);
-            //var filename = GetFilenameForMonthYear(nextImportDate.Month, nextImportDate.Year);
-
-            //TO DO :  _configuration.CharityDataSourceUrlPattern; -- change the url to use json 
-            var url = @"https://ccewuksprdoneregsadata1.blob.core.windows.net/data/json/publicextract.charity.zip";
+            
+            var url = _configuration.CharityDataSourceUrlPattern;
             var filename = "publicextract.charity.zip";
 
             if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, filename))
             {
                 _logger.Error(new Exception($"Failed to download data from {url}"), $"Failed to download data from {url}");
-                return await SearchForDownload(nextImportDate);
+                return await DownloadPublicCharityFile(nextImportDate);
             }
 
             return (filename, nextImportDate);
-        }
-
-        private async Task<(string, DateTime)> SearchForDownload(DateTime lastImportDate)
-        {
-            // search for next months file
-            var nextImportDate = lastImportDate.AddMonths(1);
-            if (nextImportDate > DateTime.Now)
-                return (null, nextImportDate);
-            
-            var url = GetExtractUrlForMonthYear(nextImportDate.Month, nextImportDate.Year);
-            var filename = GetFilenameForMonthYear(nextImportDate.Month, nextImportDate.Year);
-
-            if (!await _archiveDownloadService.DownloadFile(url, _workingFolder, filename))
-            {
-                _logger.Error(new Exception($"Failed to download data from {url}"), $"Failed to download data from {url}");
-                return await SearchForDownload(nextImportDate);
-            }
-
-            return (filename, nextImportDate);
-        }
-
-        private string GetExtractUrlForMonthYear(int month, int year)
-        {
-            var urlpattern = _configuration.CharityDataSourceUrlPattern;
-
-            var monthyear = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}";
-
-            var url = string.Format(urlpattern, monthyear);
-            return url;
-        }
-
-        private static string GetFilenameForMonthYear(int month, int year)
-        {
-            return $"RegPlusExtract_{CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)}_{year}.zip";
-        }
-    
+        }    
     }
 }

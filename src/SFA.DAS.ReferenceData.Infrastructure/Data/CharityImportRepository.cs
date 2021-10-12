@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 using SFA.DAS.ReferenceData.Domain.Models.Charity;
 using SFA.DAS.ReferenceData.Domain.Models.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {
-    public interface ICharityImportRepository
-    {
-        Task ImportToStagingTable(IEnumerable<CharityImport> charityImports);
-    }
-
     public class CharityImportRepository : BaseRepository, ICharityImportRepository
     {
         private readonly string _connectionString;
@@ -25,30 +21,23 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
 
         public async Task ImportToStagingTable(IEnumerable<CharityImport> charityImports)
         {
-            try
+           
+            using (var connection = new SqlConnection(_connectionString))
+            using (var bulkCopy = new SqlBulkCopy(connection))
             {
-                using (var connection = new SqlConnection(_connectionString))
-                using (var bulkCopy = new SqlBulkCopy(connection))
+                await connection.OpenAsync().ConfigureAwait(false);
+                bulkCopy.BatchSize = 1000;
+                bulkCopy.BulkCopyTimeout = 3600;
+                bulkCopy.DestinationTableName = "[CharityImport].[extract_charity_import]";
+                bulkCopy.ColumnMappings.Clear();
+                
+                PopulateBulkCopy(bulkCopy, typeof(CharityImport));
+
+                using (var reader = ObjectReader.Create(charityImports))
                 {
-                    await connection.OpenAsync().ConfigureAwait(false);
-                    bulkCopy.BatchSize = 1000;
-                    bulkCopy.BulkCopyTimeout = 3600;
-
-                    bulkCopy.DestinationTableName = "[CharityImport].[extract_charity_import]";
-                    bulkCopy.ColumnMappings.Clear();
-                    PopulateBulkCopy(bulkCopy, typeof(CharityImport));
-
-                    using (var reader = ObjectReader.Create(charityImports))
-                    {
-                        await bulkCopy.WriteToServerAsync(reader).ConfigureAwait(false);
-                    }
+                    await bulkCopy.WriteToServerAsync(reader).ConfigureAwait(false);
                 }
-            }
-
-            catch (Exception ex)
-            {
-                string msg = ex.ToString();
-            }
+            }          
         }
 
         private void PopulateBulkCopy(SqlBulkCopy bulkCopy, Type entityType)
@@ -60,6 +49,4 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             }
         }
     }
-
-
 }

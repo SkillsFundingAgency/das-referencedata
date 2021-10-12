@@ -3,7 +3,7 @@ WITH EXECUTE AS OWNER
 AS
 
 INSERT INTO CharityImport.extract_charity
-      ([regno]  ,[subno] ,[name] ,[orgtype] ,[gd]  ,[aob]  ,[aob_defined] ,[nhs] ,[ha_no] ,[corr] ,[add1] ,[add2] ,[add3] ,[add4] ,[add5] ,[postcode] ,[phone] ,[fax]
+      ([regno]  ,[subno] ,[name] ,[orgtype] ,[gd]  ,[aob]  ,[aob_defined] ,[nhs] ,[ha_no] ,[corr] ,[add1] ,[add2] ,[add3] ,[add4] ,[add5] ,[postcode] ,[phone] ,[fax])
 SELECT RegisteredCharityNumber as [regno]  
 	, LinkedCharityNumber as [subno] 
 	, CharityName as [name]
@@ -11,7 +11,7 @@ SELECT RegisteredCharityNumber as [regno]
 	, null as [gd]
 	, null as [aob]
 	, 0 as [aob_defined]
-	, 0 as nhs
+	, 'F' as nhs
 	, 0 as [ha_no]
 	, null as [corr]
 	, CharityContactAddress1 as [add1]
@@ -40,7 +40,7 @@ INSERT INTO [CharityImport].[extract_main_charity]
 SELECT RegisteredCharityNumber as [regno]
       ,CharityCompanyRegistrationNumber as [coyno]
       , 'F' as [trustees]
-      , LatestAccFinPeriodEndDate as [fyend]
+      , FORMAT(LatestAccFinPeriodEndDate, 'ddMM') as [fyend]
       , 'F' as [welsh]
       , LatestAccFinPeriodEndDate as [incomedate]
       , LatestIncome as [income]

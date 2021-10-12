@@ -36,19 +36,7 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
                 x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(() => true);
 
-            _configuration = new ReferenceDataApiConfiguration
-            {
-                DatabaseConnectionString="",
-                CharityDataSourceUrlPattern="_{0}_",
-                CharityBcpServerName="",
-                CharityBcpTrustedConnection=false,
-                CharityBcpUsername="",
-                CharityBcpPassword="",
-                CharityBcpTargetDb="",
-                CharityBcpTargetSchema="",
-                CharityBcpRowTerminator="",
-                CharityBcpFieldTerminator="",
-            };
+            _configuration = new ReferenceDataApiConfiguration {  DatabaseConnectionString="" };
 
             _importer = new CharityImporter(_configuration, _charityRepository.Object, _charityService.Object,  _archiveDownloadService.Object, _logger.Object);
         }
@@ -74,10 +62,25 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            //var expectedFile = $"January_2017";
             var expectedFile = "publicextract.charity.zip";
 
             _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
+        }
+
+        [Test]
+        public async Task ThenDontDownloadPublicCharityFileSinceLastImportLessThanAMonth()
+        {
+            //Setup
+            _charityRepository.Setup(x => x.GetLastCharityDataImport())
+                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1), Month = DateTime.UtcNow.Month, Year = DateTime.UtcNow.Year });
+
+            //Act
+            await _importer.RunUpdate();
+
+            //Assert
+            var expectedFile = "publicextract.charity.zip";
+
+            _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Never);
         }
 
         [Test]
@@ -91,7 +94,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             await _importer.RunUpdate();
 
             //Assert
-            //var expectedFile = "June_2017";
             var expectedFile = "publicextract.charity.zip";
 
             _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);

@@ -64,6 +64,7 @@
     <Compile Include="Interfaces\Caching\ICache.cs" />
     <Compile Include="Interfaces\Caching\ICachedRepository.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
+    <Compile Include="Interfaces\Data\ICharityImportRepository.cs" />
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
     <Compile Include="Interfaces\Data\IEducationalOrganisationRepository.cs" />
     <Compile Include="Interfaces\Data\IFileSystemRepository.cs" />
