@@ -70,16 +70,15 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
         [Test]
         public async Task ThenDontDownloadPublicCharityFileSinceLastImportLessThanAMonth()
         {
-            //Setup
+            //Arrange
             _charityRepository.Setup(x => x.GetLastCharityDataImport())
                 .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1), Month = DateTime.UtcNow.Month, Year = DateTime.UtcNow.Year });
+            var expectedFile = "publicextract.charity.zip";
 
             //Act
             await _importer.RunUpdate();
 
             //Assert
-            var expectedFile = "publicextract.charity.zip";
-
             _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Never);
         }
 

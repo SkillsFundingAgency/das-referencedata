@@ -20,8 +20,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         }
 
         public async Task ImportToStagingTable(IEnumerable<CharityImport> charityImports)
-        {
-           
+        {           
             using (var connection = new SqlConnection(_connectionString))
             using (var bulkCopy = new SqlBulkCopy(connection))
             {

@@ -57,10 +57,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             _archiveDownloadService.UnzipFile(zipFile, extractPath);
 
             await _charityService.ExecuteCharityImport(extractPath);
-
-            // transfer data from public extract charity table into staging tables
-            _logger.Info("Transferring data from load tables");
-            await _charityRepository.ImportFromPublicExtractCharityTable();
+            
+            _logger.Info("Transferring data from public extract charity table into staging tables");
+            await _charityRepository.ImportFromPublicExtractCharityToStagingTable();
 
             // transfer data into data tables
             _logger.Info("Transferring data from load tables");

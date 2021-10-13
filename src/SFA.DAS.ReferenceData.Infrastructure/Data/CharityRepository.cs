@@ -60,7 +60,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 ));
         }
 
-        public async Task ImportFromPublicExtractCharityTable()
+        public async Task ImportFromPublicExtractCharityToStagingTable()
         {
             var result = await WithConnection(async c => await c.ExecuteAsync(
                 sql: "[CharityData].[GetPublicExtractCharityToStagingTables]",
