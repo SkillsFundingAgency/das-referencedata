@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using Newtonsoft.Json;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using System.Threading.Tasks;
@@ -16,39 +13,22 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
     {
         private readonly ILog _logger;
         private readonly ICharityImportRepository _charityImportRepository;
+        private readonly IZipArchiveHelper _zipArchiveHelper;
 
-        public CharityService(ILog logger, ICharityImportRepository charityImportRepository)
+        public CharityService(ILog logger, ICharityImportRepository charityImportRepository, IZipArchiveHelper zipArchiveHelper)
         {
             _logger = logger;
             _charityImportRepository = charityImportRepository;
+            _zipArchiveHelper = zipArchiveHelper;
         }
-
-        public async Task ExecuteCharityImport(string sourceDirectory)
+        
+        public async Task ExecuteCharityImport(Stream content)
         {
-            var files = Directory.EnumerateFiles(sourceDirectory, "*.json", SearchOption.AllDirectories).ToList();
-
-            _logger.Info($"{files.Count} files found for import in {sourceDirectory}");
-
-            if (!files.Any())
-            {
-                throw new InvalidOperationException("Import aborted - no files found in directory");
-            }
-
-            IEnumerable<CharityImport> charityImport;
             var totalStopwatch = Stopwatch.StartNew();
             try
-            {   
-                using (StreamReader r = new StreamReader(files[0]))
-                {
-                    var stopwatch = Stopwatch.StartNew();
-                    _logger.Info($"Beginning Json import for {sourceDirectory}");
-                    string json = r.ReadToEnd();
-                    charityImport = JsonConvert.DeserializeObject<IEnumerable<CharityImport>>(json);
-                    stopwatch.Stop();
-                    _logger.Info($"Complete Json import for {sourceDirectory}: {stopwatch.Elapsed} elapsed");
-                }
-
-                await _charityImportRepository.ImportToStagingTable(charityImport);
+            {
+                var charityJson = _zipArchiveHelper.ExtractModelFromJsonFileZipStream<CharityImport>(content, "publicextract.charity.json");              
+                await _charityImportRepository.ImportToStagingTable(charityJson);
             }
             catch (Exception ex)
             {

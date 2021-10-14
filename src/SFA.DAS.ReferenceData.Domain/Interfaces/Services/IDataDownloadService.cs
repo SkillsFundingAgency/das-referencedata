@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ReferenceData.Domain.Interfaces.Services
 {
-    public interface ICharityService
+    public interface IDataDownloadService
     {
-        Task ExecuteCharityImport(Stream content);
+        Task<Stream> GetFileStream(string downloadPath);
     }
 }

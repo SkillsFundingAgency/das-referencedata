@@ -151,9 +151,11 @@
     <Compile Include="Data\PublicSectorOrganisationRepository.cs" />
     <Compile Include="Services\CharityService.cs" />
     <Compile Include="Services\CompaniesHouseEmployerVerificationService.cs" />
+    <Compile Include="Services\DataDownloadService.cs" />
     <Compile Include="Services\EdubaseService.cs" />
     <Compile Include="Services\NhsCsvReaderHelper.cs" />
     <Compile Include="Services\OrganisationTypeHelper.cs" />
+    <Compile Include="Services\ZipArchiveHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
