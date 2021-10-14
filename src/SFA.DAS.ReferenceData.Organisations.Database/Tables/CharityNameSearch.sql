@@ -1,7 +1,7 @@
 ﻿CREATE TABLE charitydata.charitynamesearch
 (
 	RegNo int CONSTRAINT [PK_RegNo] PRIMARY KEY,
-	Name varchar(250)
+	Name varchar(500)
 )
 GO
 
