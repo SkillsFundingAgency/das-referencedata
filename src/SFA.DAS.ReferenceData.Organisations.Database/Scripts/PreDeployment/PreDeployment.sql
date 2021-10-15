@@ -9,10 +9,3 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-ALTER TABLE [CharityImport].[extract_charity]  ALTER COLUMN name VARCHAR (500) NULL;
-ALTER TABLE [CharityImport].[extract_charity]  ALTER COLUMN orgtype VARCHAR (50) NULL;
-
-ALTER TABLE [CharityData].[charity]  ALTER COLUMN name VARCHAR (500) NULL;
-ALTER TABLE [CharityData].[charity]  ALTER COLUMN orgtype VARCHAR (50) NULL;
-
-ALTER TABLE [CharityData].[charitynamesearch]  ALTER COLUMN Name VARCHAR (500) NULL;
