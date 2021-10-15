@@ -14,6 +14,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
         private readonly ILog _logger;
         private readonly ICharityImportRepository _charityImportRepository;
         private readonly IZipArchiveHelper _zipArchiveHelper;
+        private const string CharityImportFileName = "publicextract.charity.json";
 
         public CharityService(ILog logger, ICharityImportRepository charityImportRepository, IZipArchiveHelper zipArchiveHelper)
         {
@@ -27,7 +28,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
             var totalStopwatch = Stopwatch.StartNew();
             try
             {
-                var charityJson = _zipArchiveHelper.ExtractModelFromJsonFileZipStream<CharityImport>(content, "publicextract.charity.json");              
+                var charityJson = _zipArchiveHelper.ExtractModelFromJsonFileZipStream<CharityImport>(content, CharityImportFileName);              
                 await _charityImportRepository.ImportToStagingTable(charityJson);
             }
             catch (Exception ex)

@@ -12,7 +12,6 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
     {
         public IEnumerable<CharityImport> ExtractModelFromJsonFileZipStream<T>(Stream stream, string filePath)
         {
-
             using (var zip = new ZipArchive(stream, ZipArchiveMode.Read, true))
             {
                 var entry = zip.Entries.FirstOrDefault(m => m.FullName.EndsWith(filePath));

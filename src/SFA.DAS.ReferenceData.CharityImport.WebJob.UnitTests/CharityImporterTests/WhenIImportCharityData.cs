@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Moq;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using NUnit.Framework;
@@ -7,9 +6,7 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
 using System.IO;
-using System.Text;
 
 namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTests
 {
@@ -29,13 +26,9 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
             _charityService = new Mock<ICharityService>();
             _dataDownloadService = new Mock<IDataDownloadService>();
             _logger = new Mock<ILog>();
-
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport {ImportDate = new DateTime(2016,5,4), Month = 5, Year=2016});
-
-            _dataDownloadService.Setup(
-                x => x.GetFileStream(It.IsAny<string>()))
-                 .ReturnsAsync(new MemoryStream(Encoding.UTF8.GetBytes("Lorem Ipsum")));
+         
+            _dataDownloadService.Setup(x => x.GetFileStream(It.IsAny<string>()))
+                                .ReturnsAsync(It.IsAny<Stream>());
 
             _configuration = new ReferenceDataApiConfiguration {  DatabaseConnectionString="" };
 

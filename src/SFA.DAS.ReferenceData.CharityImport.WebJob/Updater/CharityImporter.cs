@@ -33,10 +33,11 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.Updater
             try
             {
                 _logger.Info("Executing CharityImporter");
-
                 await _charityRepository.TruncateLoadTables();
-
+                
                 var content = await _dataDownloadService.GetFileStream(_configuration.CharityDataSourceUrl);
+                
+                _logger.Info("Execute CharityImport after downloading stream content");
                 await _charityService.ExecuteCharityImport(content);
 
                 _logger.Info("Transferring data from public extract charity table into staging tables");
