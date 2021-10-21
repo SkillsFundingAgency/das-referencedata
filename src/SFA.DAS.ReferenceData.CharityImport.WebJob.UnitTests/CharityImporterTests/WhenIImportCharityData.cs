@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Moq;
 using SFA.DAS.ReferenceData.CharityImport.WebJob.Updater;
 using NUnit.Framework;
@@ -7,8 +6,7 @@ using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
-using SFA.DAS.ReferenceData.Domain.Models.Bcp;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
+using System.IO;
 
 namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTests
 {
@@ -16,83 +14,35 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
     {
         private CharityImporter _importer;
         private ReferenceDataApiConfiguration _configuration;
-        private Mock<ICharityRepository> _charityRepository;
-        private Mock<IBcpService> _bcpService;
-        private Mock<IArchiveDownloadService> _archiveDownloadService;
+        private Mock<ICharityRepository> _charityRepository;        
+        private Mock<ICharityService> _charityService;
+        private Mock<IDataDownloadService> _dataDownloadService;
         private Mock<ILog> _logger;
 
         [SetUp]
         public void Arrange()
         {
-            _charityRepository = new Mock<ICharityRepository>();
-            _bcpService = new Mock<IBcpService>();
-            _archiveDownloadService = new Mock<IArchiveDownloadService>();
+            _charityRepository = new Mock<ICharityRepository>();            
+            _charityService = new Mock<ICharityService>();
+            _dataDownloadService = new Mock<IDataDownloadService>();
             _logger = new Mock<ILog>();
+         
+            _dataDownloadService.Setup(x => x.GetFileStream(It.IsAny<string>()))
+                                .ReturnsAsync(It.IsAny<Stream>());
 
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport {ImportDate = new DateTime(2016,5,4), Month = 5, Year=2016});
+            _configuration = new ReferenceDataApiConfiguration {  DatabaseConnectionString="" };
 
-            _archiveDownloadService.Setup(
-                x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(() => true);
-
-            _configuration = new ReferenceDataApiConfiguration
-            {
-                DatabaseConnectionString="",
-                CharityDataSourceUrlPattern="_{0}_",
-                CharityBcpServerName="",
-                CharityBcpTrustedConnection=false,
-                CharityBcpUsername="",
-                CharityBcpPassword="",
-                CharityBcpTargetDb="",
-                CharityBcpTargetSchema="",
-                CharityBcpRowTerminator="",
-                CharityBcpFieldTerminator="",
-            };
-
-            _importer = new CharityImporter(_configuration, _charityRepository.Object, _bcpService.Object, _archiveDownloadService.Object, _logger.Object);
-        }
-
-        [Test]
-        public async Task ThenThePreviousImportDateShouldBeRetrieved()
-        {
-            //Act
-            await _importer.RunUpdate();
-
-            //Assert
-            _charityRepository.Verify(x=> x.GetLastCharityDataImport(), Times.Once);
-        }
+            _importer = new CharityImporter(_configuration, _charityRepository.Object, _charityService.Object, _dataDownloadService.Object, _logger.Object);
+        }      
 
         [Test]
         public async Task ThenIfAPreviousImportExistsThenSubsequenttMonthIsUsedAsDefault()
-        {
-            //Setup
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => new CharityDataImport { ImportDate = new DateTime(2016, 12, 1), Month = 12, Year = 2016 });
-
+        {            
             //Act
             await _importer.RunUpdate();
 
-            //Assert
-            var expectedFile = $"January_2017";
-
-            _archiveDownloadService.Verify(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
-        }
-
-        [Test]
-        public async Task ThenIfNoPreviousImportExistsThenSearchStartsAtJune2017()
-        {
-            //Setup
-            _charityRepository.Setup(x => x.GetLastCharityDataImport())
-                .ReturnsAsync(() => null);
-
-            //Act
-            await _importer.RunUpdate();
-
-            //Assert
-            var expectedFile = "June_2017";
-
-            _archiveDownloadService.Verify(x=> x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsRegex(expectedFile)), Times.Once);
+            //Assert            
+            _dataDownloadService.Verify(x => x.GetFileStream(It.IsAny<string>()), Times.Once);
         }
 
 
@@ -104,27 +54,26 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
 
             //Assert
             _charityRepository.Verify(x => x.TruncateLoadTables(), Times.Once);
-        }
-
+        }      
 
         [Test]
-        public async Task ThenAZipFileIsExtracted()
+        public async Task ThenExecuteCharityImportIsIssued()
         {
             //Act
             await _importer.RunUpdate();
 
             //Assert
-            _archiveDownloadService.Verify(x => x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _charityService.Verify(x => x.ExecuteCharityImport(It.IsAny<Stream>()), Times.Once);
         }
 
         [Test]
-        public async Task ThenABcpCommandIsIssued()
+        public async Task ThenDataIsTransferredFromPublicExtractCharityToStagingTable()
         {
             //Act
             await _importer.RunUpdate();
 
             //Assert
-            _bcpService.Verify(x => x.ExecuteBcp(It.IsAny<BcpRequest>()), Times.Once);
+            _charityRepository.Verify(x => x.ImportFromPublicExtractCharityToStagingTable(), Times.Once);
         }
 
         [Test]
@@ -145,21 +94,6 @@ namespace SFA.DAS.ReferenceData.CharityImport.WebJob.UnitTests.CharityImporterTe
 
             //Assert
             _charityRepository.Verify(x => x.CreateCharityDataImport(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
-        }
-
-        [Test]
-        public async Task ThenIfDownloadFailsThenNoFurtherWorkIsDone()
-        {
-            //Setup
-            _archiveDownloadService.Setup(x => x.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(() => false);
-
-            //Act
-            await _importer.RunUpdate();
-
-            //Assert
-            _archiveDownloadService.Verify(x=> x.UnzipFile(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-            _bcpService.Verify(x=> x.ExecuteBcp(It.IsAny<BcpRequest>()), Times.Never);
-            _charityRepository.Verify(x=> x.RecordCharityDataImport(It.IsAny<int>(), It.IsAny<int>()),Times.Never);
-        }
+        }        
     }
 }

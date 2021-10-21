@@ -60,6 +60,15 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
                 ));
         }
 
+        public async Task ImportFromPublicExtractCharityToStagingTable()
+        {
+            var result = await WithConnection(async c => await c.ExecuteAsync(
+                sql: "[CharityData].[GetPublicExtractCharityToStagingTables]",
+                commandType: CommandType.StoredProcedure,
+                commandTimeout: 3600
+                ));
+        }
+
         public async Task<Charity> GetCharityByRegistrationNumber(int registrationNumber)
         {
             var parameters = new DynamicParameters();

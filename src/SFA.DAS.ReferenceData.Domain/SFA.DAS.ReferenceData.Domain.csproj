@@ -41,6 +41,7 @@
       <HintPath>..\packages\Polly.5.1.0\lib\net45\Polly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -63,21 +64,26 @@
     <Compile Include="Interfaces\Caching\ICache.cs" />
     <Compile Include="Interfaces\Caching\ICachedRepository.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
+    <Compile Include="Interfaces\Data\ICharityImportRepository.cs" />
     <Compile Include="Interfaces\Data\ICharityRepository.cs" />
     <Compile Include="Interfaces\Data\IEducationalOrganisationRepository.cs" />
     <Compile Include="Interfaces\Data\IFileSystemRepository.cs" />
     <Compile Include="Interfaces\Services\IBcpService.cs" />
     <Compile Include="Interfaces\Services\IArchiveDownloadService.cs" />
+    <Compile Include="Interfaces\Services\ICharityService.cs" />
     <Compile Include="Interfaces\Services\ICompaniesHouseEmployerVerificationService.cs" />
+    <Compile Include="Interfaces\Services\IDataDownloadService.cs" />
     <Compile Include="Interfaces\Services\IEdubaseService.cs" />
     <Compile Include="Interfaces\Services\INhsCsvReaderHelper.cs" />
     <Compile Include="Interfaces\Services\IOrganisationReferenceSearchService.cs" />
     <Compile Include="Interfaces\Services\IOrganisationTextSearchService.cs" />
     <Compile Include="Interfaces\Services\IOrganisationTypeHelper.cs" />
+    <Compile Include="Interfaces\Services\IZipArchiveHelper.cs" />
     <Compile Include="Models\Bcp\BcpRequest.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />
     <Compile Include="Interfaces\Data\IPublicSectorOrganisationRepository.cs" />
     <Compile Include="Interfaces\Services\IAzureService.cs" />
+    <Compile Include="Models\Charity\CharityImport.cs" />
     <Compile Include="Models\Company\Address.cs" />
     <Compile Include="Models\Company\CompanySearchResults.cs" />
     <Compile Include="Models\Company\CompanyInformation.cs" />

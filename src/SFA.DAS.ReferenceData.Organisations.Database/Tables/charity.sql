@@ -2,8 +2,8 @@
 (
 	[regno] [int] NULL,
 	[subno] [int] NULL,
-	[name] [varchar](150) NULL DEFAULT '',
-	[orgtype] [varchar](10) NULL,
+	[name] [varchar](500) NULL DEFAULT '',
+	[orgtype] [varchar](50) NULL,
 	[gd] [nvarchar](max) NULL,
 	[aob] [varchar](max) NULL,
 	[aob_defined] [int] NULL,
@@ -21,5 +21,5 @@
 )
 GO
 
-CREATE INDEX IDX_Charity_RegNo_SubNo ON [CharityData].[charity] ([regno],[subno]) INCLUDE ([add1],[add2],[add3],[add4],[add5],[name],[orgtype],[postcode]) 
+CREATE INDEX IDX_Charity_RegNo_SubNo ON [CharityData].[charity] ([regno],[subno]) INCLUDE ([add1],[add2],[add3],[add4],[add5],[name],[orgtype],[postcode]) WITH (ONLINE = ON)
 GO

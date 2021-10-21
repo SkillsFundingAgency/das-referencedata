@@ -38,11 +38,14 @@
       <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Dfe.Edubase2.SoapApi.Client, Version=0.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DFE.Edubase2.SoapAPI.Client.0.0.9\lib\net45\Dfe.Edubase2.SoapApi.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -100,6 +103,7 @@
       <HintPath>..\packages\StructureMap.4.4.2\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Abstractions, Version=2.0.0.144, Culture=neutral, processorArchitecture=MSIL">
@@ -126,6 +130,7 @@
     <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\TaskSynchronizationScope.cs" />
+    <Compile Include="Data\CharityImportRepository.cs" />
     <Compile Include="Data\EducationalOrganisationRepository.cs" />
     <Compile Include="Data\FileSystemRepository.cs" />
     <Compile Include="DependencyResolution\CachePolicy.cs" />
@@ -144,10 +149,13 @@
     <Compile Include="Services\BcpService.cs" />
     <Compile Include="Services\ArchiveDownloadService.cs" />
     <Compile Include="Data\PublicSectorOrganisationRepository.cs" />
+    <Compile Include="Services\CharityService.cs" />
     <Compile Include="Services\CompaniesHouseEmployerVerificationService.cs" />
+    <Compile Include="Services\DataDownloadService.cs" />
     <Compile Include="Services\EdubaseService.cs" />
     <Compile Include="Services\NhsCsvReaderHelper.cs" />
     <Compile Include="Services\OrganisationTypeHelper.cs" />
+    <Compile Include="Services\ZipArchiveHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

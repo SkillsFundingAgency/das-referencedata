@@ -80,6 +80,7 @@
     <Compile Include="NhsCsvReaderHelperTests\WhenOrganisationNameAndCodeAreDuplicatedInUnanticipatedCase.cs" />
     <Compile Include="NhsCsvReaderHelperTests\WhenAllPropertiesHaveValidValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CharityServiceTests\WhenIGetCharityContent.cs" />
     <Compile Include="Services\CompaniesHouseEmployerVerificationServiceTests\WhenIGetCompaniesHouseOrganisations.cs" />
     <Compile Include="Services\EdubaseServiceTests\WhenIGetEducationalOrganisations.cs" />
     <Compile Include="Services\OrganisationTypeHelperTests.cs" />

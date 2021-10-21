@@ -6,7 +6,7 @@ namespace SFA.DAS.ReferenceData.Domain.Configuration
     public class ReferenceDataApiConfiguration : IConfiguration
     {
         public string DatabaseConnectionString { get; set; }
-        public string CharityDataSourceUrlPattern { get; set; }
+        public string CharityDataSourceUrl { get; set; }
         public string CharityBcpServerName { get; set; }
         public bool CharityBcpTrustedConnection { get; set; }
         public string CharityBcpUsername { get; set; }
