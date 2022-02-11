@@ -137,7 +137,7 @@
         },
         {
             "apiVersion": "2020-06-01",
-            "name": "worker-app-subnet",
+            "name": "referencedata-worker-subnet",
             "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -161,6 +161,27 @@
                     },
                     "delegations": {
                         "value": "[parameters('subnetDelegations')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2021-04-01",
+            "name": "referencedata-worker-sql-firewall-rule",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'), 'sql-server-firewall-rules.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serverName": {
+                        "value": "[parameters('sharedSQLServerName')]"
+                    },
+                    "subnetResourceIdList": {
+                        "value": "[createArray(reference('referencedata-worker-subnet').outputs.SubnetResourceId.value)]"
                     }
                 }
             }
@@ -338,7 +359,7 @@
                         "value": "[variables('resourceGroupName')]"
                     },
                     "subnetResourceId": {
-                        "value": "[reference('worker-app-subnet').outputs.SubnetResourceId.value]"
+                        "value": "[reference('referencedata-worker-subnet').outputs.SubnetResourceId.value]"
                     },
                     "deployStagingSlot": {
                         "value": false
