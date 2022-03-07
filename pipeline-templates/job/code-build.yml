@@ -73,9 +73,9 @@ jobs:
     displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
     inputs:
       Contents: |
-      azure/**
-      src/**/bin/**/*.dacpac
-      src/**/obj/Release/Package/**/*.*
+        azure/**
+        src/**/bin/**/*.dacpac
+        src/**/obj/Release/Package/**/*.*
       TargetFolder: '$(build.artifactstagingdirectory)/publish'
 
   - task: PublishBuildArtifacts@1
