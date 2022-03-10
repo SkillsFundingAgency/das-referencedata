@@ -64,14 +64,19 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
             {
                 var results = await _companyVerificationService.FindCompany(searchTerm, maximumRecords);
               
-                return results.Companies?.Select(c => new Organisation
-                {
-                    Name = c.CompanyName,
-                    Address = FormatAddress(c.Address),
-                    Code = c.CompanyNumber,
-                    RegistrationDate = c.DateOfIncorporation,
-                    Type = OrganisationType.Company,
-                    SubType = OrganisationSubType.None
+                return results.Companies?.Select(c => {
+                    Enum.TryParse(c.CompanyStatus?.Replace("-", string.Empty), true, out OrganisationStatus organisationStatus);
+                    
+                    return new Organisation
+                    {
+                        Name = c.CompanyName,
+                        Address = FormatAddress(c.Address),
+                        Code = c.CompanyNumber,
+                        RegistrationDate = c.DateOfIncorporation,
+                        Type = OrganisationType.Company,
+                        SubType = OrganisationSubType.None,
+                        OrganisationStatus = organisationStatus
+                    };
                 });
             }
 

@@ -11,5 +11,6 @@ namespace SFA.DAS.ReferenceData.Types.DTO
         public DateTime? RegistrationDate { get; set; }
         public Address Address { get; set; }
         public string Sector { get; set; }
+        public OrganisationStatus OrganisationStatus { get; set; }
     }
 }
