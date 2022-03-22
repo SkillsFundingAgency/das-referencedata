@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using FastMember;
 using System.Threading.Tasks;
-using SFA.DAS.ReferenceData.Domain.Models.Charity;
-using SFA.DAS.ReferenceData.Domain.Models.Data;
+using FastMember;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Configuration;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Data;
+using SFA.DAS.ReferenceData.Domain.Models.Charity;
+using SFA.DAS.ReferenceData.Domain.Models.Data;
 
 namespace SFA.DAS.ReferenceData.Infrastructure.Data
 {

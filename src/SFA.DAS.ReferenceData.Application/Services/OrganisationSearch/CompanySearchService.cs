@@ -45,7 +45,8 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                     Code = info.CompanyNumber,
                     RegistrationDate = info.DateOfIncorporation,
                     Type = OrganisationType.Company,
-                    SubType = OrganisationSubType.None
+                    SubType = OrganisationSubType.None,
+                    OrganisationStatus = MapToOrganisationStatus(info.CompanyStatus)
                 };
 
             }
@@ -65,8 +66,6 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 var results = await _companyVerificationService.FindCompany(searchTerm, maximumRecords);
               
                 return results.Companies?.Select(c => {
-                    Enum.TryParse(c.CompanyStatus?.Replace("-", string.Empty), true, out OrganisationStatus organisationStatus);
-                    
                     return new Organisation
                     {
                         Name = c.CompanyName,
@@ -75,7 +74,7 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                         RegistrationDate = c.DateOfIncorporation,
                         Type = OrganisationType.Company,
                         SubType = OrganisationSubType.None,
-                        OrganisationStatus = organisationStatus
+                        OrganisationStatus = MapToOrganisationStatus(c.CompanyStatus)
                     };
                 });
             }
@@ -104,6 +103,13 @@ namespace SFA.DAS.ReferenceData.Application.Services.OrganisationSearch
                 Line5 = address.County,
                 Postcode = address.PostCode
             };
+        }
+
+        private static OrganisationStatus MapToOrganisationStatus(string companiesHouseStatus)
+        {
+            Enum.TryParse(companiesHouseStatus?.Replace("-", string.Empty), true, out OrganisationStatus organisationStatus);
+
+            return organisationStatus;
         }
     }
 }
