@@ -78,6 +78,50 @@ namespace SFA.DAS.ReferenceData.Application.UnitTests.Services.CompanySearchServ
             Assert.IsNotNull(results.FirstOrDefault());
         }
 
+        [Test]
+        [TestCase("", OrganisationStatus.None)]
+        [TestCase(null, OrganisationStatus.None)]
+        [TestCase("active", OrganisationStatus.Active)]
+        [TestCase("dissolved", OrganisationStatus.Dissolved)]
+        [TestCase("liquidation", OrganisationStatus.Liquidation)]
+        [TestCase("receivership", OrganisationStatus.Receivership)]
+        [TestCase("administration", OrganisationStatus.Administration)]
+        [TestCase("voluntary-arrangement", OrganisationStatus.VoluntaryArrangement)]
+        [TestCase("converted-closed", OrganisationStatus.ConvertedClosed)]
+        [TestCase("insolvency-proceedings", OrganisationStatus.InsolvencyProceedings)]
+        public async Task ShouldSetOrganisationStatus(string companiesHouseStatus, OrganisationStatus expectedMappedStatus)
+        {
+            //Arrange
+            const string searchTerm = "test";
+            var resultItem = new CompanySearchResultsItem
+            {
+                CompanyName = "Test Company",
+                Address = new Domain.Models.Company.Address
+                {
+                    Premises = "12",
+                    CompaniesHouseLine1 = "Test Street",
+                    CompaniesHouseLine2 = "Test Park",
+                    TownOrCity = "Test Town",
+                    County = "Testshire",
+                    PostCode = "TE51 3TS"
+                },
+                DateOfIncorporation = DateTime.Now,
+                CompanyNumber = "12345678",
+                CompanyStatus = companiesHouseStatus
+            };
+
+            _verificationService.Setup(x => x.FindCompany(It.IsAny<string>(), 10)).ReturnsAsync(new CompanySearchResults
+            {
+                Companies = new List<CompanySearchResultsItem> { resultItem }
+            });
+
+            //Act
+            var results = await _searchService.Search(searchTerm, 10);
+
+            //Assert
+            Assert.AreEqual(expectedMappedStatus, results.FirstOrDefault().OrganisationStatus);
+        }
+
         [TestCase("12", "Test Street", "TestPark", "Test Town", "Testshire", "TE51 3TS")]
         [TestCase(null, "Test Street", "TestPark", "Test Town", "Testshire", "TE51 3TS")]
         [TestCase("12", "Test Street", null, "Test Town", "Testshire", "TE51 3TS")]
