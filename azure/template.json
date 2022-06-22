@@ -184,7 +184,7 @@
                         "value": "[parameters('sharedSQLServerName')]"
                     },
                     "subnetResourceIdList": {
-                        "value": "[createArray(reference('referencedata-worker-subnet').outputs.SubnetResourceId.value)]"
+                        "value": "[createArray(reference(concat('referencedata-worker-subnet', '-', parameters('utcValue'))).outputs.SubnetResourceId.value)]"
                     }
                 }
             }
@@ -263,7 +263,7 @@
                             "array": [
                                 {
                                     "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                    "value": "[reference('application-insights').outputs.InstrumentationKey.value]"
+                                    "value": "[reference(concat('application-insights', '-', parameters('utcValue'))).outputs.InstrumentationKey.value]"
                                 },
                                 {
                                     "name": "EnvironmentName",
@@ -308,7 +308,7 @@
                         "value": "[parameters('customHostname')]"
                     },
                     "certificateThumbprint": {
-                        "value": "[reference('app-service-certificate').outputs.certificateThumbprint.value]"
+                        "value": "[reference(concat('app-service-certificate', '-', parameters('utcValue'))).outputs.certificateThumbprint.value]"
                     },
                     "ipSecurityRestrictions": {
                         "value": "[parameters('backEndAccessRestrictions')]"
@@ -362,7 +362,7 @@
                         "value": "[variables('resourceGroupName')]"
                     },
                     "subnetResourceId": {
-                        "value": "[reference('referencedata-worker-subnet').outputs.SubnetResourceId.value]"
+                        "value": "[reference(concat('referencedata-worker-subnet', '-', parameters('utcValue'))).outputs.SubnetResourceId.value]"
                     },
                     "deployStagingSlot": {
                         "value": false
@@ -432,7 +432,7 @@
                 }
             },
             "dependsOn": [
-                "worker-app-service-plan"
+                "[concat('worker-app-service-plan', '-', parameters('utcValue'))]"
             ]
         },
         {
