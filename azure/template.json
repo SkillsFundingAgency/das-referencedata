@@ -437,7 +437,7 @@
         },
         {
             "apiVersion": "2020-06-01",
-            "name": "[concat('sql-database', '-', parameters('utcValue'))]",
+            "name": "[concat(variables('databaseName'), '-', parameters('utcValue'))]",
             "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
