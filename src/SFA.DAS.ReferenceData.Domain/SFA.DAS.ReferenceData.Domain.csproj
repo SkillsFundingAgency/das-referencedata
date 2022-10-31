@@ -113,7 +113,6 @@
     <Compile Include="Models\Company\CompanySearchResults.cs" />
     <Compile Include="Models\Company\CompanyInformation.cs" />
     <Compile Include="Models\Company\CompanySearchResultsItem.cs" />
-    <Compile Include="Models\Data\BaseRepository.cs" />
     <Compile Include="Models\Data\PagedResult.cs" />
     <Compile Include="Models\Education\EducationalOrganisationLookUp.cs" />
     <Compile Include="Models\PublicSectorOrganisationLookUp.cs" />
