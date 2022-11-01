@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ReferenceData.Database", "SFA.DAS.ReferenceData.Organisations.Database\SFA.DAS.ReferenceData.Database.sqlproj", "{4730551F-4DEF-42CF-8229-8193A1736592}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A48E4D6-D887-483D-91AD-B9500A485371}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.UnitTests", "SFA.DAS.ReferenceData.Api.UnitTests\SFA.DAS.ReferenceData.Api.UnitTests.csproj", "{C471A44D-D065-441C-8CF7-C25D8D0026C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Infrastructure", "SFA.DAS.ReferenceData.Infrastructure\SFA.DAS.ReferenceData.Infrastructure.csproj", "{11D97A4B-C768-4889-B61D-3D74A6A9B463}"
 EndProject
@@ -43,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Educa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Types", "SFA.DAS.ReferenceData.Types\SFA.DAS.ReferenceData.Types.csproj", "{B4621617-E571-4118-A6F6-964F65BB67EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ReferenceData.Api.UnitTests", "SFA.DAS.ReferenceData.Api.UnitTests\SFA.DAS.ReferenceData.Api.UnitTests.csproj", "{F9E50A6B-AE9D-44F6-9F2B-E3F2A8AE4AC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,10 +55,6 @@ Global
 		{4730551F-4DEF-42CF-8229-8193A1736592}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4730551F-4DEF-42CF-8229-8193A1736592}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4730551F-4DEF-42CF-8229-8193A1736592}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C471A44D-D065-441C-8CF7-C25D8D0026C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11D97A4B-C768-4889-B61D-3D74A6A9B463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11D97A4B-C768-4889-B61D-3D74A6A9B463}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11D97A4B-C768-4889-B61D-3D74A6A9B463}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -127,18 +123,22 @@ Global
 		{B4621617-E571-4118-A6F6-964F65BB67EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4621617-E571-4118-A6F6-964F65BB67EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4621617-E571-4118-A6F6-964F65BB67EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E50A6B-AE9D-44F6-9F2B-E3F2A8AE4AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E50A6B-AE9D-44F6-9F2B-E3F2A8AE4AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E50A6B-AE9D-44F6-9F2B-E3F2A8AE4AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E50A6B-AE9D-44F6-9F2B-E3F2A8AE4AC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C471A44D-D065-441C-8CF7-C25D8D0026C1} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{495F7A72-AB89-4C4C-BD90-A4549FDB0A44} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{655DA797-11A7-4A2A-A681-908C5CFEEC83} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{9477BE74-E86C-4786-BB1B-52F05F608E61} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{630766FB-69F0-4E15-8B71-2708BAA2AAA6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{BB9190EF-5C20-4CAE-A0AE-03B00BC6C703} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 		{8182C216-4F48-4E47-ACE6-911F688F37D6} = {2A48E4D6-D887-483D-91AD-B9500A485371}
+		{F9E50A6B-AE9D-44F6-9F2B-E3F2A8AE4AC8} = {2A48E4D6-D887-483D-91AD-B9500A485371}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {908E6E5A-F951-4D5C-B005-76C21A23E990}
