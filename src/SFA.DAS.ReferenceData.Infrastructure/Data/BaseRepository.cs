@@ -63,7 +63,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             }
         }
 
-        protected async Task<T> WithTransaction<T>(Func<SqlConnection, IDbTransaction, Task<T>> getData)
+        protected async Task<T> WithTransaction<T>(Func<SqlConnection, SqlTransaction, Task<T>> getData)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
             }
         }
 
-        protected async Task WithTransaction(Func<SqlConnection, IDbTransaction, Task> command)
+        protected async Task WithTransaction(Func<SqlConnection, SqlTransaction, Task> command)
         {
             try
             {

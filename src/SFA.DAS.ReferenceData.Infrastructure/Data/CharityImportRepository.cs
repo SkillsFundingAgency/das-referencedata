@@ -20,9 +20,8 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Data
         {
             await WithTransaction(async (connection, transaction) =>
             {
-                using (var bulkCopy = new SqlBulkCopy(connection))
+                using (var bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
                 {
-                    await connection.OpenAsync().ConfigureAwait(false);
                     bulkCopy.BatchSize = 1000;
                     bulkCopy.BulkCopyTimeout = 3600;
                     bulkCopy.DestinationTableName = "[CharityImport].[extract_charity_import]";
