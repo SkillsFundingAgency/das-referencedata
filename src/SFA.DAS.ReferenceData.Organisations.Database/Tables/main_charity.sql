@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [CharityData].[main_charity]
 (
 	[regno] [int] NULL,
-	[coyno] [varchar] (50) NULL,
+	[coyno] [varchar] (100) NULL,
 	[trustees] [varchar](1) NOT NULL,
 	[fyend] [varchar](4) NULL,
 	[welsh] [varchar](1) NOT NULL,
