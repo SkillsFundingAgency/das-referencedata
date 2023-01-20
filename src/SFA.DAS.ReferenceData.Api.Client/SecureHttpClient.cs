@@ -66,6 +66,7 @@ namespace SFA.DAS.ReferenceData.Api.Client
                 return await response.Content.ReadAsStringAsync();
             }
         }
+
         private async Task<string> GetAuthenticationToken()
         {
             var accessToken = IsClientCredentialConfiguration(_configuration.ClientId, _configuration.ClientSecret, _configuration.Tenant)
