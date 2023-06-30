@@ -17,7 +17,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 var web = new HtmlWeb();
                 var doc = web.Load(url);
 
-                var englandPolice = doc.DocumentNode.SelectNodes("//*[@id=\"wsite-content\"]/div/div/div/div/div/div[3]/ul/li/a")
+                var englandPolice = doc.DocumentNode.SelectNodes("//*[@id=\"wsite-content\"]/div/div/div/div/div/div[3]/ul/li/font")
                     .Where(p => !string.IsNullOrWhiteSpace(p.InnerText))
                     .Select(p => p.InnerText.Trim());
 

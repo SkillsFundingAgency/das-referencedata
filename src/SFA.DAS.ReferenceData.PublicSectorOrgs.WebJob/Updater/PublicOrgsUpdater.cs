@@ -62,7 +62,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
                 {
                     Organisations = onsOrgs.Organisations
                                         .Concat(nhsOrgs.Organisations)
-                                        .Concat(policeOrgs.Organisations).ToList()
+                                        .Concat(policeOrgs.Organisations)
+                                        .ToList()
                 };
 
                 var jsonFilePath = Path.Combine(_workingFolder, _jsonFileName);
