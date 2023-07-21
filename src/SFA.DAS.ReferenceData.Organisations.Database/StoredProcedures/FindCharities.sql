@@ -5,22 +5,24 @@
 )
 AS
 
-	DECLARE @wildcardedSearch NVARCHAR(4000) = 'FORMSOF(FREETEXT, "' + @SearchTerm + '")'
+/* MAC-210 - Hack to fix a search term that contains AND returning zero results */
+SET @SearchTerm = REPLACE(@SearchTerm, ' AND', ' AN');
 
-	select top (@MaximumResults)
-	charity.regno as 'RegistrationNumber',
-	rtrim(charity.name) as 'Name',
-	rtrim(charity.add1) as 'Address1',
-	rtrim(charity.add2) as 'Address2',
-	rtrim(charity.add3) as 'Address3',
-	rtrim(charity.add4) as 'Address4',
-	rtrim(charity.add5) as 'Address5',
-	rtrim(charity.postcode) as 'PostCode',
-	registration.regdate as 'RegistrationDate',
-	CAST (CASE WHEN charity.orgtype = 'RM' THEN 1 ELSE 0 END AS BIT) 'IsRemoved'
-	from
-	[CharityData].[charity] charity
-	inner join [CharityData].[registration] registration on registration.regno = charity.regno and registration.subno = charity.subno
-	inner join [CharityData].[charitynamesearch] cns on cns.regno = charity.regno
-	WHERE CONTAINS(cns.name, @wildcardedSearch)
+DECLARE @wildcardedSearch NVARCHAR(4000) = 'FORMSOF(FREETEXT, "' + @SearchTerm + '")';
+
+SELECT TOP (@MaximumResults)
+    charity.regno                                   AS 'RegistrationNumber'
+   ,TRIM(charity.[Name])                            AS 'Name'
+   ,TRIM(charity.add1)                              AS 'Address1'
+   ,TRIM(charity.add2)                              AS 'Address2'
+   ,TRIM(charity.add3)                              AS 'Address3'
+   ,TRIM(charity.add4)                              AS 'Address4'
+   ,TRIM(charity.add5)                              AS 'Address5'
+   ,TRIM(charity.postcode)                          AS 'PostCode'
+   ,reg.regdate                                     AS 'RegistrationDate'
+   ,CAST (IIF(charity.orgtype = 'RM', 1, 0) AS BIT) AS 'IsRemoved'
+FROM [CharityData].[charity] charity
+INNER JOIN [CharityData].[registration] reg on reg.regno = charity.regno and reg.subno = charity.subno
+INNER JOIN [CharityData].[charitynamesearch] cns on cns.regno = charity.regno
+WHERE CONTAINS(cns.name, @wildcardedSearch)
 	
