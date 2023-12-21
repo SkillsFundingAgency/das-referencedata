@@ -103,6 +103,7 @@
     <Compile Include="Interfaces\Services\IOrganisationReferenceSearchService.cs" />
     <Compile Include="Interfaces\Services\IOrganisationTextSearchService.cs" />
     <Compile Include="Interfaces\Services\IOrganisationTypeHelper.cs" />
+    <Compile Include="Interfaces\Services\IPoliceDataLookupService.cs" />
     <Compile Include="Interfaces\Services\IZipArchiveHelper.cs" />
     <Compile Include="Models\Bcp\BcpRequest.cs" />
     <Compile Include="Models\Charity\CharityDataImport.cs" />

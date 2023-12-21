@@ -20,7 +20,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpda
         private Mock<INhsDataUpdater> _nhsDataUpdater;
         private PublicOrgsUpdater _updater;
         private Mock<IPublicSectorOrganisationDatabaseUpdater> _dbUpdater;
-        private Mock<IPublicSectorOrganisationHtmlScraper> _htmlScraper;
+        private Mock<IPoliceDataLookupService> _policeDataLookUpService;
         private Mock<IJsonManager> _jsonManager;
 
         private string _onsUrl =
@@ -44,9 +44,9 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpda
             _archiveDownloadService = new Mock<IArchiveDownloadService>();
             _nhsDataUpdater = new Mock<INhsDataUpdater>();
             _dbUpdater = new Mock<IPublicSectorOrganisationDatabaseUpdater>();
-            _htmlScraper = new Mock<IPublicSectorOrganisationHtmlScraper>();
+            _policeDataLookUpService = new Mock<IPoliceDataLookupService>();
             _jsonManager = new Mock<IJsonManager>();
-            _updater = new PublicOrgsUpdater(_logger.Object, _configuration, _archiveDownloadService.Object, _nhsDataUpdater.Object, _dbUpdater.Object, _htmlScraper.Object, _jsonManager.Object);
+            _updater = new PublicOrgsUpdater(_logger.Object, _configuration, _archiveDownloadService.Object, _nhsDataUpdater.Object, _dbUpdater.Object, _policeDataLookUpService.Object, _jsonManager.Object);
         }
 
         [Test]
@@ -96,8 +96,8 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpda
                 {
                     Organisations = new List<PublicSectorOrganisation>()
                 });
-            _htmlScraper.Setup(o => o.Scrape(It.IsAny<string>(), It.IsAny<ILog>()))
-                .Returns(new PublicSectorOrganisationLookUp
+            _policeDataLookUpService.Setup(o => o.GetGbPoliceForces())
+                .ReturnsAsync(new PublicSectorOrganisationLookUp
                 {
                     Organisations = new List<PublicSectorOrganisation>()
                 });
