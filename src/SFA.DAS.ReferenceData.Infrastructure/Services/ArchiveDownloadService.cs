@@ -27,6 +27,9 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Services
 
             using (var client = new HttpClient())
             {
+                // Add a User-Agent header to mimic a web browser
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+                
                 using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (!response.IsSuccessStatusCode)
