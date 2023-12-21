@@ -79,7 +79,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
         private async Task<PublicSectorOrganisationLookUp> GetOnsOrganisations()
         {
-            var maxHistoricFileAttempts = 5;
+            var maxHistoricFileAttempts = 12; // change to go back 1 year. Last file without prior to change was June 2023
             var attempt = 0;
             var downloadSuccess = false;
 
