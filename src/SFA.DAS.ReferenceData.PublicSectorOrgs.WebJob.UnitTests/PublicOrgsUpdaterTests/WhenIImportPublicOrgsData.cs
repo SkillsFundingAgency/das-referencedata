@@ -85,7 +85,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.UnitTests.PublicOrgsUpda
                 await _updater.RunUpdate();
             });
 
-            _archiveDownloadService.Verify(o => o.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(5));
+            _archiveDownloadService.Verify(o => o.DownloadFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(12));
             _dbUpdater.Verify(o => o.UpdateDatabase(It.IsAny<string>()), Times.Never);
         }
 
