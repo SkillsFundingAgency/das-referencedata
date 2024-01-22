@@ -1,7 +1,9 @@
 ﻿using System.IO.Abstractions;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.ReferenceData.Domain.Interfaces.Caching;
+using SFA.DAS.ReferenceData.Domain.Interfaces.Services;
 using SFA.DAS.ReferenceData.Infrastructure.Caching;
+using SFA.DAS.ReferenceData.Infrastructure.Services;
 using SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater;
 using StructureMap;
 
@@ -24,7 +26,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.DependencyResolution
             For<INhsDataUpdater>().Use<NhsDataUpdater>();
             For<IFileSystem>().Use<FileSystem>();
             For<IJsonManager>().Use<JsonManager>();
-            For<IPublicSectorOrganisationHtmlScraper>().Use<PublicSectorOrganisationHtmlScraper>();
+            For<IPoliceDataLookupService>().Use<PoliceDataLookupService>();
             For<IPublicSectorOrganisationDatabaseUpdater>().Use<PublicSectorOrganisationDatabaseUpdater>();
 
             RegisterLogger();

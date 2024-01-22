@@ -43,7 +43,11 @@ namespace SFA.DAS.ReferenceData.Infrastructure.Http
         {
             using (var httpClient = CreateHttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AuthScheme, authToken);
+                if (!string.IsNullOrEmpty(authToken))
+                {
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue(AuthScheme, authToken);
+                }
 
                 var response = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
                 EnsureSuccessfulResponse(response);

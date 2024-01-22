@@ -14,7 +14,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         private readonly IArchiveDownloadService _archiveDownloadService;
         private readonly INhsDataUpdater _nhsDataUpdater;
         private readonly IPublicSectorOrganisationDatabaseUpdater _publicSectorOrganisationDatabaseUpdater;
-        private readonly IPublicSectorOrganisationHtmlScraper _publicSectorOrganisationHtmlScraper;
+        private readonly IPoliceDataLookupService _policeDataLookupService;
         private readonly IJsonManager _jsonManager;
         private readonly ILog _logger;
         private readonly ReferenceDataApiConfiguration _configuration;
@@ -25,12 +25,12 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
         public PublicOrgsUpdater(ILog logger, ReferenceDataApiConfiguration configuration, 
             IArchiveDownloadService archiveDownloadService, INhsDataUpdater nhsDataUpdater, 
             IPublicSectorOrganisationDatabaseUpdater publicSectorOrganisationDatabaseUpdater,
-            IPublicSectorOrganisationHtmlScraper publicSectorOrganisationHtmlScraper, IJsonManager jsonManager)
+            IPoliceDataLookupService policeDataLookupService, IJsonManager jsonManager)
         {
             _archiveDownloadService = archiveDownloadService;
             _nhsDataUpdater = nhsDataUpdater;
             _publicSectorOrganisationDatabaseUpdater = publicSectorOrganisationDatabaseUpdater;
-            _publicSectorOrganisationHtmlScraper = publicSectorOrganisationHtmlScraper;
+            _policeDataLookupService = policeDataLookupService;
             _jsonManager = jsonManager;
             _logger = logger;
             _configuration = configuration;
@@ -56,7 +56,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
                 var onsOrgs = await GetOnsOrganisations();
                 var nhsOrgs = await GetNhsOrganisations();
-                var policeOrgs = GetPoliceOrganisations();
+                var policeOrgs = await GetPoliceOrganisations();
 
                 var orgs = new PublicSectorOrganisationLookUp
                 {
@@ -79,7 +79,7 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
 
         private async Task<PublicSectorOrganisationLookUp> GetOnsOrganisations()
         {
-            var maxHistoricFileAttempts = 5;
+            var maxHistoricFileAttempts = 12; // change to go back 1 year. Last file without prior to change was June 2023
             var attempt = 0;
             var downloadSuccess = false;
 
@@ -108,10 +108,10 @@ namespace SFA.DAS.ReferenceData.PublicSectorOrgs.WebJob.Updater
             return ol;
         }
 
-        private PublicSectorOrganisationLookUp GetPoliceOrganisations()
+        private async Task<PublicSectorOrganisationLookUp> GetPoliceOrganisations()
         {
             _logger.Info($"Getting Police Organisations");
-            var ol = _publicSectorOrganisationHtmlScraper.Scrape(_configuration.PoliceForcesUrl, _logger);
+            var ol = await _policeDataLookupService.GetGbPoliceForces();
 
             return ol;
         }
