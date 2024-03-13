@@ -9,7 +9,7 @@ namespace SFA.DAS.ReferenceData.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            //ConfigureAuth(app);
         }
     }
 }
