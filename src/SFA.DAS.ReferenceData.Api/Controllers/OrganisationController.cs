@@ -88,7 +88,7 @@ namespace SFA.DAS.ReferenceData.Api.Controllers
 
         [Route("", Name = "Search")]
         [HttpGet]
-        [ApiAuthorize(Roles = "ReadOrganisations")]
+        //[ApiAuthorize(Roles = "ReadOrganisations")]
         public async Task<IHttpActionResult> SearchOrganisations(string searchTerm = "", int maximumResults = 500)
         {
             var query = new SearchOrganisationsQuery
