@@ -81,10 +81,10 @@ namespace SFA.DAS.ReferenceData.Api.DependancyResolution
 
         private void RegisterLogger()
         {
-            For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
+            For<IWebLoggingContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
             For<ILog>().Use(x => new NLogLogger(
                 x.ParentType,
-                x.GetInstance<IRequestContext>(),
+                x.GetInstance<IWebLoggingContext>(),
                 null)).AlwaysUnique();
         }
 
