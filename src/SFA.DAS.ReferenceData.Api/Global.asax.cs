@@ -1,4 +1,5 @@
 ﻿using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure;
 using System.Configuration;
 using System.Net;
 using System.Web.Http;
@@ -18,7 +19,7 @@ namespace SFA.DAS.ReferenceData.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            TelemetryConfiguration.Active.ConnectionString = ConfigurationManager.AppSettings["APPLICATIONINSIGHTS_CONNECTION_STRING"];
+            TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["APPINSIGHTS_INSTRUMENTATIONKEY"];
         }
     }
 }

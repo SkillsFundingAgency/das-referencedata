@@ -3,7 +3,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.ReferenceData.Api.App_Start
 {
-    public sealed class RequestContext : IWebLoggingContext
+    public sealed class RequestContext : IRequestContext
     {
         public RequestContext(HttpContextBase context)
         {
